@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.my14_smsservice">
+
+    <!--1. SMS 권한 설정 : API 21 이상 부터는 Manifest에 권한 부분을 설정해야 한다.-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SmsDisplayActivity"></activity>
+
+        <!--2. receiver 태그 추가-->
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <!--action 태그 : SMS 메세지가 들어간 intent를 구분하기 위한 action 정보
+            즉, 단말에서 SMS를 수신했을 때 이 action정보가 들어간 intent를 전달하므로
+            이 값을 넣어주면 SMS를 받을 수 있다.-->
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

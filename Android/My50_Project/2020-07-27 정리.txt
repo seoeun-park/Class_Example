@@ -1,0 +1,16 @@
+Android		 		Server			   DB
+	/anLogin	1. Controller
+	(요청)		(/anLogin, /anJoin)
+
+			2. Command
+
+	(응답)		3.dao(db연동) → dto	 	arrayList<dto>
+
+
+1. Android에서 /anLogin을 통해 Server에 요청
+2. /anLogin을 통해 Controller에서 응답
+3. Command에서 응답한 후 dao에서 DB를 연동
+4. DBd에서 데이터를 arrayList<dto>로 묶은 다음 Command로 전달
+5. Command에서 데이터를 모델링(model로 변환)한 후, Controller로 전달
+6. Controller에서 Android로 응답
+									

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <translate
+        android:fromXDelta="100%p"
+        android:toXDelta="0%p"
+        android:duration="1500"
+        android:repeatCount="infinite"/>
+        <!--
+        fromXDelta: 애니메이션이 시작되는 부분
+        toXDelta : 애니메이션이 끝나는 부분
+        duration: 애니메이션이 진행되는 시간
+        repeatCount : 애니메이션이 몇 번 실행될 지 정하는 속성
+        -->
+</set>
