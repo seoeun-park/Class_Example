@@ -1,0 +1,251 @@
+
+고객 관리 -> 회원가입 ->  공지사항 -> 방명록(게시판) -> 공공 데이터 + 회원가입 + 로그인
+
+
+Controller -> Action이 아닌 Service -> DAO -> Mapper 쿼리
+
+---------------------------------------------------------------------
+고객관리
+create table customer(
+	id		number constraint customer_id_pk primary key,
+	name	varchar2(50) not null,
+	gender	varchar2(3) not null,
+	email	varchar2(50),
+	phone	varchar2(13)
+);
+
+-- 시퀀스 :
+create sequence seq_customer
+start with 1 increment by 1;
+
+
+--트리거 : 
+create or replace trigger trg_customer
+    before insert on customer
+    for each row
+begin
+    select seq_customer.nextval into :new.id from dual;
+end;
+/
+
+
+insert into customer(id, name, gender)
+values( seq_customer.nextval, '홍길동', '남'); 
+
+insert into customer(name, gender)
+values('심청', '여'); 
+-- 아이디없이(자동적으로 아이디 삽입) 행을 삽입하기 위해서는 위와 같이 트리거를 만들어야한다.
+
+commit;
+-------------------------------------------------------------------
+회원관리
+create table member(
+name	varchar2(20) not null,
+id		varchar2(20) constraint member_id_pk primary key,
+pw		varchar2(20) not null,
+gender	varchar2(3) not null,
+birth	date,
+email	varchar2(50) not null,
+post 	varchar2(7),
+addr	varchar2(100),	//33글자
+tel		varchar2(13),
+admin	varchar2(1) default 'N'		/*관리자 여부 Y/N*/
+);
+
+테이블 구조 변경
+alter table member
+modify (name not null, addr varchar2(100), tel varchar2(13) );
+	> 컬럼의 데이터를 줄이려면 테이블안에 데이터가 없어야 한다.
+update member set tel=null;
+commit;
+
+alter table member
+drop column age;
+
+alter table member
+add(
+birth	date,
+email	varchar2(50),
+post 	varchar2(7),
+admin	varchar2(1) default 'N'
+);
+
+update member set email = id || '@naver.com';
+
+alter table member modify(email not null);
+alter table member add (gender varchar2(3) default '남' not null);
+alter table member modify (pw not null);
+alter table member add constraint member_id_pk primary key(id);
+
+------------------------------------------------------
+관리자회원정보저장
+insert into member(name, id, pw, gender, email, admin)
+values('관리자', 'admin', 'Manager', '남', 'admin@iot.com', 'Y');
+insert into member(name, id, pw, gender, email, admin)
+values('운영자', 'admin2', 'Manager', '남', 'admin@iot.com', 'Y');
+
+commit;
+
+------------------------------------------------------
+
+
+공지 글 관리
+
+CREATE TABLE notice(
+    id 			NUMBER CONSTRAINT notice_id_pk PRIMARY KEY,
+    title 		VARCHAR2(300) not null,
+    content 	VARCHAR2(4000) not null,
+    writer 		VARCHAR2(20) not null,   --관리자 회원의 id
+    writedate 	DATE DEFAULT sysdate,
+    readcnt 	NUMBER DEFAULT 0, --조회수
+    filename 	VARCHAR2(300),
+    filepath 	VARCHAR2(300),
+    root		NUMBER,
+    step		NUMBER,
+    indent		NUMBER,
+    CONSTRAINT notice_writer_fk FOREIGN KEY(writer) REFERENCES member(id)
+    -- writer 컬럼에 admin이나 admin2만 들어가야하는 제약조건을 걸어야 함
+    -- 레퍼런스 > 부모테이블에서 참조되어야하는 컬럼은 프라이머리 키어야 함(즉, 여기서 id는 프라이머리 키이므로 가능)
+);
+
+--테이블 추가 & 수정
+alter table notice
+add (root 	number,
+	step	number default 0,
+	indent	number default 0);
+	
+update notice set root = id;	
+commit;
+
+CREATE SEQUENCE seq_notice
+START WITH 1 INCREMENT by 1;
+
+INSERT INTO notice(id, title, content, writer)
+VALUES(seq_notice.nextval, '공지글 테스트', '테스트 공지글입니다.', 'admin');
+
+commit;
+
+--답글의 로직
+id				root	step	indent
+3				3		0		0		step: 원글보다 큰 step을 가진글에 대해서는 step+1을 한다
+	6			3		1		1
+2				2		0		0		
+	5			2		1		1
+		8		2		2		2
+			9	2		3		3
+		7		2		4		2
+	4			2		5		1
+1				1		0		0
+
+------------------------------------------------------------------
+
+방명록 테이블
+
+create table board(
+	id			number constraint board_id_pk primary key,
+	title		varchar2(300) not null,
+	content		varchar2(4000) not null,
+	writer		varchar2(20) not null,		/*사용자 회원의 id*/
+	writedate	date default sysdate,
+	readcnt		number default 0, 			/*조회수*/
+	filename 	varchar2(300),
+	filepath 	varchar2(300),
+	constraint board_writer_fk foreign key(writer)
+								references member(id) on delete cascade
+);
+회원탈퇴시 탈퇴회원시 작성한 방명록 글도 함께 삭제하려면
+constraint에 option을 저장한다.
+
+시퀀스
+create sequence seq_board start with 1 increment by 1;
+
+트리거
+create or replace trigger trg_board
+	before insert on board
+	for each row
+begin
+	select seq_board.nextval into :new.id from dual;
+end;
+/	
+
+------------------------------------------------------------------
+
+방명록 댓글 관리
+create table board_comment(
+	id			number constraint board_comment_id_pk primary key,
+	bid			number	/*방명록의 id*/
+					constraint board_comment_bid_fk references board(id)
+					on delete cascade,	
+	writer		varchar2(20)	/*사용자 회원의 id*/
+					constraint board_comment_writer_fk references member(id)
+					on delete cascade,
+	content 	varchar2(4000),
+	writedate	date default sysdate
+);
+
+시퀀스 생성
+create sequence seq_board_comment start with 1 increment by 1;
+
+트리거 생성 or 교환
+create or replace trigger trg_board_comment
+	before insert on board_comment
+	for each row
+begin
+	select seq_board_comment.nextval into :new.id from dual;
+end;
+/	
+
+
+------------------------------------------------------------------
+
+
+DBCP(DdataBase Connection Pool)
+
+필요한 라이브러리를 찾는 저장소 : mvnrepository.com에서 검색
+-> 외부 라이브러리 등록  -> pom.xml에 코드 복사
+
+1. DB 연결을 위한 DBCP 라이브러리
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
+2. 오라클 DB 라이브러리
+		<dependency>
+		    <groupId>com.oracle.ojdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>19.3.0.0</version>
+		</dependency>
+		
+3. Mybatis 라이브러리
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.4</version>
+		</dependency>
+		
+4. 스프링에서 Mybatis를 사용할 수 있도록 하기 위한 라이브러리
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.0.4</version>
+		</dependency>
+
+5. 
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.2.5.RELEASE</version>
+		</dependency>
+		
+
+---------------------------------------------------------
+객체를 생성하지 않고 클래스를 사용하는 방법
+1. 해당 클래스에 @Repository Annotation 지정  ->  root-context.xml의 namespace에 context 체크 
+	     -> <context:component-scan base-package="패키지명" /> 작성
+	     	하면 Beans Graph에 해당 클래스가 올라와 있는 것을 확인할 수 있다.
+	     -> 내부의 멤버 변수 또한 메모리에 올리기 위해서는 @Autowired라는 Annotation을 작성해야한다.
+
+2. @Service Annotaion 지정 -> 나머지 과정은 위와 똑같음
+	     		

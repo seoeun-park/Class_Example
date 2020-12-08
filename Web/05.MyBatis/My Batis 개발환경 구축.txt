@@ -1,0 +1,78 @@
+★ 개발 환경 구축 : https://blog.mybatis.org/ > Product 탭 > MyBatis 3 download 클릭 > mybatis-3.5.4 클릭 > mybatis-3.5.4.zip 다운로드 > 압축해제
+
+○ WebContent > WEB-INF > lib 
+   > mybatis-3.5.4.jar, 
+     ojdbc6.jar(C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib) 복사 붙여넣기
+
+○ com.hanul.mybatis package 생성 : mybatis 설정과 관련된 파일
+	① db.properties 생성 : DB 접속하기 위한 기본 정보(url, user)
+		driver = oracle.jdbc.driver.OracleDriver
+		url = jdbc:oracle:thin:@127.0.0.1:1521:XE
+		username = hanul
+		password = 0000
+
+	② SqlMapConfig.xml 생성 : MyBatis Framework 핵심적인 설정 파일
+		- SqlMapConfig.xml에 아래의 코드 복사 붙여넣기
+		---------------------------------------------------------------
+		<!DOCTYPE configuration
+ 		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ 		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+		<configuration>
+ 			<environments default="development">
+ 				<environment id="development">
+ 					<transactionManager type="JDBC"/>
+ 					<dataSource type="POOLED">
+ 						<property name="driver" value="${driver}"/>
+ 						<property name="url" value="${url}"/>
+ 						<property name="username" value="${username}"/>
+ 						<property name="password" value="${password}"/>
+ 					</dataSource>
+ 				</environment>
+ 			</environments>
+ 			<mappers>
+ 				<mapper resource="org/mybatis/example/BlogMapper.xml"/>
+ 			</mappers>
+		</configuration>
+		---------------------------------------------------------------
+		- SqlMapConfig.xml의 properties 태그 밑에 아래의 코드 붙여넣기 
+			<properties resource="com/hanul/mybatis/파일명.properties"/> 추가
+
+	③ Mapper.xml(memberMapper.xml) 생성 : 실제 SQL 문장을 작성하는 파일
+		● memberMapper 파일에 아래의 코드 붙여넣기
+			<?xml version="1.0" encoding="UTF-8"?>
+			<!DOCTYPE mapper
+ 		 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 		 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			<mapper namespace="com.hanul.mybatis.memberMapper.xml">
+	
+			</mapper>
+		● SqlMapConfig.xml의 mapper 태그의 resource 속성의 값을
+		   com/hanul/mybatis/memberMapper.xml으로 수정하기
+	   
+
+○ com.hanul.study package 생성 : DTO(VO) Class, DAO Class
+	① DTO(VO) Class : implements Serializable(직렬화) ▶ SqlMapConfig.xml 등록
+		● MemberDTO.java 파일에 멤버 변수, 생성자, getters & setters 메소드 작성
+		● SqlMapConfig.xml의 properties 태그 밑에 아래의 코드 붙여넣기
+			<typeAliases>
+				<typeAlias type="com.hanul.study.MemberDTO" alias="MemberDTO"/>
+			</typeAliases>
+	 
+	② DAO Class : SqlSessionFactory 멤버 변수(sqlMapper) 선언
+		private static SqlSessionFactory sqlMapper; (★★★ 해당 라이브러리가 있어야함)
+	
+		// static(초기화 블럭 : 가장 먼저 실행되는 코드)
+		static {
+			String resource = "com/hanul/mybatis/SqlMapConfig.xml";
+		
+			try {
+				InputStream inputStream = Resources.getResourceAsStream(resource);
+				sqlMapper = new SqlSessionFactoryBuilder().build(inputStream);
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("SqlSessionFactory Exception");
+			}
+		}//static		
+	
+

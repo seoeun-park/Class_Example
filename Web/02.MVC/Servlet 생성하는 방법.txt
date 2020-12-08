@@ -1,0 +1,45 @@
+★ Servlet(Controller) 생성 : servlet-api.jar(C:\tomcat\lib)을
+						  C:\Program Files\Java\jre1.8.0_251\lib\ext에 복사 & 붙여넣기
+	- JAVA Resources > src > 마우스 오른쪽 > New > Servlet : Servlet 마법사 실행
+	- ① : Java Package, Class name
+	- ② : Url mapping 더블 클릭 → /xx.do  ▶    <form action="xx.do" ~>
+	- ③	: [V]service 체크 > Finish
+	- 불필요한 코드 삭제 : service() method 삭제하지 말 것!
+	- Servlet Mapping 수동 설정 : WebContent > WEB-INF > web.xml
+	  <!-- Servlet Class 정의 -->
+	  	<servlet>
+	  		<display-name>Servlet Class Name</display-name>
+	  		<servlet-name>Servlet Class Name</servlet-name>
+	  		<servlet-class>Package.Servlet Class Name</servlet-class>
+	  		<!-- 패키지 설정된 경우 : ex) com.hanul.study.HelloServlet -->
+	  	</servlet>
+	  	
+  	  <!-- Servlet Mapping 설정 -->
+	  	<servlet-mapping>
+	  		<servlet-name>Servlet Class Name</servlet-name>
+	  		<url-pattern>/xx.do</url-pattern>
+	  	</servlet-mapping>
+	  						  
+======================================================================================
+
+○ HelloServlet
+	HelloServlet.html 	 → 	 web.xml 	→	HelloServlet.java 	→	HelloServlet.class 
+					  /hs.do
+
+○ Servlet01
+	Calc01.html		→	/s01.do		→	web.xml		→	Servlet01.java
+	===============================>|
+	[Client]			|<====================================[Server]
+	
+○ Servlet02
+	Calc02.html(request)  →  /s02.do  →  web.xml  →  Servlet02.java(Controller)  →  SumMachine.getSum()
+																							↓
+	result.jsp(response) <--------------------------------- return <---------------------- sum
+	==================================| 	         |=========================|	|==================|
+	 [View]											   [Controller]					  [Model]
+	 
+	 
+	 
+	 
+	 
+	 	  

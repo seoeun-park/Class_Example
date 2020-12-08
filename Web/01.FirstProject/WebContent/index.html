@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>회원가입 입력화면</title>
+<script type="text/javascript">
+	function fnCheckForm() {
+		var id = document.regForm.id.value;
+		//alert("id : " + id);
+		
+		if (id.length < 8) {
+			alert("아이디는 8글자 이상이어야 합니다!");
+			document.regForm.id.value = "";
+			document.regForm.id.focus();
+			return false;
+		} else {
+			if (confirm("회원가입을 하시겠습니까?")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		return false;
+	}//fnCheckForm()
+</script>
+</head>
+<body>
+<div align="center">
+	<h3>회원가입 화면</h3>
+	<form action="memberJoin.do" method="post" onsubmit="return fnCheckForm();" name="regForm">
+	<!-- memberJoin.do → Controller(Servlet) -->
+	<!-- onsubmit 이벤트 핸들러에서 return 값이 false인 경우 action 속성에 걸려있는 서버 주소로 넘어가지 않는다.
+		 즉, return 값이 true인 경우에는 action 속성에 걸려있는 서버 주소로 넘어가게 된다. -->
+	<!--
+		프로그램 실행 흐름
+		index.html 	→	web.xml	 → 	MemberJoin.java(Servlet) ▶  Controller
+		→ MemberDTO.java, MemberDAO.java 				              ▶  Model
+		→ MemberJoin.java → result.jsp 					              ▶  View
+	-->	 
+		<table border="1">
+			<tr>
+				<th>성명</th>
+				<td><input type="text" name="name" required="required" /></td>
+			</tr>
+			<tr>
+				<th>아이디</th>
+				<td><input type="text" name="id" required="required" /></td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><input type="password" name="pw" required="required" /></td>
+			</tr>
+			<tr>
+				<th>나이</th>
+				<td><input type="number" name="age" required="required" min="0" /></td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td><input type="text" name="addr" required="required" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="회원가입" />
+					<input type="reset" value="다시작성" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+
+</body>
+</html>

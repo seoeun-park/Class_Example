@@ -1,0 +1,109 @@
+JSP(Java Server Page) : WebContent > New > JSP File
+	- HTML 코드에 자바 코드를 삽입해서 만든 페이지
+	
+	- 서버측에서 동작되는 언어(Server Side Language)
+	
+	- 확장자는 *.jsp
+	
+	- 동작되는 방식 : 컴파일 과정을 거쳐야 하므로 최초 실행은 느리다.
+		① test.jsp가 서블릿으로 변경 : test_jsp.java(서블릿)
+		② test_jsp.java가 컴파일 : test_jsp.class(클래스)
+		③ test_jsp.class가 실행(동작)
+		D:\Study_Web\workspace\.metadata\.plugins
+		  \org.eclipse.wst.server.core\tmp0\work
+		  \Catalina\localhost\fp\org\apache\jsp
+		  
+★  JSP 구성요소
+1. 스크립트적인 요소(프로그래밍적인 요소)
+	① 스크립틀릿 : 가장 많이 사용되는 요소
+		- <% 자바코드 %>
+		
+	② 지시자 : MIME Type, import, JSTL
+		- <%@ page language="java" contentType="text/html; charset=UTF-8" %> : MIME Type
+		- <%@ page import="com.hanul.member.MemberDTO" %> : import
+		- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> : JSTL
+		
+	③ 선언문 : 메소드 정의   → 별도의 클래스에 구현
+		- <%! public void 메소드명(매개변수){ ~~코드 구현~~ } %>
+		
+	④ 표현식 : 값을 출력
+		- <%= 변수명 %>
+		- <%= 수식 %>
+		- <%= 메소드 호출문 %>
+				 
+	⑤ 주석 : 문서(코드)에 대한 보충 설명   → 컴파일 되지 않는다.	
+		- <%-- 설명 --%>	▶	JSP 주석 : 소스보기를 하면 출력이 안된다.
+		- <!-- 설명 -->	▶	html 주석 : 소스보기를 하면 주석의 내용이 출력된다.		
+
+2. UI 요소(화면구현 요소)
+	⑥ html
+	⑦ css
+	⑧ javascript, jQuery
+	
+★  JSP Action Tag	: 프로그래밍적인 요소(JAVA 코드) → 태그적인 요소로 변환
+	- <jsp : useBean ~~ /> : 객체를 생성하는 태그
+	- <jsp : setProperty ~~ /> : DTO 객체에 있는 setter Method 호출
+	- <jsp : getProperty ~~ /> : DTO 객체에 있는 getter Method 호출
+	- <jsp : forward ~~ /> : forward() 방식으로 동적 페이지 전환
+	- <jsp : param ~~ /> : 동적 페이지 전환 시 매개변수 값을 전달
+	- <jsp : inclue ~~ /> : 특정 페이지를 포함한다.
+		○ inclue 방법
+			# <%@ inclue file = "~~" %> : 지시자
+			# <jsp : inclue page = "~~" /> : Action Tag
+
+★  Scope : 공유 범위    ▶    scope.jsp, scopeUse.jsp
+1. pageContext scope
+	- pageContext 내장객체를 이용하여 바인딩(연결 ) 객체를 공유
+	- 객체를 생성한 jsp 페이지(현재 페이지)에서만 사용 가능
+
+2. request scope
+	- request 내장 객체를 이용하여 바인딩(연결) 객체를 공유
+	- 객체를 생성한 jsp 페이지(현재 페이지)와 요청한 jsp 페이지에서 사용 가능
+	- 실제로 많이 쓰는 scope
+	
+3. session scope
+	- session 내장객체를 이용하여 바인딩(연결) 객체를 공유
+	- 모든 jsp 페이지에서 사용 가능
+	- 세션 속성 값을 설정하여 지정한 시간 또는 웹 브라우저가 열려 있는 동안 사용 가능
+	- 실제로 많이 쓰는 scope
+	
+4. application scope
+	- application 내장 객체를 이용하여 바인딩(연결) 객체를 공유
+	- 모든 jsp 페이지에서 사용 가능
+	- 웹 브라우저가 종료되어도 서버가 재시작 또는 중지되기 전까지 사용 가능
+	- 실제로 거의 쓸 일이 없는 scope : 보안문제(브라우저를 종료해도 정보가 남아있기 때문에)
+	
+★   EL(Expression Language) 문법(표현식)
+	○ 기본형식 	   ▶     ${ 출력값 } : 출력값은 다양한 형태로 표현 가능
+		- ${ param.변수이름 }	: jsp20, jsp24, jsp25
+		- ${ 객체이름.속성이름 }	: jsp20
+		- ${ 객체이름 }		: jsp21, jsp22
+		- ${ paramValues.배열이름[인덱스] }	: jsp24
+		- ${ 수식(계산식, 삼항연산) }	: jsp25, jsp26
+		- ${ 배열이름[인덱스] } : jsp28
+		- ${ 배열이름[인덱스].속성이름 } : jsp28
+
+★  JSTL : Java(JSP) Standard Tag Library
+	○ JSTL 라이브러리 설치
+		- Apache Tomcat(http://tomcat.apache.org/) > Download > Taglibs
+		  > Apache Standard Taglib 클릭 > Standard 1.1d의 download > binaries
+		  > jakarta-taglibs-standard-1.1.2.zip 다운로드(D:\개발자프로그램)
+		- http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/jakarta-taglibs-standard-1.1.2.zip
+		- 압축 해제 후 lib 폴더의 jstl.jar, standard.jar 복사
+		- WebContent > WEB_INF > lib 붙여넣기
+	○ JSTL Tag 종류 : JSP 문서 상단에 지시자를 작성할 것
+		- 기본 프로그래밍 Tag : 변수, 배열, if, for, switch ~ case 등) ▶   core
+			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+			
+		- 포맷팅(국제화) Tag : 날짜, 시간, 숫자, 통화기록 등 표시형식  ▶   format
+			<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+		- JSTL 제공되는 함수 : 문자열(String) 처리와 관련된 메소드  ▶   function
+			<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
+
+
+
+			
+		

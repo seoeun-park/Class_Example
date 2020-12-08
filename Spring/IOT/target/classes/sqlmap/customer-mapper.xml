@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- mapper 태그를 사용하기 위한 코드 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="customer.mapper">
+	<select id="update">
+		update customer set gender = #{gender}, email = #{email}, phone = #{phone}
+		where id = #{id}
+	</select>
+
+	<select id="detail" resultType="customer.CustomerVO">
+		select * from customer where id=#{id}
+	</select>
+
+	<insert id="insert">
+		insert into customer(name, gender, email, phone)
+		values( #{name}, #{gender}, #{email}, #{phone} )
+		<!-- DAO에서 가져온 vo를 통해 값을 가져옴 : #{} -->
+	</insert>
+
+	<select id="list" resultType="customer.CustomerVO">
+		select rownum no, c.* from
+	 	(select * from customer order by name) c
+	</select>
+	
+	<select id="delete">
+		delete from customer where id=#{id}
+	</select>
+</mapper>

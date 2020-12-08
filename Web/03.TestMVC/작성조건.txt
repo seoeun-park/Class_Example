@@ -1,0 +1,49 @@
+○ Book 테이블 생성 : DB Connection > com.hanul.study package > book.sql
+	- 도서명	title	varchar2(30)	
+	- 저자	auth	varchar2(20)
+	- ISBN	isbn	varchar2(20)  primary key not null
+	- 출판사	comp	varchar2(20)
+	- 단가	cost	number
+	- 수량	su		number
+	- 가격	price	number
+	
+○ BookMain.html
+	도서명	[					]
+	저자		[					]
+	ISBN	[xxx-xx-xxxx-xxx-x	]
+	출판사	[					]
+	단가		[					]
+	수량		[					]
+	[정보입력]	   [정보취소]	  [전체보기]
+
+	- 모든 항목은 반드시 입력되어야 한다.
+	- ISBN은 유효성 검사를 수행 : xxx-xx-xxxx-xxx-x  ▶   정규식, Script / ISBN값이 지워지고 커서가 ISBN 항목에 위치 
+	-"^\\d{3}-\\d{2}-\\d{4}-\\d{3}-\\d{1}$"
+	- 단가와 수량은 숫자만 입력되어야 한다.
+	- 도서정보입력 버튼 클릭 시 확인 창(confirm) 발생 : "도서정보를 입력하시겠습니까?"
+	- 입력정보취소 버튼 클릭 시 확인 창(confirm) 발생 : "정말 취소하시겠습니까?"
+	- 위의 작성 조건을 만족하면 서버로 전송(is.do)
+	
+○ Servlet 정의 : default package	 ▶	web.xml : Servlet Mapping 수동 설정
+	- InsertServlet.java(is.do) : 도서정보를 입력받아 DB 저장
+	- GetAllListServlet.java(gals.do) : 전체도서 목록보기
+	- DeleteServlet.java(ds.do) : 도서정보 삭제
+	
+○ BookDTO.java : com.hanul.study package ▶   직렬화
+	- 멤버변수(필드) 선언 : DB 컬럼명과 일치
+	- 디폴트 생성자 메소드
+	- 생성자 메소드 초기화 : 메소드 오버로딩
+	- Getters & Setters 메소드
+
+○ BookDAO.java : com.hanul.study package
+	- getConn() : DB 접속	 ▶   ojdbc.jar 등록
+	- dbClose() : DB 접속 해제
+	- insert() : 도서정보 등록
+	- getAllList() : 전체도서 목록 조회
+	- delete() : 도서정보 삭제
+
+	★ 최종적으로 프로젝트가 완성이 되면 "본인이름.zip" 압축 후,
+	   카페 게시판 "JAVA EE 과제제출"에 업로드 할 것(업로드 명 : 본인 이름)
+	 - 가점부분 : CSS 적용, javaScript/jQuery 적용, JAVA 주석 	
+		
+		

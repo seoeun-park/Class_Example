@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanul.mybatis.boardMapper.xml">
+	<!-- SQL 문장 작성 -->
+	<select id="boardSearchAll" resultType="BoardDTO">
+		select * from tblBoard order by b_num desc
+	</select>
+	
+	<insert id="boardInsert" parameterType="BoardDTO">
+		insert into tblBoard 
+			values(b_num_seq.nextval, 
+				   #{b_subject},
+				   #{b_pwd},
+				   #{b_content},
+				   #{b_writer},
+				   sysdate,
+				   0)
+	</insert>
+	
+	<select id="boardDetail" parameterType="String" resultType="BoardDTO">
+		select * from tblBoard where b_num = #{b_num}
+	</select>
+	
+	<update id="boardCount" parameterType="String">
+		update tblBoard set b_readcount = b_readcount + 1 where b_num = #{b_num}
+	</update>
+	
+	<delete id="boardDelete" parameterType="String">
+		delete from tblBoard where b_num = #{b_num}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="BoardDTO">
+		update tblBoard 
+			set b_writer = #{b_writer},
+				b_subject = #{b_subject},
+				b_content = #{b_content},
+				b_pwd = #{b_pwd} 
+			where b_num = #{b_num}	
+	</update>
+	
+	<select id="boardSearch" parameterType="SearchDTO" resultType="BoardDTO">
+		select * from tblBoard where upper(${part}) like upper(#{searchData})
+		<!-- #{part} → part에만 접근할 뿐 part안에 있는 value 값이 b_subject, b_content, b_writer인
+			요소에는 접근하지 못하기 때문 EL 방식으로 접근해야한다.  -->
+	</select>
+</mapper>

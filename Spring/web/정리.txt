@@ -1,0 +1,30 @@
+Controller 에서 화면에 데이터를 전달하는 방법
+
+	1. Model 객체에 데이터를 담는다.(index.jsp)
+		메소드 파라미터로 Model 타입의 변수를 선언한 후 addAttribute로 데이터를 답는다.
+	
+	2. ModelAndView 객체를 사용한다.
+		메소드 내에서 ModelAndView 객체를 생성한 후
+		ModelAndView 객체 변수에 addObject로 데이터를 담고
+		setViewName 으로 반환할 화면명을 지정한 후
+		ModelAndView를 반환한다.
+
+   ▶   form 태그 내의 태그 값들을 사용하는 방법
+	1. HttpServletRequest를 사용하는 방법
+		- getParameter(태그명) 메소드로 접근
+		
+	2. @RequestParam을 사용하는 방법
+		- @RequestParam을 지정한 태그명의 파라미터를 선언하여 접근
+	3. 데이터 객체 - VO(DTO)를 사용하는 방법
+		- 데이터 객체를 파라미터로 선언하여 접근
+	4. @PathVariable을 사용하는 방법
+		- @PathVariable을 지정한 태그명의 파라미터를 선언하여 접근
+
+   ▶   화면 연결 형태 - redirect, forward
+   			 		 		
+
+※ eclipse 단축키	
+주석 처리 : ctrl + shift + c
+라인 삭제 : ctrl + d
+라인 복사 붙여넣기 : ctrl + alt + 방향키	
+라인 이동 : alt + 방향키		

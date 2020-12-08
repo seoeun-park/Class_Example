@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test jQuery 04</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="jquery/jquery-3.5.1.js"></script>
+<script>
+	$(document).ready(function() {
+		$("#btn").click(function() {
+			$.ajax({
+				dataType : "xml",
+				url : "http://api.gwangju.go.kr/xml/lineInfo",
+				success : function(data) { resultHtml(data); },
+				error : function() { alert("Lineinfo Loading Fail!"); }
+			}); //ajax
+		}); //click()
+	}); //ready()	
+	
+	function resultHtml(data) {
+		//alert("LineInfo Loading Success!");
+		
+		var html = "<table border='1'>";
+		html += "<tr>";
+		html += "<th>노선번호</th>";
+		html += "<th>출발지</th>";
+		html += "<th>도착지</th>";
+		html += "<th>첫차</th>";
+		html += "<th>막차</th>";
+		html += "<th>운행간격</th>";
+		html += "<th>노선종류</th>";
+		html += "</tr>";
+		
+		/*
+		var lineNum = $(data).find("LINE_NAME");
+		var dirUpName = $(data).find("DIR_UP_NAME");
+		var dirDownName = $(data).find("DIR_DOWN_NAME");
+		var firstRunTime = $(data).find("FIRST_RUN_TIME");
+		var lastRunTime = $(data).find("LAST_RUN_TIME");
+		var runInterval = $(data).find("RUN_INTERVAL");
+		var lineKind = $(data).find("LINE_KIND");
+		
+		// 문제점 : 각각의 key 이름으로 접근하게 된다면 null인 값이 있는 열은 null로 나오지 않고
+		//		  한 칸씩 밀리게 되므로 정확하게 출력되지 않는다는 문제점이 있다.
+		//		 그러므로 not null인 key로 접근한 후 그 이후로 값을 찾아야한다.	
+		
+ 		for(var i = 0; i < lineNum.length; i++) {
+			html += "<tr align='center'>";
+			html += "<td>" + lineNum.eq(i).text() + "</td>";
+			html += "<td>" + dirUpName.eq(i).text() + "</td>";
+			html += "<td>" + dirDownName.eq(i).text() + "</td>";
+			html += "<td>" + firstRunTime.eq(i).text() + "</td>";
+			html += "<td>" + lastRunTime.eq(i).text() + "</td>";
+			html += "<td>" + runInterval.eq(i).text() + "</td>";
+			
+			if(lineKind.eq(i).text() == 1) {
+				html += "<td>급행간선</td>";
+			} else if(lineKind.eq(i).text() == 2) {
+				html += "<td>간선</td>";
+			} else if(lineKind.eq(i).text() == 3) {
+				html += "<td>지선</td>";
+			} else if(lineKind.eq(i).text() == 4) {
+				html += "<td>마을버스</td>";
+			}
+		} //for
+		*/
+		
+		var LINE = $(data).find("LINE");
+		
+ 		for(var i = 0; i < LINE.length; i++) {
+			html += "<tr align='center'>";
+			html += "<td>" + LINE.eq(i).find("LINE_NAME").text() + "</td>";
+			html += "<td>" + LINE.eq(i).find("DIR_UP_NAME").text() + "</td>";
+			html += "<td>" + LINE.eq(i).find("DIR_DOWN_NAME").text() + "</td>";
+			html += "<td>" + LINE.eq(i).find("FIRST_RUN_TIME").text() + "</td>";
+			html += "<td>" + LINE.eq(i).find("LAST_RUN_TIME").text() + "</td>";
+			html += "<td>" + LINE.eq(i).find("RUN_INTERVAL").text() + "</td>";
+			
+			if(LINE.eq(i).find("LINE_KIND").text() == 1) {
+				html += "<td>급행간선</td>";
+			} else if(LINE.eq(i).find("LINE_KIND").text() == 2) {
+				html += "<td>간선</td>";
+			} else if(LINE.eq(i).find("LINE_KIND").text() == 3) {
+				html += "<td>지선</td>";
+			} else if(LINE.eq(i).find("LINE_KIND").text() == 4) {
+				html += "<td>마을버스</td>";
+			}
+		} //for
+
+		$("#display").html(html);
+		// → $("#display").empty().append(html);
+		
+		html += "</table>";
+		$("#display").empty();
+		$("#display").append(html);
+		
+	} //resultHtml()
+</script>	
+</head>
+<body>
+	<button id="btn">광주광역시 버스 노선정보</button>
+	
+	<br/><br/>
+	
+	<div id="display">
+		여기에 버스 노선정보가 출력됩니다.
+	</div>
+</body>
+</html>

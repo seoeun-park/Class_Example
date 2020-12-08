@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="jquery/jquery-3.5.1.js"></script>
+<script>
+	$(document).ready(function() {
+		/*
+		alert($("p").text());		//Tag 선택자
+		
+		$("p").each(function() {	//Tag 선택자.each();
+			//alert($("p").text());
+			alert($(this).text());
+		});
+		*/
+		
+		alert($("div").text());		//Tag 선택자
+		// → AAABBBCCC 한꺼번에 출력
+		
+		$("div").each(function() {
+			alert($(this).text());	//Tag 선택자.each();
+		});
+		// → AAA
+		// → BBB
+		// → CCC 순차적으로 출력
+		
+		//Tag 선택자:필터 선택자
+		alert($("div:eq(0)").text());	//AAA
+		alert($("div:first").text());	//AAA
+		alert($("div:last").text());	//CCC
+		
+		// id 선택자
+		alert($("#a").text());			//AAA
+		
+		// Tag 선택자#id 선택자 (태그 선택자와 아이디 선택자 사이에 띄어쓰기하면 x)
+		alert($("div#a").text());		//AAA
+		
+		// class 선택자
+		alert($(".b").text());			//BBB
+		
+		// Tag 선택자.class 선택자
+		alert($("div.b").text());		//BBB
+		
+	});//ready
+</script>
+<title>jQuery 05</title>
+</head>
+<body>
+	<p>JAVA</p>
+	<p>JSP</p>
+	<p>Android</p>
+	
+	<div id="a">AAA</div>
+	<div class="b">BBB</div>
+	<div>CCC</div>
+</body>
+</html>
