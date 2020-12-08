@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 6일 lecture</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body { 
+                padding: 3em;
+                background-color: #444;
+                color: white;
+            }
+
+            h2 {
+                font-size: 3em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                margin-bottom: 1em;
+            }
+
+            p {
+                font-size: 1.4em;
+                line-height: 1.8;
+                margin-top: 1em;
+            }
+
+            #top {
+                position: fixed;
+                bottom: 50px; right: 50px;
+
+                display: block;
+                /* width: 100px; height: 100px; */
+                border-radius: 8px;
+                padding: 1em 2em;
+                background-color: blueviolet;
+
+                text-decoration: none;
+                color: white;
+                font-weight: 700;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                var $html = $("html");
+                //-----------------------------------------------------------------------------
+                $("#top").on("click", function (event) {
+
+                    event.preventDefault();
+
+                    // 부드러운 화면 스크롤
+
+                    // $("html").animate({ scrollTop: 0 });
+
+                    // animate 메서드를 이용해 지정한 위치로 스크롤
+                    // → animate 메서드는 Element 객체를 대상으로 동작한다.
+                    //   animate 메서드 등의 시각적 효과와 관련된 엠서드들은 생성한 효과를 각 요소에 생성된
+                    //   애니메이션 큐에 넣는다.
+                    //   $(window)는 요소가 아니기 때문에 애니메이션 큐에 추가가 되지 않는다.
+                    // $(window).animate({....})        // NOT WORKING!
+
+                    // scrollTop이라는 스타일 속성은 없지만 animate 메서드에서 scrollTop 메서드를 조작한다.
+                    $html.animate({ scrollTop: 0 });
+                    // → #top을 클릭하면 스크롤바가 200px 정도 내려온 지점에 이동한다.
+                });
+              
+                //----------------------------------------------------------------------------
+                // wheel 이벤트의 기본 이벤트는 scroll 이벤트이다.
+                // (즉 따로 scroll 이벤트를 따로 설정하지 않아도 자동으로 scroll 이벤트가 설정되어 있음)
+                // 그래서 마우스 휠 버튼을 굴렸을 때 스크롤이 되지 않도록 하려면 기본 이벤트를 제거해야 한다.
+                // 단, 패시브 모드 설정을 반드시 해제해야 한다.
+                window.addEventListener("wheel",
+                    function (e) { e.preventDefault(); }, { passive: false });
+
+                //----------------------------------------------------------------------------
+                $(window).on("wheel", function (event) {
+                    // 이벤트 핸들러: window 객체에 wheel 이벤트가 발생했을 때 실행할 기능
+
+                    // wheel 이벤트가 발생했을 때 휠 버튼을 어느 방향으로 굴렀는 지 확인하기 위해
+                    // 이벤트 객체의 event.originalEvent.deltaY 속성을 확인한다.
+                    // 이때 originalEvent는 JavaScirpt의 객체이고 deltaY는 객체의 property
+                    // 이 값이 음수인 경우 마우스 휠 버튼을 위로 굴린 것이고
+                    // 이 값이 양수인 경우 마우스 휠 버튼을 아래로 굴린 것이다.
+                    console.log(event.originalEvent.deltaY);    // up: -100, down: 100
+
+                    // 마우스 휠 버튼을 위로 굴렸을 때
+                    if ( event.originalEvent.deltaY < 0 ) {
+                        console.log("Wheel Up!")
+
+                        // 현재 scrollTop의 위치에서 -500px만큼 이동
+                        $html.animate({ "scrollTop": "-=500" });
+                    }
+                    else {
+                        console.log("Wheel Down!")
+
+                        // 현재 scrollTop의 위치에서 +500px만큼 이동
+                        $html.animate({ "scrollTop": "+=500" });
+                    }
+                }); // window.onwheel
+
+            }); // document.onready
+
+        </script>
+
+    </head>
+    <body>
+        <!-- href를 "#"으로 설정하면 html 문서 상단으로 이동한다. -->
+        <a href="#" id="top">TOP</a>
+
+        <h2>Lorem ipsum</h2>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Curabitur at bibendum risus, vitae finibus ex.
+            Fusce non augue in diam ultrices dapibus nec laoreet turpis. 
+            Pellentesque pretium fringilla diam, a tincidunt ante fringilla ac. 
+            Quisque justo lacus, posuere ut nulla non, sagittis euismod velit. 
+            Mauris nec mollis massa. Nulla facilisi. 
+            Etiam eget nulla at enim porta fringilla at eu massa. 
+            Donec ac tincidunt ipsum. Nulla condimentum, ante sed consectetur congue, 
+            purus turpis sodales leo, vitae rhoncus enim sem non metus. 
+            Etiam mollis pulvinar libero et placerat. 
+            In sed sapien semper, scelerisque sapien at, lobortis felis. 
+            Fusce feugiat nisi nec sapien pellentesque, in fringilla neque efficitur. 
+            Sed ex magna, mollis vel nulla a, porta lacinia felis. 
+            Donec a nibh et nulla blandit venenatis. 
+            Morbi ut enim efficitur, convallis leo eget, fermentum urna.
+        </p>
+        <p>
+            Orci varius natoque penatibus et magnis dis parturient montes, 
+            nascetur ridiculus mus. Cras quis nulla pellentesque, 
+            placerat nulla non, porta augue.
+            Nulla nisl libero, rutrum sodales ullamcorper suscipit, 
+            ultricies non arcu. Vivamus et aliquam dui. 
+            Praesent vulputate lobortis magna, in placerat magna vestibulum eget. 
+            Proin quis felis tellus. 
+            Pellentesque vel massa ac magna consectetur lacinia quis quis nunc.
+        </p>
+        <p>
+            Mauris vestibulum nibh lectus, et tincidunt nunc auctor vel. 
+            Aenean at pretium magna. Morbi congue lectus magna, 
+            quis maximus nibh tincidunt vitae. Maecenas ac viverra diam, ut tempus nisi. 
+            Aenean velit orci, pharetra quis gravida sed, porta ut leo. 
+            Nam mattis mattis purus ut rutrum. Donec ac eleifend elit. 
+            Vestibulum at ipsum in justo lobortis laoreet ac eget erat. 
+            Morbi tortor augue, ullamcorper nec nulla sed, commodo eleifend libero. 
+            Cras et fringilla diam. Nam vehicula semper nisi et consequat. 
+            Sed pretium consequat augue a consectetur. 
+            In bibendum est eu diam posuere sodales.
+        </p>
+
+        <p>
+            Pellentesque dapibus urna sit amet ante hendrerit fermentum. 
+            Phasellus id odio efficitur, dignissim nunc ac, bibendum mauris. 
+            Sed auctor pharetra nibh, vitae aliquet lectus porttitor eu. 
+            Nullam accumsan et tellus quis consectetur. 
+            Curabitur faucibus, metus vitae condimentum rhoncus, 
+            urna lacus elementum lorem, nec imperdiet enim odio vitae justo. 
+            Suspendisse cursus cursus augue sit amet varius. 
+            Nam sagittis nunc vitae tristique feugiat. 
+            Phasellus ornare aliquet felis, a suscipit felis laoreet non.
+        </p>
+
+        <p>
+            Nunc volutpat vitae augue at vehicula. 
+            Maecenas venenatis sapien ut velit lacinia, non bibendum ante elementum. 
+            Sed ullamcorper, quam vitae tristique blandit, nisi enim semper neque, 
+            ut viverra arcu justo eu sapien. Proin malesuada diam sed magna imperdiet, 
+            sed pellentesque nulla gravida. Pellentesque sed pulvinar felis. 
+            In hac habitasse platea dictumst. Ut tortor magna, iaculis nec leo ut, 
+            elementum facilisis lorem. Phasellus quis ante quis magna commodo consequat. 
+            In ornare purus sapien, sed placerat lorem scelerisque nec. 
+            Maecenas metus ligula, lacinia eu turpis id, congue facilisis nulla. 
+            Sed vitae lectus nec mauris consequat gravida. 
+            Phasellus tincidunt ex turpis, in vestibulum massa vestibulum dapibus. 
+            Donec massa ipsum, posuere non nisi et, ultricies blandit risus. 
+            Vestibulum vitae lacus vel diam tristique blandit.
+        </p>
+
+        <p>
+            Cras justo magna, placerat venenatis tellus sit amet, varius consequat dolor. 
+            Nulla ornare sapien venenatis justo semper, eu hendrerit lectus mollis. 
+            Nulla maximus quam nec odio eleifend, in egestas magna tristique. 
+            Ut eleifend molestie elit et dapibus. 
+            Sed arcu ipsum, mattis nec nulla eget, laoreet cursus velit. 
+            Nulla eget luctus risus. Integer vitae leo hendrerit, interdum tortor egestas, 
+            vehicula libero. Proin sed venenatis ex, et ornare lectus. 
+            Aliquam feugiat odio sem, vel eleifend velit blandit a. 
+            Mauris eu lacus nec sapien finibus interdum.
+        </p>
+
+        <p>
+            Nam non elementum magna, eget hendrerit orci. 
+            Phasellus sed nisi sit amet sapien fringilla imperdiet. 
+            Suspendisse ut nulla ornare, placerat leo sit amet, malesuada nulla. 
+            Aliquam efficitur tempus nisl. Nunc volutpat tempor dictum. 
+            Aenean vitae tortor at magna sodales ultrices. 
+            Aenean molestie nulla ipsum, sit amet finibus sem scelerisque in. 
+            Nam accumsan at metus et consectetur. Sed tincidunt ac est ac volutpat. 
+            Nunc imperdiet facilisis molestie. Mauris id metus tortor.
+        </p>
+    </body>
+</html>

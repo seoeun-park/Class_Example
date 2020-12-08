@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 28일 transform 예제 </title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body{
+                background-color: black;
+            }
+            #box {
+                width: 100px;
+                height: 100px;
+                margin: 100px auto;
+                background-color: darkgreen;
+                color: white;
+                text-align: center;
+                line-height: 100px;
+
+                transform: translateX(50px);
+                /* 좌상단을 기준으로 오른쪽으로 50px 이동 */
+                transform: translateY(50px);
+                /* 좌상단을 기준으로 아래쪽으로 50px 이동 */
+                transform: translateX(-50px);
+                /* 좌상단을 기준으로 왼쪽으로 50px 이동 */
+                transform: translateY(-50px);
+                /* 좌상단을 기준으로 위쪽으로 50px 이동 */
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">Box</div>
+    </body>

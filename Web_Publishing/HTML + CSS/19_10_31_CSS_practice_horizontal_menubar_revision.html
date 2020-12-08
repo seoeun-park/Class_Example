@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>가로 메뉴</title>
+        <style>
+            #menu {
+            /* ul이나 a가 아닌 ul이라는 css 블록에 글꼴을 설정하는 이유는?
+               글꼴과 관련된 속성은 상속이 되므로 상위 css 블록에 글꼴을 지정하면 후손 css 블록까지 상속된다.
+
+               그러나 글자 색상은 a 요소에 주는 이유는? 
+               a 요소는 기본적으로 방문하지 않은 링크는 글자 색상을 파란색으로 설정한다.
+               그러므로  ul 요소에서 아무리 글자 색상을 바꿔도 a 요소의 기본형태가 덮어버린다 */
+
+            /* 글꼴을 설정할 때는 마지막에 반드시 일반 글꼴 (generic family)를 설정해야한다 */
+                font: 24px Tahoma, sans-serif /*고딕체*/; 
+
+            /* 브라우저에서 ul요소에 기본적으로 적용하는 스타일 속성을 초기화 해줘야 한다
+               개발자 도구에서 보면 margin과 padding 값이 기본적으로 적용되어 있으므로 이것 또한 초기화 해야한다
+               그리고 list-style-type은 ul요소에 넣든 li요소에 넣든 브라우저에 보이는 형태는 똑같지만
+               list-style-type은 ul, ol요소에 적용하는 스타일 속성이다. li 요소에 넣어도 똑같이 보이는 이유는
+               브라우저가 알아서 그렇게 보이도록 처리해주는 것 뿐이다 */
+                list-style-type: none;
+                margin: 100px 50px;
+                padding: 0;
+
+            /* ul 요소에 배경색을 지정해도 색상이 나오지 않은 이유는?
+               ul 요소의 자식 요소들이 float되어 있기 때문에 담고있는 내부 컨텐츠가 없기 때문이다 
+               때문에 가상 선택자를 준다고 하더라도 딱 들어맞게 배경색이 칠해지는 것이 아니라 
+               영역 밖으로 넘어가 있다.*/
+            }
+
+            #menu::after {content: ""; display: block; clear: both;}
+
+            #menu > li {
+            /* display를 inline과 inline-block으로 설정하면 나란히 배치 가능 (글자로 취급된다)
+               그러나 inline은 컨텐츠의 높이나 너비, 마진 값을 따로 지정할 수 없다
+                display: inline-block; */
+            /* display 속성으로도 나란히 배치가 가능한데 굳이 float 속성을 주는 이유는?
+               각각 독립적인 글자로 표현되므로 글자마다 공백이 생기기 때문이다 */
+                float: left;
+            }
+
+            #menu > li > a { 
+            /* 같은 스타일 속성인 경우에는 순서도 중요하다.
+                즉, border-right가 먼저 나오고 그 다음 border가 나오면 안된다.*/
+                background-color: #eee;
+            /* border 스타일 속성이나 background-color 속성은 li 요소 
+                혹은 a 요소 둘중에 하나에 넣어도 상관 없다*/
+                border: 2px solid #999;
+            /*  스타일이므로 0보다는 none값을 주는 것이 옳다 */
+                border-right: none;
+
+            /*  li 요소에 padding 값을 주지 않고 a 요소에 padding을 주는 이유는?
+                메뉴 바는 글자에다 링크를 거는 것이 아니라 영역에 링크를 거는 것이다
+                (이는 글자가 아닌 글자를 포함한 영역을 클릭해도 링크로 넘어간다는 것을 의미한다)
+                즉 글자가 아닌 영역에만 마우스 포인터를 갖다 대도 마우스 포인터 모양이 손모양으로 바뀌는 것
+                영역에 링크를 걸려면 li요소의 자체에 padding 없이 a 요소라는 컨텐츠를 최대한 채우려면
+                padding 값과 border 값을 a 요소에 넣어야 한다 */
+                padding: 10px 16px;
+
+            /*  브라우저에 a 요소를 버튼 형태로 표현하기 위해서
+                display를 inline이 아닌 block 형식으로 바꾸어 주어야 한다*/
+                display: block;
+                color: blue;
+            /* 브라우저에서 a 요소에 기본적으로 적용하는 스타일 속성을 초기화하기 위해 사용한다 */
+                text-decoration: none;
+            }
+
+            #menu > li > a:hover {
+                background-color: hotpink;
+                color: white;
+            }
+            #menu > li:first-child > a {
+                border-radius: 8px 0 0 8px;
+            }
+            #menu > li:last-child > a {
+                border-radius: 0 8px 8px 0;
+                border-right: 2px solid #999;
+            }
+        </style>
+    </head>
+
+    <body>
+        <ul id="menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#html">HTML</a></li>
+            <li><a href="#css">CSS</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#jquery">jQuery</a></li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>float 연습문제1</title>
+    </head>
+    <style>
+        #container {
+        /* 요소의 컨텐츠 영역의 너비 설정: 안쪽 상자 2개와 안쪽 여백이 들어갈 만큼의 너비
+            만약 너비를 420px로 잡고 부모요소의 padding을 20px로만 잡고 자식 요소(.box)에 margin을 주지 않는다면
+            각 자식 요소 간의 간격이 없게 된다 */
+            width: 440px;
+        /* 이와 같은 경우는 float효과를 줬을 때 문제점을 해결하는 방법 중에 첫번째 방법으로 쓰지 않는 것이 좋다
+           자식 요소의 높이가 달라졌을 경우 일일이 부모 요소의 높이를 일일이 수정해야 하는 
+           번거로움이 생기기 때문이다.
+            height: 440px; */
+            border: 2px solid #333;
+
+        /* 요소의 내부여백: 안쪽 상자들과의 간격 */
+            padding: 10px;
+
+        /* 요소의 너비가 설정된 경우 부모 요소의 컨텐츠 영역에서 남는 공간은 외부 여백(margin)으로 설정되고
+           브라우저가 이 외부 여백을 똑같이 나눠서 좌우 외부 여백으로 설정하도록 지정 */
+            margin: 100px auto;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            text-align: center;
+
+        /* 요소의 내부 문자는 항상 내부 문자가 들어가는 행의 중앙에 배치된다
+           그래서 행의 높이를 요소의 높이만큼 설정하면 내부 문자는 요소의 중앙에 배치된다 */
+            line-height: 200px;
+        /* margin을 주는 이유는 첫번째 주석 참고 */
+            margin: 10px;
+            font-weight: bold;
+        /* 형제 요소들을 나란히 배치하기 위해 float 스타일 속성 설정
+           float 스타일 속성이 설정된 요소들은 부모 요소 컨텐츠 영역 안쪽에 배치된다
+           float 스타일 속성이 설정된 요소들은 더 이상 부모 요소의 컨텐츠로 인식되지 않는다. */
+            float: left;
+            }
+
+        /* 모든 자식 요소들에 float 스타일 속성이 설정되면 부모 요소는 컨텐츠가 없게 된다
+           따라서 부모 요소의 컨텐츠 영역의 높이는 0이 되고 이로 인해 요소의 높이가 줄어든다
+           이렇게 되면 부모 요소 아래에 나오는 다른 요소들의 위치가 틀어지게 되므로 
+           이런 문제가 발생하지 않도록 부모 요소의 영역을 제대로 잡아주는 것이 중요하다. */
+        #container::after {
+        
+        /* ::before, :::after 가상 요소 선택자를 사용한  CSS 블록에는 
+            content 속성을 설정해야 가상 요소가 추가된다 */
+            content: ""; 
+        
+        /* ::before, ::after 가상 요소 선택자에 의해 추가되는 가상요소는 inline 형식의 요소이다
+           여기에서는 block 형식의 요소가 필요하기 때문에 display 스타일 속성으로 설정해서 
+           block 형식의 요소로 바꾼다 */
+            display: block;
+
+        /* clear 스타일 속성이 설정된 요소의 좌우에는 float 스타일 속성이 설정된 요소가 오지 못한다
+           이런 특성을 이용해서 가상 요소의 좌우에 float 스타일 속성이 설정된 요소가 배치되지 못하도록 한다
+           하지만 이미 안쪽 상자들은 배치된 상태이므로 가상요소는 안쪽 상자들이 배치된 영역 바로 아래에 배치된다
+           position 스타일 속성이 "static"으로 설정된 자식 요소는 부모 요소의 컨텐츠 영역에 배치 되어야 하므로
+           #container 요소는 가상 요소가 배치된 영역까지 컨텐츠 영역을 확장한다
+           이로인해 float 스타일 속성이 설정된 요소들 또한 잉역 안에 배치된 것처럼 보이게 된다 */
+            clear: both;}
+
+        .box:nth-child(1) { background-color: pink;}
+        .box:nth-child(2) {background-color: yellowgreen;}
+        .box:nth-child(3) {background-color: cyan;}
+        .box:nth-child(4) {background-color: gold;}
+    </style>
+
+    <body>
+        <div id="container">
+            <div class="box">Pink</div>
+            <div class="box">Yellowgreen</div>
+            <div class="box">Cyan</div>
+            <div class="box">Gold</div>
+        </div>
+    </body>
+</html>

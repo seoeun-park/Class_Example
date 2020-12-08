@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>css 스타일 속성</title>
+        <style>
+           #title::before {
+               content: "오늘" ;
+               color: red;
+               padding-right: 1em;
+           }
+           #title::after {
+               content: "먹고픈거";
+               color: blue;
+               padding-left: 1em;
+           }
+        </style>
+    </head>
+
+    <body>
+        <h1 id="title">돼지 일기</h1>
+
+        <ol>
+            <li>치킨</li>
+            <li>피자</li>
+            <li>파스타</li>
+            <li>떡볶이</li>
+        </ol>
+    </body>
+</html>

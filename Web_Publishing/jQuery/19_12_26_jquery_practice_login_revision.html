@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 26일 연습문제 수정본</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body{
+                background-color: #534292;
+                /* 글자와 관련된 속성은 후손 요소에게 상속된다. */
+                color: #79589f;
+            }
+
+            #container {
+                width: 500px;
+
+                /* 화면 중앙에 배치 */
+                position: absolute;
+                top: 50%; left: 50%;        /* % 단위의 기준: 기준 영역(containing block)의 크기 */
+                transform: translate(-50%, -50%);       /* % 단위의 기준: 요소의 크기 */
+            }
+
+            #wrap {
+                padding: 2em;
+                background-color: white;
+
+                /* 좌우상단의 모서리를 둥글게 표현 */
+                border-radius: 4px 4px 0 0;
+            }
+
+            #wrap > h1 {
+                padding-bottom: 1em;
+
+                font-size: 1.6em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-align: center;
+            }
+
+            #login > input {
+                /* input 요소는 inline 형식이므로 block 형식으로 표시 */
+                display: block;
+                width: 100%;
+                /* 요소의 높이는 line-height 혹은 padding으로 잡아주는 것이 좋다. */
+                line-height: 2em;
+                border: 1px solid #aaa;
+                border-radius: 5px;
+                box-sizing: border-box;
+                margin: 8px 0;
+            }
+
+            #login > [type="text"] {
+                /* 왼쪽에 아이콘을 표시하기 위해 여백을 설정한다. */
+                padding: 8px 8px 8px 50px;
+                background: url("images/icon-account-box-black-18dp.png") no-repeat;
+                /* {50px - 18px(아이콘 크기)} / 2 = 16px 만큼 왼쪽 여백을 주고 가운데 정렬 */
+                background-position: 16px center;
+            }
+
+            #login > [type="password"] {
+                padding: 8px 8px 8px 50px;
+                background: url("images/icon-lock-black-18dp.png") no-repeat 16px center;
+            }
+
+            #login > [type="submit"] {
+                /* button 형태의 요소에 기본적으로 적용되는 스타일 속성 초기화 */
+                padding: 0;
+                border: none;
+                background-color: #79589f;
+                color: white;
+                cursor: pointer;
+
+                line-height: 4.5em;
+                font-weight: bold;
+            }
+
+            #signup {
+                background-color: #f5f5f5;
+                color: #aaa;
+                padding: 4em 0 2em 0;
+                text-align: center;
+
+                /* 좌우하단의 모서리를 둥글게 표현 */
+                border-radius: 0 0 4px 4px;
+            }
+
+            #signup > a { color: #79589f; }
+
+            #password {
+                padding: 1em 0;
+                text-align: center;
+            }
+
+            #password > a {
+                color: white;
+            }
+
+            /* 오류 메시지 창 */
+            #alert {
+                position: absolute;
+                /* #alert 요소의 높이보다 더 큰 수를 -값으로 설정하면 보이지 않게 된다. */
+                top: -70px; left: 50%;
+                transform: translateX(-50%);
+                transition: 0.4s;
+
+                width: 500px;
+                padding: 1em 2em;
+                box-sizing: border-box;
+                border-radius: 4px;
+                background-color: deeppink;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+                color: white;
+                font-size: 1.2em;
+                font-weight: 700;
+                text-align: center;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                // 연습문제 (12/26) : 사용자가 아이디와 암호를 4자 이하로 입력했을때 오류를 발생하는 프로그램 작성
+
+                //------------------------------------------------------------------------
+                // 1. 사용자가 입력 양식에 입력한 값을 서버로 전송하려고 할 때
+                // 2. account 요소에 사용자가 입력한 값을 읽어와서
+                // 3. 그 값의 길이가 4자 이하이면
+                // 4. 오류 메시지를 보여주고 서버로 전송하지 않는다.
+                // 5. password 요소에 사용자가 입력한 값을 읽어와서
+                // 3. 그 값의 길이가 4자 이하이면
+                // 4. 오류 메시지를 보여주고 서버로 전송하지 않는다.
+
+                //------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                $login = $("#login");
+                $alert = $("#alert");
+            /*
+                // 1. 사용자가 입력 양식에 입력한 값을 서버로 전송하려고 할 때
+                // → form 요소에 submit 이벤트 핸들러를 연결해서 구현
+                $login.on("submit", function (event) {
+                    // 이벤트 핸들러: #login 요소에 submit 이벤트가 발생하면 실행할 기능
+
+                    // 2. account 요소에 사용자가 입력한 값을 읽어와서
+                    var $account = $(this).children("[name=account]");
+                    // var $account = $(this).children("input:text");
+
+                    // 3. 그 값의 길이가 4자 이하이면
+                    if ($account.val().length <= 4) {
+
+                        // 4. 오류 메시지를 보여주고 서버로 전송하지 않는다.
+                        $alert.html("Your account must be longer than 4.").css("top", "50px");
+                        // $alert.css("top", "50px");
+
+                        // 일정한 시간이 지난 후 오류 메시지가 사라지도록 한다.
+                        window.setTimeout(function () {
+                            // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 3000ms가 지난 후 실행된다.
+                            $alert.removeAttr("style");
+                        }, 4000);
+
+                        // 사용자가 값을 다시 입력할 수 있도록 account 요소에 포커스를 준다.
+                        $(this).children("[name=account]").select().focus();
+
+                        // return false;와 event.preventDefault();의 결과 값이 다른 이유?
+                        // submit 이벤트의 기본 이벤트를 제거하면 서버로 전송하지 않는다.
+                        // return false;는 기본 이벤트를 제거할 뿐만 아니라 이벤트 핸들러를 종료하는 성격
+                        // 까지 가지고 있다.
+                        return false;
+                        // event.preventDefault();
+                    }
+ 
+                    // 5. password 요소에 사용자가 입력한 값을 읽어와서
+                    var $password = $(this).children("[name=password]");
+                    // var $password = $(this).children("input:password");
+                    
+                    // 3. 그 값의 길이가 4자 이하이면
+                    if ($password.val().length <= 4) {
+
+                        // 4. 오류 메시지를 보여주고 서버로 전송하지 않는다.
+                        $alert.html("Your password must be longer than 4.").css("top", "50px");
+
+                        // 일정한 시간이 지난 후 오류 메시지가 사라지도록 한다.
+                        window.setTimeout(function () {
+                            $alert.removeAttr("style");
+                        }, 4000);
+
+                        // 사용자가 값을 다시 입력할 수 있도록 account 요소에 포커스를 준다.
+                        $(this).children("[name=account]").select().focus();
+                        
+                        // submit 이벤트의 기본 이벤트를 제거하면 서버로 전송하지 않는다.
+                        return false;
+                        // event.preventDefault();
+                    }
+                }); // #login.onsubmit
+            */
+                //------------------------------------------------------------------------------
+                $login.on("submit", function () {
+
+                    // account 요소에 사용자가 입력한 값에 문제가 없는지 확인
+                    if ( !checkInputValue("account", this) )
+                    // if ( checkInputValue("account") == false )
+
+                        // submit 이벤트의 기본 이벤트를 제거하면 서버로 전송하지 않는다.
+                        // 그리고 이미 오류가 발생했으므로 더 이상 이 이벤트 핸들러를 실행할 필요가 없으므로
+                        // 여기에서 이벤트 핸들러를 종료한다.
+                        return false;
+
+                    // password 요소에 사용자가 입력한 값에 문제가 없는지 확인
+                    if( !checkInputValue("password", this) )
+                        // submit 이벤트의 기본 이벤트를 제거하면 서버로 전송하지 않는다.
+                        return false;
+                    
+                }); // #login.onsubmit
+            
+                //------------------------------------------------------------------------------
+                // submit 이벤트 핸들러에서 account 요소와 password 요소의 입력값을 확인하는 함수 선언
+                // → 함수를 선언하면서 중복된 코딩을 작성하지 않게 하기 위해
+                // → 매개 변수: #login 요소의 자식 요소 중 확인하고자 하는 input 요소의 name 속성
+                //   반환 값: true(문제가 없는 경우), false(문제가 있는 경우)
+                function checkInputValue(name, item) {
+
+                    var $value = $(item).children("[name=" + name + "]");
+                    // var $password = $(this).children("input:password");
+                    
+                    if ($value.val().length <= 4) {
+
+                        $alert.html("Your " + name + " must be longer than 4.").css("top", "50px");
+
+                        window.setTimeout(function () {
+                            $alert.removeAttr("style");
+                        }, 4000);
+
+                        $(item).children("[name=" + name + "]").select().focus();
+
+                        // 사용자가 입력한 값에 문제가 있는 경우(입력한 값이 4자 이하) false 반환
+                        // 위의 return false;는 기본 이벤트를 제거하고 종료하는 성격이고 여기에서의
+                        // return false;는 if 조건문의 boolean 값을 반환한다는 의미한다.
+                        return false;
+
+                    }
+
+                    // 사용자가 입력한 값에 문제가 없는 경우 true 반환
+                    return true;
+                }
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div id="alert">Your account must be longer than 4.</div>
+        <div id="container">
+            <div id="wrap">
+                <h1>Log in to your account</h1>
+                <form action="/server/program" method="post" id="login">
+                    <!-- autocomplete은 자동완성과 관련된 속성이다. 이 속성 값을 off로 하면 자동완성 기능이 꺼진다. -->
+                    <input type="text" name="account" placeholder="Your account" autocomplete="off"> 
+                    <input type="password" name="password" placeholder="Your password"> 
+                    <input type="submit" name="longin" value="Log in">
+                </form>
+            </div> <!-- #wrap-->
+            <p id="signup">
+                Have no account? <a href="#signup">Sign up!</a>
+            </p> 
+            <p id="password">
+                <a href="#password">Forgot your password?</a>
+            </p> 
+        </div> <!-- /#container -->
+    </body>
+</html>

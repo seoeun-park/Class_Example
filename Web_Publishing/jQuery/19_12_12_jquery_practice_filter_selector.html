@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 12일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 3em;
+            }
+
+            #score {
+                margin: 100px auto;
+                border-top: 2px solid #aaa;
+                border-bottom: 2px solid #aaa;
+
+                /* table 요소는 display 속성의 기본 값이 "table"이므로 셀들의 너비에 따라
+                    table 요소의 너비가 결정된다.
+                    만약 width 속성을 "100%"로 설정하면 부모 요소 컨텐츠 영역의 너비만큼
+                    table 요소의 너비가 설정되고, 만약 각 셀들의 너비가 따로 설정되지 않았다면
+                    각 셀들의 너비는 균등하게 설정된다. */
+                width: 100%;
+                /* width: 1200px; */
+
+                /* 테이블의 셀과 셀 사이의 테두리를 하나로 처리 */
+                border-collapse: collapse;
+            }
+
+            #score th {
+                font-weight: 700;
+                background-color: rgb(206, 206, 206);
+            }
+
+            #score th, #score td {
+                padding: 8px;
+                /* padding: 8px 0; */
+
+                border-bottom: 1px solid  rgb(206, 206, 206);
+                text-align: center;
+            }
+
+            #score td:first-child {
+                text-align: left;
+
+                /* td의 부모요소 중 첫번째 자식을 제외한 셀들은 최소 너비로 설정되고
+                    td의 부모요소 중 첫번째 자식의 너비는 그 셀들이 차지하는 너비를
+                    제외한 너비로 설정된다. */
+                width: 100%;
+            }
+
+            /* td:first-child {
+                padding-left: 8px;
+            }
+
+            td:not(:first-child) {
+                text-align: center;
+            } */
+
+        </style>
+
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+
+        <script>
+            
+        // 연습문제(12/12): 3초가 지난 후 짝수번 째(or 홀수번 째) 행의 배경색을 바꾸는 프로그램을
+        //  jQuery를 사용해 작성하라
+
+            $(function () {
+                // 이벤트 핸들러: document 객체에서 ready 이벤트가 발생하면 실행할 기능
+                // → HTML 문서를 읽어들인 후 해석하고 DOM 구축을 끝낸 시점에 발생하는 이벤트
+                // → window 객체의 load 이벤트와 비슷한 시점에 발생하는 이벤트
+
+                //-----------------------------------------------------------------------
+                // 1. 3초가 지난 후에
+                // 2. table 요소의 짝수번 째(or 홀수번 째) 행의 배경색을 설정한다.
+
+                //------------------------------------------------------------------------
+                // 1. 3초가 지난 후에
+                window.setTimeout(function () {
+                    // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 3000ms가 지난 후에 실행된다.
+
+                    // 2. table 요소의 짝수번 째(or 홀수번 째) 행의 배경색을 설정한다.
+                    
+                    // 2.1. css 구조 선택자를 통해 조작
+                    $("#score tr:nth-child(even) > td").css("background-color", "rgb(206, 206, 206)");
+
+                    // 2.2. jQuery 위치 필터 선택자를 통해 조작
+                    $("#score tr:even > td").css("background-color", "rgb(206, 206, 206)");
+                        // → 여기서 tr은 thead, tbody의 tr을 모두 포함한다.
+                    $("#score > tbody > tr:odd > td").css("background-color", "rgb(206, 206, 206)");
+
+                }, 3000);
+
+            }); // document.onready
+        </script>
+
+    </head>
+    <body>
+        <!-- 되도록이면 선택자를 주는 것이 낫다 -->
+        <table id="score">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>English</th>
+                    <th>Math</th>
+                    <th>Science</th>
+                    <th>History</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>James</td>
+                    <td>A</td>
+                    <td>A</td>
+                    <td>B</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>Sara</td>
+                    <td>A</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>C</td>
+                </tr>
+                <tr>
+                    <td>Michael</td>
+                    <td>B</td>
+                    <td>A</td>
+                    <td>C</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>Bill</td>
+                    <td>C</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>Jerry</td>
+                    <td>B</td>
+                    <td>C</td>
+                    <td>A</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>Cindy</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>A</td>
+                    <td>B</td>
+                </tr>
+            </tbody>
+        </table i>
+    </body>
+</html>

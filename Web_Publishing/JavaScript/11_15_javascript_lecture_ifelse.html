@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 15일 배운거</title>
+    </head>
+
+    <body>
+        <pre><script>
+            //------------------------------------------------------------
+            // 연습문제 1. 어떤 수가 20보다 크고 40보다 작으면 "Hello World!" 출력
+            var num = 31;
+
+            /*  
+            if (20 < num < 40)    →   이렇게 쓰면 안되는 이유?
+                document.writeIn("Hello World!");
+            이때는 연산자가 2개인데 같은 비교 연산자이므로 왼쪽부터 시작한다
+
+            1. var num이 10일 경우
+                1) 20 < num    →   비교 연산자의 결과는 true 아님 false므로 여기서는 false 
+                2) false(0) < 40 →  true는 1의 결과 값을 가지고 false는 0의 결과 값을 가지므로 true
+            즉, 20보다 크지 않은 숫자 임에도 불구하고 출력되는 결과를 가져옴
+
+            2. var num이 50일 경우
+                1) 20 < num    →    결과: true(1)
+                2) true(1) < 40  →  결과: true
+            즉, 40보다 작은 숫자가 아님에도 불구하고 출력되는 결과를 가져옴 
+            */
+
+            /* 
+            연습문제 1 풀이
+            1. 변수 num의 값이 20보다 크다  →   num > 20 (20 < num이라고 쓰면 x → 상수보다 변수가 더 우선순위이기 때문에)
+            2. 그리고 (AND) →   && (논리곱 연산자)
+            3. 변수 num의 값이 40보다 작다  →   num < 40
+                을 종합해보면
+            →   (num > 20) && (num < 40);
+                num > 20 && num < 40;
+            */
+
+            if (num > 20 && num < 40)
+                document.writeln("Hello World!");
+
+            //------------------------------------------------------------
+            /* 연습문제 2. 어떤 수가 10보다 작거나 50보다 크면 "Hello World!" 출력
+                var num = 31; */
+
+            /* 연습문제 2 풀이
+            1. 변수 num의 값이 10보다 작다  →   num < 10
+            2. 또는 (OR)    →   || (논리합 연산자 shift + 원화키)
+            3. 변수 num의 값이 50보다 크다  →   num > 50
+                을 종합해보면
+            →   if (num < 10 || num > 50)
+                    document.writeIn("Hello World!");
+            */
+
+            //------------------------------------------------------------
+            // 연습문제 3. 어떤 수가 홀수인지 짝수인지 확인해서 출력하는 프로그램
+
+            num = 31;
+
+            //홀수(odd number) → 2로 나누었을 때 나머지가 1인 수
+            // → num % 2 == 1
+
+            //짝수(even number) → 2로 나누었을 때 나머지가 0인 수
+            // → num % 2 == 0
+
+            //어떤 수를 2로 나누었을 때 나올 수 있는 나머지 값은 0과 1 뿐이다.
+            //즉 경우의 수는 2가지 뿐이기 때문이 if와 else를 쓸 수 있는 것이다.
+
+            if (num % 2 == 0)
+                document.writeln(num + " is an even number!");
+            else
+                document.writeln(num + " is an odd number!");
+
+            // if 다음에 나오는 표현식은 참 또는 거짓을 따지는 표현식이다
+            // 즉, 이 표현식의 연산 결과는 true 또는 false가 나와야 한다. 즉, boolean 자료형의 값이다.
+            // 그런데 다른 자료형의 값이 나오는 경우 0이면 거짓(false), 0이 아니면 참(true)로 한다
+
+            if (num % 2)
+                document.writeln(num + "is an odd number!")
+            else
+                document.writeln(num + "is an even number!")
+
+            /* 6가지 자료형의 false 값
+                1. string   →   ""
+                2. number   →   0
+                3. boolean  →   false
+                4. function →   () {}
+                5. object   →   {}
+                6. undefined →  그 자체가 false 값
+                */
+
+        </script></pre>
+    </body>
+</html>

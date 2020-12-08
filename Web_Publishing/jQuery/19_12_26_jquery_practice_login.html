@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 26일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body{
+                background-color: #534292;
+            }
+
+            #container {
+                width: 500px;
+                margin: 40px auto;
+            }
+
+            #wrap {
+                padding: 2em;
+                background-color: white;
+            }
+
+            #wrap > h1 {
+                padding-bottom: 1em;
+
+                color: #79589f;
+                font-size: 1.6em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-align: center;
+            }
+
+            #login > input {
+                width: 100%;
+                height: 40px;
+                box-sizing: border-box;
+                margin: 8px 0;
+                border: 1px solid #aaa;
+                border-radius: 5px;
+            }
+
+            #login > input:nth-child(1) {
+                padding: 8px 8px 8px 50px;
+                background: url("images/icon-account-box-black-18dp.png") no-repeat 15px center;
+            }
+
+            #login > input:nth-child(2) {
+                padding: 8px 8px 8px 50px;
+                background: url("images/icon-lock-black-18dp.png") no-repeat 15px center;
+            }
+
+            #login > input:last-of-type {
+                height: 60px;
+                border: 0;
+                background-color: #79589f;
+                color: white;
+            }
+
+            #signup {
+                background-color: #f5f5f5;
+                padding: 4em 0 2em 0;
+                text-align: center;
+                color: #aaa;
+            }
+
+            #password {
+                padding: 1em 0;
+                text-align: center;
+            }
+
+            #password > a {
+                color: white;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                //------------------------------------------------------------------------
+                // 연습문제 (12/26) : 사용자가 아이디와 암호를 4자 이하로 입력했을때 오류를 발생하는 프로그램 작성
+
+                $("input:submit").on("submit", function (event) {
+                    var $account = $(this).siblings("input:text");
+
+                    if ($account.val().length <= 4) {
+                        alert("Your account must be longer than 4.");
+                        event.preventDefault();
+                    }
+                    var $password = $(this).siblings("input:password");
+                    
+                    if ($password.val().length <= 4) {
+                        alert("Your password must be longer than 4.");
+                        event.preventDefault();
+                    }
+                });
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="wrap">
+                <h1>Log in to your account</h1>
+                <form action="/server/program" method="post" id="login">
+                    <input type="text" name="account" placeholder="Your account"> 
+                    <input type="password" name="password" placeholder="Your password"> 
+                    <input type="submit" name="longin" value="Log in">
+                </form>
+            </div> <!-- #wrap-->
+            <p id="signup">
+                Have no account? <a href="#signup">Sign up!</a>
+            </p> 
+            <p id="password">
+                <a href="#password">Forgot your password?</a>
+            </p> 
+        </div> <!-- /#container -->
+    </body>
+</html>

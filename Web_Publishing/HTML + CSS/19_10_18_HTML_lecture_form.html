@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월18일복습</title>
+    </head>
+    <body>
+        <form action="/server/program" method="post">
+        <!-- 
+            action : 입력 데이터의 전달 위치(URL) 지정 (기본값: 현재 URL)
+            method : 입력 데이터의 전달 방식 지정 (기본값: get) 
+                입력 데이터의 전달 방식
+                → GET : 입력 데이터를 주소(URL)에 덧붙여서 전달
+                → POST : 입력 데이터를 따로 인코딩해서 전달
+        -->
+            <p>
+                TEXT: <input type="text" name="account" value="YOUR ID" maxlength="10">
+                <!--
+                    type : 입력 양식 형태
+                    name : input의 요소 이름
+                    value : 기본값 혹은 초기값
+                -->
+            </p>
+
+            <p>
+                PASSWORD: <input type="password" name="PASSWORD" placeholder="YOUR PASSWORD">
+            </p>
+
+            <p>
+                 CHECKBOX: <input type="checkbox" name="agree" value="yes" id="agree" checked>
+                 <label for="agree">동의하십니까?</label>
+            </p>
+
+            <p>
+                RADIO: 
+                <label>
+                    <input type="radio" name="favorite" value="coffee" checked> BLACK
+                </label>
+
+                <label>
+                    <input type="radio" name="favorite" value="beverage" disabled> IVORY
+                </label>
+
+                <label>
+                    <input type="radio" name="favorite" value="smoothie"> GRAY
+                </label>
+            </p>
+
+            <P>
+                FILE: <input type="file" name="photo">
+            </P>
+
+            <p>
+                SELECT:
+                <select name="size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="x-large">X-Large</option>
+                </select>
+            </p>
+
+            <p>
+                TEXAREA: <textarea name="comment" cols="20" rows="5">TEXTAREA</textarea>
+            </p>
+
+            <p>
+                SUBMIT: <input type="submit" name="login" value="로그인">
+            </p>
+        </form>
+    </body>
+</html>

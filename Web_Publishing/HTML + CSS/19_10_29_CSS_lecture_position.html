@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<htm>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 29일 배운거</title>
+    </head>
+    <style>
+        .sample {
+            border: 2px solid red;
+            background-color: #efe;
+            padding: 0.4em 1em;
+            margin-bottom: 10px;
+        }
+
+        #container {
+            border: 2px solid red;
+            background-color: #eef;
+            padding: 1em;
+            margin-bottom: 10px;
+
+        /* 여기에서 설정한 position 스타일 속성은 이 요소의 위치를 설정하기 위해 지정한 것이 아니라
+            후손 요소들 중에서 position 스타일 속성이 "absolute"인 요소의 기준이 되는 영역으로
+            설정하기 위해 지정한 것이다 */    
+            position: relative;
+        }
+
+        #container > div {
+            width: 100px;
+            height: 100px;
+            border: 2px solid red;
+            background-color: #fee;
+            line-height: 100px;
+            text-align: center;
+            margin: 5px;
+
+        /* 절대적인 위치에 배치되는 요소들, 즉 position 스타일 속성을 "absolute" 또는
+        "fixed"로 설정한 요소들은 더 이상 부모 요소의 컨텐츠가 아니다.
+        즉, 부모 요소로부터 분리된 각각의 독립적인 요소의 컨텐츠이다 */
+            position: absolute;
+
+        /*div 요소를 상대적인 위치, 즉 현재 위치를 기준으로 배치한다
+        절대적인 위치에 배치되는 요소들과 다리 상대적인 위치에 배치되는 요소들은
+        여전히 부모 요소의 컨텐츠로 인식된다 */
+            /*position: relative;*/
+        }
+
+        #container > div:nth-child(1) { top: 20px; left: 20px;}
+        #container > div:nth-child(2) { top: 40px; left: 40px;}
+        #container > div:nth-child(3) { top: 60px; left: 60px;}
+
+        #top {
+        /* a 요소에 기본적으로 적용되는 스타일 속성을 초기화 해줌*/    
+            text-decoration: none;
+
+            color: white;
+            font-weight: bold;
+            background-color: black;
+            padding: 1em 2em;
+            border-radius: 6px;
+        /* #top 요소를 브라우저 화면(viewport)을 기준으로 배치
+            브라우저 호면이 스크롤 되더라도 배치한 곳에 그대로 표시된다 */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+
+    <body>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+
+        <div id="container">
+            <div>Box 1</div>
+            <div>Box 2</div>
+            <div>Box 3</div>
+        </div>
+
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+        <div class="sample">Sample</div>
+
+        <a href="#" id="top">Top</a>
+    </body>
+</htm>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 29일 연습문제</title>
+        <style>
+            #container {
+                height: 400px;
+                border: 3px solid green;
+                background-color: #efe;
+                /*  후손 요소 중에서 position 스타일 속성이 "absolute"로 설정된 요소를
+                    배치하는데 기준이 될 수 있도록 position 스타일 속성을 설정 */
+                position: relative;
+            }
+
+            #container > div {
+                width: 200px;
+                height: 100px;
+                border: 3px solid red;
+                background-color: #fee;
+                position: absolute;
+                text-align: center;
+                line-height: 100px;
+
+                /* 배치 방식 설정 */
+                /* 1. 여기에서는 #container 요소를 기준으로 각 요소들을 지정된 위치에 배치 */
+                /* position 스타일 속성이 "absolute"로 설정된 요소는
+                    조상 요소 중에서 position 스타일 속성이 설정된 요소를 기준으로 배치된다.
+                    만약 그런 요소가 없는 경우 HTML 문서를 기준으로 배치된다. */
+                position: absolute;
+            }
+            /* 2. 각 요소들마다 위치 설정 */
+            #container > div:nth-child(1) { top: 10px; left: 10px;}
+            #container > div:nth-child(2) { top: 10px; right: 10px;}
+            #container > div:nth-child(4) { left: 10px; bottom: 10px;}
+            #container > div:nth-child(5) { right: 10px; bottom: 10px;}
+
+            /* 기준이 되는 영역의 크기에 상관없이 기준이 되는 영역의 중앙에 배치 */
+            #container > div:nth-child(3) { 
+                top: 50%;
+                left: 50%;
+                /* % 단위의 기준: 기준이 되는 영역(containing block)의 크기 */
+
+                margin-top: -50px;
+                margin-left: -100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div>Box 1</div>
+            <div>Box 2</div>
+            <div>Box 3</div>
+            <div>Box 4</div>
+            <div>Box 5</div>
+        </div>
+    </body>
+</html>

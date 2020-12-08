@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 27일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            html { width: 100%; height: 100%; }
+            body{
+                width: 100%;
+                height: 100%;
+                background-color: black;
+            }
+
+            #gallery {
+                width: 400%;
+                margin-left: 2em;
+            }
+
+            #gallery::after{ content: ""; display: block; clear: both; }
+
+            #gallery > li {
+                float: left;
+                width: 3.5%;
+                border: 5px solid white;
+                margin: 2em 0.5em;
+            }
+
+            #gallery > li > img {
+                width: 100%;
+            }
+
+            #container {
+                width: 70%;
+                border: 5px solid white;
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.4s;
+            }
+
+            #container > img {
+                width: 100%;
+            }
+
+            #overlay {
+                width: 100%;
+                height: calc(100% + 160px);
+                position: absolute;
+                top: -160px; left: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.4s;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                var $overlay = $("#overlay");
+                var $container = $("#container");
+
+                $("#gallery > li > img").click(function () {
+
+                    $container.children("img").attr("src", $(this).attr("src"));
+                    // $("container > img").attr("src", $(this).attr("src"));
+                    // $container.children("img")랑 $("container > img") 탐색하는 요소는 똑같은데 결과 값이 왜 다른 지 모르겠어요ㅠㅠ
+
+                    $overlay.css({"opacity": "1", "visibility": "visible"});
+
+                    window.setTimeout(function () {
+
+                        $container.css({"opacity": "1", "visibility": "visible"});
+
+                    }, 400);
+
+                }); // $("#gallery > li > img").onclick
+
+                $overlay.click(function () {
+
+                    $container.removeAttr("style");
+
+                    window.setTimeout(function () {
+
+                        $overlay.removeAttr("style");
+
+                    }, 400);
+
+                }); // $overlay.onclick
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <ul id="gallery">
+            <li><img src="https://i.imgur.com/sduLRvf.jpg" alt="image"></li>
+            <li><img src="https://i.imgur.com/QguApMA.jpg" alt="image"></li>
+            <li><img src="https://i.imgur.com/Xulubox.jpg" alt="image"></li>
+            <li><img src="https://i.imgur.com/PnSeZX3.jpg" alt="image"></li>
+        </ul>
+        <div id="overlay"></div>
+        <div id="container">
+            <img src="https://i.imgur.com/sduLRvf.jpg" alt="image">
+        </div>
+    </body>
+</html>

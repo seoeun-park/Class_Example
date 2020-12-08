@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 16일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 3em;
+                background-color: black;
+            }
+            /* 사진이 표시되는 영역 */
+            #container {
+                /* 요소의 영역에 사진 한 장이 표시될 수 있도록 요소의 너비 설정 */
+                width: 800px;
+
+                border: 5px solid white;
+                margin: 50px auto;
+
+                /* #container 요소의 영역을 벗어난 다른 사진들은 숨긴다. */
+                overflow: hidden;
+            }
+            
+            #gallery {
+                /* 사진 네 장이 나열될 만큼 요소의 너비 설정 */
+                width: 400%;    
+                /* width: 3200px; 즉, 800px의 4배 */
+                /* % 단위의 기준: 부모 요소 컨텐츠 영역의 크기 → 800px */
+                /* ul요소는 display 속성이 block이므로 컨텐츠가 너비 전체를 차지한다. */
+
+                /* positon 스타일 속성을 통해 기준이 되는 영역을 잡아주기 위해 */
+                position: relative;
+                left: 0;
+            }
+
+            /* 모든 자식 요소들에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            #gallery::after { content: ""; display: block; clear: both; }
+
+            #gallery > li {
+                /* 형제 요소들을 나란히 배치 */
+                float: left;
+
+                /* #gallery 요소의 너비의 1/4 */
+                width: 25%;
+                /* % 단위의 기준: 부모 요소 컨텐츠 영역의 크기 → 3200px */
+                /* width: 800px; 즉, 3200px의 4분의 1의 값 */
+            }
+
+            #gallery > li > img {
+
+                /* img 요소는 inline-block 형식의 요소이다. inline-block은 inline 속성을 가지고 있으므로
+                    글자 형태를 띈다. 즉, 의도치 않게 line-height나 상하 여백이 설정될 수 있다.(이와 같은 경우에는 아님)
+                    그러므로 만약의 경우를 대비해 block 형식으로 배치한다. */
+                display: block;
+
+                /* 사진의 너비는 #container 요소의 너비만큼 설정한다 */
+                /* (#gallery > li 요소의 너비만큼) */
+                width: 100%;
+                /* % 단위의 기준: 부모 요소 컨텐츠 영역의 크기 → 800px */
+                /* width: 800px; */
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                // 이벤트 핸들러: document 객체에서 ready 이벤트가 발생하면 실행한 기능
+                // → HTML 문서를 읽어들인 후 해석하고 DOM 구축을 끝낸 시점에 발생하는 이벤트
+
+                //-------------------------------------------------------------------------
+                // 요소의 위치를 이동하는 방법
+                // 1. margin 스타일 속성 설정
+                //    → % 단위의 기준: 부모 요소 컨텐트 영역의 크기
+                // 2. position 스타일 속성을 설정하고, top, right, bottom, left 스타일 속성
+                //    → % 단위의 기준: 기준이 되는 영역(containing block)의 크기
+                // 3. transform 스타일 속성의 translate 함수를 설정
+                //    → % 단위의 기준: 스타일 속성이 설정된 요소의 크기
+
+                //-------------------------------------------------------------------------
+                // 1. 일정한 시간마다
+                // 2. #gallery 요소를 왼쪽으로 이동시킨다.
+
+                //-------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소 탐색
+                var $gallery = $("#gallery");
+
+                // #gallery 요소의 위치를 설정하기 위해 사용하는 인덱스 변수
+                // → 이때는 전역변수로 선언해야 한다.
+                //   (setInterval 메서드 함수가 끝나도 계속 변수는 살아있어야 하므로)
+                var i = 1;
+                
+                // 1. 일정한 시간마다
+                window.setInterval(function () {
+                    // 이 함수는 setInterval 메서드로 등록한 타이머에 의해 2000ms마다 실행된다.
+
+                    // 2. #gallery 요소를 왼쪽으로 이동시킨다.
+
+                    // 2.1. margin 스타일 속성 설정
+                    // margin-left: -100%, -200%, -300%, 0, -100%, ...
+                    // i = 1, 2, 3, 0, 1, 2, 3, 0, 1, ...
+                    $gallery.css("margin-left", -(i * 100) + "%");
+                
+                    // 2.2. position 스타일 속성을 설정하고, left 스타일 속성 설정 
+                    // left: -100%, -200%, -300%, 0, -100%, ...
+                    // $gallery.css("left", (-i * 100) + "%");
+                    
+                    // 2.3. transform 스타일 속성의 translate 함수를 설정
+                    // transform: translateX(-25%, -50%, -75%, 0, -25%, ...)
+                    // $gallery.css("transform", "translateX(" + (-i * 25) + "%)");
+                    
+                    i++;
+                    
+                    i %= $gallery.children().length;
+
+                    // jQuery 객체의 length 속성: jQuery 객채에 포함되어 있는 요소들의 개수
+                        
+                }, 2000);
+                
+            }); // document.onready
+        </script>
+
+    </head>
+    <body>
+        <div id="container">
+            <ul id="gallery">
+                <li><img src="https://i.imgur.com/sduLRvf.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/QguApMA.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/Xulubox.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/PnSeZX3.jpg" alt="image"></li>
+            </ul>
+        </div>
+    </body>
+</html>

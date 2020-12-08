@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>12월 18일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+    </head>
+    <style>
+        #container {
+            height: 100vh;
+        }
+
+        #container::after { content: ""; display: block; clear: both; }
+
+        #wrap {
+            float: left;
+            width: 50%;
+            height: 100vh;
+            background: url("images/bg-chocolate.jpg") 50% 50% /cover no-repeat;
+
+            position: relative;
+        }
+
+        #wrap > div {
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(31, 17, 43, 0.9);
+            border-radius: 50%;
+
+            color: white;
+            font-size: 40px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 250px;
+            text-align: center;
+        }
+        #container > ul {
+            float: left;
+            width: 50%;
+            height: 100vh;
+            /* 높이의 값이 #wrap이랑 똑같은데 왜 ul요소의 높이만 큰지 잘 모르겠습니다..ㅠㅠㅠ
+                스크롤바 없애려고 일단 overflow: hidden을 작성하긴 했는데 왜 그래야 하는 지 모르겠어요ㅠㅠㅠ */
+            /* → border-bottom 때문 */
+            overflow: hidden;
+        }
+
+        #container > ul > li {
+            height: calc(100vh / 3);
+            background-color: #1f112b;
+
+            font-size: 20px;
+            font-weight: 700;
+            line-height: calc(100vh / 3);
+            text-align: center;
+            border-bottom: 2px solid white;
+            transition: background-color 0.4s ease, letter-spacing 0.4s linear;
+        }
+
+        #container > ul > li:last-of-type { border-bottom: none; }
+
+        #container > ul > li:hover {
+            letter-spacing: 25px;
+            background-color: #0f0616;
+        }
+        
+        #container > ul > li > a {
+            padding: 1.5em;
+            text-decoration: none;
+            color: white;
+        }
+
+
+    </style>
+    <body>
+        <div id="container">
+            <div id="wrap">
+                <div>Chocolate</div>
+            </div>
+            <ul>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#shop">SHOP</a></li>
+                <li><a href="#blog">BLOG</a></li>
+            </ul>
+        </div>
+    </body>
+</html>

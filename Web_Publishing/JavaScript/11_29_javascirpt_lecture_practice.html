@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>11월 29일 배운 거 </title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #hello {
+            font-size: 3em;
+            text-align: center;
+            width: 500px;
+            margin: 300px auto;
+            background-color: #444;
+            color: white;
+        }
+
+        #list {
+            margin: 100px;
+        }
+
+        /* 모든 자식 요소들에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+        #list::after {content: ""; display: block; clear: both; }
+
+        #list > li {
+            /* 형제 요소들을 나란히 배치 */
+            float: left;
+
+            width: 200px; height: 200px;
+            margin: 10px;
+            color: white;
+            font-size: 2em;
+            font-weight: 900;
+            text-align: center;
+            line-height: 200px;
+            background-color: #555;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 연습문제 (2) : 5초가 지나면 h1요소가 화면 위로 올라가
+        사라지도록 하는 프로그램을 작성하라 -->
+
+    <h1 id="hello">Hello World!</h1>
+    
+    <script>
+
+        //-------------------------------------------------------------------------
+        // 1. 5초가 지난 후
+        // 2. #hello 요소를 (요소의 Y축 상의 위치와 요소의 높이를 더한 값)만큼 위로 이동시킨다
+    
+        //-------------------------------------------------------------------------
+        // 프로그램에 참조하는 요소를 미리 탐색
+        var hello = document.getElementById("hello");
+
+        // 1. 5초가 지난 후
+        //  → window.setTimeout 메서드로 타이머를 등록해서 구현
+        window.setTimeout(function () {
+
+            // 2. #hello 요소를 (요소의 Y축 상의 위치와 요소의 높이를 더한 값)만큼 위로 이동시킨다.
+
+            // 이동할 거리 계산 (요소의 Y축 상의 위치 + 요소의 높이)
+            var delta = hello.offsetTop + hello.offsetHeight;
+
+            console.log("hello.offsetTop = " + hello.offsetTop);
+            console.log("hello.offsetHeight = " + hello.offsetHeight);
+            console.log("delta = " + delta);
+
+            // #hello 요소를 계산한 거리만큼 위로 이동시킨다.
+            hello.style.marginTop = (delta * -1) + "px";
+            hello.style.transition = "1s";
+
+        }, 1000);
+    </script>
+    
+    <!-- ------------------------------------------------------------------------- -->
+    <!-- 연습문제 (3): 2초마다 #list 요소의 첫 번째 자식 요소를
+        #list 요소의 마지막으로 이동시키는 프로그램을 작성하라 -->
+
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+    <script>
+        //------------------------------------------------------------------------
+        // 1. 2초마다
+        // 2. #list 요소의 첫 번째 자식요소를 #list 요소의 마지막으로 이동시킨다.
+
+        //-------------------------------------------------------------------------
+        // 프로그램에서 참조하는 요소를 미리 탐색
+        var list = document.querySelector("#list");
+        // → 변수 list에는 #list 요소를 표현하는 Element 객체가 대입되어 있다.
+        //  그래서 변수 list를 통해 #list 요소를 참조할 수 있다.
+
+        // 1. 2초마다
+        window.setInterval(function () {
+
+            // 2. #list 요소의 첫 번째 자식요소를 #list 요소의 마지막으로 이동시킨다.
+
+            // #list 요소의 첫 번째 자식 요소 = list.firstElementChild
+            // list.firstChild는 첫 번째 자식 노드이다.
+
+            // #list 요소의 마지막 자식 요소로 추가한다 = list.appendChild();
+
+            // → Element 객체의 appendChild 메서드는 인자로 주어진 요소를 Element 객체가 나타내는
+            //  요소의 마지막 자식 요소로 추가하는 메서드이다.
+            //  만약 인자로 기존에 존재하는 요소를 넣어주게 되면, 그 요소를 이동하게 된다.
+            list.appendChild(list.firstElementChild);
+
+        }, 2000);
+    </script>
+</body>

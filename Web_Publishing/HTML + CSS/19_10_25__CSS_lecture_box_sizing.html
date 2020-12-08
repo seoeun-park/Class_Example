@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 25일 애국가</title>
+        <style>
+            #sample {
+                width: 400px;
+                padding: 40px;                     
+                background-color: yellowgreen;
+                    
+                /* 박스 사이징 스타일을 주지 않았을 경우
+                    컨텐츠 영역 400 + 양쪽 안쪽 여백 40과 40씩 더해서 총 박스 너비는 480이 된다.
+                    그러나 박스 사이징 속성을 줄 경우
+                    자동으로 안쪽 여백을 합쳐 총 400으로 자동으로 나오게 한다
+                    즉 width(400px)를 컨텐츠 영역의 너비가 아닌 컨텐츠와 안쪽 여백(padding), 테두리(border)
+                    를 모두 합친 너비로 잡겠다는 것이다. */
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="sample">
+        <h1>애국가</h1>
+        동해물과 백두산이 마루고 닳도록<br>
+        하느님이 보우하사 우리나라 만세<br>
+        무궁화 삼천리 화려강산<br>
+        대한 사람 대한으로 길이 보전하세
+        </div>
+    </body>
+</html>

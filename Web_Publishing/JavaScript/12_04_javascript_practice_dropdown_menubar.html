@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 5일 연습문제</title>
+        <!-- CSS 초기화: 브라우저에서 기본 설정하는 스타일 속성 제거 -->
+        <link rel="stylesheet" href="reset.css">
+        <style>
+        /* 고정 폭 레이아웃에서 영역들의 너비의 설정*/
+        #container {
+            width: 1080px;
+            margin: 0 auto;
+        }
+        /* 헤더 영역 */
+        #header > h1 {
+            font-size: 2.4em;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+            padding: 0.8em 1em;
+        }
+        /* 내비게이션 영역 */
+        #nav { 
+            background-color: #555;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);  
+            margin-bottom: 5px;
+        }
+        #nav::after {content: ""; display: block; clear: both; }
+
+        /* 첫번째 GNB는 왼쪽으로 붙여서 배치 */
+        #nav > ul:first-child { float: left; }
+
+        /* 두번째 GNB는 오른쪽으로 붙여서 배치 */
+        #nav > ul:last-child { float: right; }
+
+        /* 메뉴 항목들을 나란히 배치 */
+        #nav > ul > li { 
+            float: left;
+            position: relative; 
+        }
+
+        #nav > ul > li > a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 1em 2em ;
+        }
+        #nav > ul > li > a:hover { background-color: black; }
+
+        .dropdown {
+            /* li 요소를 기준으로 하단에 배치 */
+            position: absolute;
+            top: 108%;
+            left: 0;
+
+            padding: 1em;
+            border-radius: 5px;
+            background-color: #555;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+            display: none;
+        }
+
+        .dropdown > li > a {
+            /* a 요소에 기본적으로 적용되는 스타일 속성 초기화 */
+            text-decoration: none;
+            color: white;
+
+            /* 메뉴 바에 들어가는 a 요소는 버튼 형태로 표현 */
+            display: block;
+            padding: 0.4em 1em;
+        }
+
+        /* 고정 폭 레이아웃에서 한 행에 두 영역이 배치되는 경우 영역을 정리해주기 위해 */
+        #wrap::after {content: ""; display: block; clear: both;}
+
+        #sidebar {
+        /* content 영역과 나란히 배치하기 위해*/
+            float: left;
+            width: 200px;
+            padding-top: 1em;
+            background-color: #ddd;
+            /* script에서 content의 요소의 높이만큼 설정했으므로 그 크기에 맞게 설정하기 위해서 */
+            box-sizing: border-box;
+        }
+        #sidebar > ul > li {
+            padding: 0.4em 0;
+        }
+        #sidebar > ul > li > a {
+        /* 메뉴바의 a 요소를 버튼 형태로 표현하기 위해 */
+            display: block;
+        /* a 요소에 적용되는 스타일 속성을 초기화하기 위해 */    
+            text-decoration: none;
+            color: black;
+            padding: 0.4em 1em;
+        }
+        #sidebar > ul > li > a:hover {
+            background-color: black;
+            color: white;
+        }
+        #content {
+        /* sidebar 영역과 나란히 배치하기 위해*/
+            float: left;
+
+            width: 760px;
+
+        /* sidebar 영역과의 구분선 */
+            border-left: 2px solid darkgray;
+
+            padding: 2em;
+            box-sizing: border-box;
+        }
+        #content > h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 0.8em;
+        }
+        #content > p {
+            line-height: 1.5em;
+            margin-top: 0.8em;
+        }
+        #footer {
+            text-align: right;
+            background-color: darkgrey;
+            font-size: 0.8em;
+            padding: 3em;
+        }
+
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            // 이벤트 핸들러: window 객체에 load 이벤트가 발생하면 실행할 기능
+            // → 브라우저가 HTML 문서의 내용을 모두 읽고 해석한 다음 발생하는 이벤트
+            // → 따라서 이 이벤트 핸들러에서는 DOM에 있는 요소들에 정상적으로 접근할 수 있다
+
+            //---------------------------------------------------------------------------
+            // #sidebar 요소의 높이를 #content 요소의 높이만큼 설정
+            document.getElementById("sidebar").style.height = 
+                document.getElementById("content").offsetHeight + "px";
+
+            //---------------------------------------------------------------------------
+            // 1. .menu-item 요소를 클릭하면
+            // 2. 그 다음에 나오는 .dropdown 요소가 화면에 보이는 상태
+            // 2. 그 다음에 나오는 .dropdown 요소가 화면에 보이는 상태이면
+            // 3. 그 다음에 나오는 .dropdown 요소를 화면에서 숨기고
+            // 4. 그렇지 않으면
+            // 5. 이전에 화면에 보이는 .dropdown 요소를 화면에서 숨기고
+            // 6. 그 다음에 나오는 .dropdown 요소를 화면에 나타나도록 한다.
+
+            //---------------------------------------------------------------------------
+            // 프로그램에서 참조하는 요소를 미리 탐색
+            var menuItems = document.querySelectorAll(".menu-item");
+            // → 변수 menuItems에는 .menu-item 요소들을 표현하는 Element 객체들의 배열이 대입된다.
+
+            var dropdowns = document.getElementsByClassName("dropdown");
+
+            // 1. .menu-item 요소를 클릭하면
+            //     → 반복문을 이용해 배열 menuItems의 각 원소인 .menu-item 요소를 표현하는 Element 객체
+            //       에 click 이벤트 핸들러를 연결해서 구현
+            for(var i = 0; i < menuItems.length; i++)
+                menuItems[i].addEventListener("click", function (event) {
+                    // 이벤트 핸들러: .menu-item 요소에 click 이벤트가 발생하면 실행할 기능
+
+                    // 기본 이벤트 제거
+                    // → 몇몇 HTML 요소들은 기본적으로 수행하는 기능을 가지고 있다. 이를 "기본 이벤트"라고
+                    //   하며, 이 기능이 수행되지 않도록 제거하는 것을 "기본 이벤트 제거"라고 표현한다.
+                    // → 이 요소는 a 요소이므로 href 속성에 지정한 URL로 이동하는 것이 기본 이벤트이다.
+                    //   하지만 여기에서는 이 메뉴 항목에 연결된 드랍다운 메뉴를 화면에 보이게 하거나 숨기는
+                    //   것이 이 요소의 기능이 되어야 하므로 기본 이벤트를 제거해야 한다.
+                    event.preventDefault();
+
+                    // this 키워드: 메서드에서 객체를 나타내는 키워드
+                    // → 이벤트 핸들러에서는 이벤트가 발생한 객체를 나타내는 키워드
+
+                    // 클릭한 요소 = 이벤트가 발생한 요소 = this = menu-item
+                    // 클릭한 요소의 다음에 나오는 요소 = this.nextElementSibling = dropdown
+
+                    // 2. 그 다음에 나오는 .dropdown 요소가 화면에 보이는 상태이면
+                    if (this.nextElementSibling.style.display == "block") {
+                        // 3. 그 다음에 나오는 .dropdown 요소를 화면에서 숨기고
+                        this.nextElementSibling.style.display = "";
+                    }
+                    // 4. 그렇지 않으면
+                    else {
+                        // 5. 이전에 화면에 보이는 .dropdown 요소를 화면에서 숨기고
+                        //    → 모든 .dropdown 요소를 화면에서 숨긴다.
+                        for(var i = 0; i < dropdowns.length; i++)
+                            dropdowns[i].style.display = "";
+
+                        // for(var i = 0; i < dropdowns.length; i++)
+                        //   if (dropdowns[i].style.display == "block")
+                        //      dropdowns[i].style.display = "";
+
+                        // 6. 그 다음에 나오는 .dropdown 요소를 화면에 나타나도록 한다.
+                        this.nextElementSibling.style.display = "block"
+                    }
+                    
+                }); // menuItems.click
+
+        }); //window.load
+    </script>
+    </head>
+    <body>
+        <!--고정폭 레이아웃에서 모든 영역들의 너비를 똑같이 지정해주기 위해 묶어서 표현-->
+        <div id="container">
+            <header id="header">
+                <h1>One-True-Layout</h1>
+            </header>
+
+            <nav id="nav">
+            <!--서비스를 구성하는 모든 페이지에 공통적으로 사용하는 메뉴바 = GNB(global navigation bar)-->
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li>
+                        <a href="#html" class="menu-item">HTML</a>
+
+                        <!-- 중첩된 목록을 이용해 각 메뉴 항목에 드랍다운 메뉴를 추가한다. -->
+                        <!-- 드랍다운 메뉴 -->
+                        <ul class="dropdown">
+                            <li><a href="#html-tutorial">Tutorial</a></li>
+                            <li><a href="#html-reference">Reference</a></li>
+                            <li><a href="#html-example">Example</a></li>
+                            <li><a href="#html-faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#css" class="menu-item">CSS</a>
+
+                        <!-- 드랍다운 메뉴 -->
+                        <ul class="dropdown">
+                            <li><a href="#css-tutorial">Tutorial</a></li>
+                            <li><a href="#css-reference">Reference</a></li>
+                            <li><a href="#css-example">Example</a></li>
+                            <li><a href="#css-faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#javascript" class="menu-item">Javascript</a>
+
+                        <!-- 드랍다운 메뉴 -->
+                        <ul class="dropdown">
+                            <li><a href="#javascript-tutorial">Tutorial</a></li>
+                            <li><a href="#javascript-reference">Reference</a></li>
+                            <li><a href="#javascript-example">Example</a></li>
+                            <li><a href="#javascript-faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#jquery" class="menu-item">jQuery</a>
+
+                        <!-- 드랍다운 메뉴 -->
+                        <ul class="dropdown">
+                            <li><a href="#jquery-tutorial">Tutorial</a></li>
+                            <li><a href="#jquery-reference">Reference</a></li>
+                            <li><a href="#jquery-example">Example</a></li>
+                            <li><a href="#jquery-faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li><a href="login">Login</a></li>
+                    <li><a href="signup">Sign Up</a></li>
+                </ul>
+            </nav>
+
+        <!--레이아웃을 정리했을 때 한 행에 두 영역 이상 들어간 경우 묶어서 표현-->
+        <div id="wrap">
+            <aside id="sidebar">
+            <!--특정 페이지에서만 사용하는 메뉴바 = LNB(local navigation bar)-->
+                <ul>
+                   <li><a href="#home">Home</a></li>
+                   <li><a href="#html">HTML</a></li>
+                   <li><a href="#css">CSS</a></li>
+                   <li><a href="#javascript">Javascript</a></li>
+                   <li><a href="#jquery">jQuery</a></li>
+                </ul>
+            </aside>
+
+            <article id="content">
+            <!--body 요소에 나오는 h1 태그는 기본적으로 하나만 나오는 것이 좋으므로 h2태그를 사용한다-->
+                <h2>Lorem ipsum</h2>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Maecenas interdum massa ac scelerisque gravida.
+                Nullam in mi at mi volutpat congue faucibus vel tellus. 
+                Duis congue leo sed convallis molestie. 
+                Nullam congue consequat ante nec egestas.
+                Donec eget magna faucibus, bibendum nibh ut, tincidunt ipsum. 
+                Nunc aliquam faucibus est sed tristique. Cras quis condimentum nunc, ac vulputate ex. 
+                Phasellus at aliquam urna. Nam hendrerit nulla risus, quis gravida diam volutpat id.
+                Donec vestibulum, enim vel tristique facilisis, risus nisl fringilla tellus, at placerat eros eros eu dolor. 
+                In volutpat varius nulla, vel tincidunt tortor dignissim in. Proin hendrerit sagittis aliquam.
+                </p>
+                <p>
+                Phasellus a congue ex. Quisque enim libero, tincidunt nec risus sit amet, placerat consequat mi. 
+                Suspendisse pretium, dolor nec tempor luctus, tortor massa posuere nunc, eu porta neque dui eu massa. 
+                Vivamus leo magna, eleifend et turpis ac, accumsan cursus nibh.
+                Aenean eget purus ac dui scelerisque scelerisque. 
+                Aliquam ut nulla scelerisque turpis tincidunt sollicitudin et id mauris.
+                Nam sodales elit libero, malesuada luctus quam pharetra a.
+                Sed luctus, felis nec faucibus consequat, enim dolor tincidunt tortor, vel imperdiet sem arcu id ex.
+                Sed consectetur at lorem condimentum rhoncus.
+                Morbi varius magna id dui facilisis, id interdum ligula lobortis.
+                Donec urna mi, ultricies et dui a, pellentesque venenatis nulla. 
+                In ultricies felis ut libero porttitor, eu sollicitudin urna rhoncus. 
+                </p>
+            </article>
+        </div> <!-- /#wrap-->
+
+            <footer id="footer">
+                @ 2019 One-True Layout
+            </footer>
+
+        </div> <!-- /#container-->
+    </body>
+</html>

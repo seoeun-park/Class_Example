@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>display 속성 (none)</title>
+        <style>
+            #sample {
+                /* 해당 요소를 화면에서 제거하는 총 3가지 방법 */
+
+                display: none;       
+                visibility: hidden;  
+                opacity: 0;                           
+                /* display 방법은 화면에서 차지하는 공간 자체를 제거함
+                    하지만 visibility와 opacity는 해당 요소는 보이지는 않지만
+                    공간은 차지하고 있음 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Display None</h1>
+
+        <p>
+            <div id="sample">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br>
+            </div>
+            Delectus mollitia iusto ex rerum error dolorum accusamus perspiciatis autem eligendi,<br>
+            alias sapiente, ratione nobis ab, ullam rem nihil. Rerum, unde voluptatibus?
+        </p>
+    </body>
+</html>

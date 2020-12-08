@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 17일 lecture</title>
+        <link rel="stylesheet" href="reset.css">
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+        $(function () {
+            
+            // 연습문제: HTML 문서의 너비와 높이, 브라우저 화면(viewport)의 너비와 높이를 
+            //          출력하는 프로그램을 jQuery를 이용해 작성하라
+
+            //------------------------------------------------------------------------
+            $("#log").html(
+                    // HTML 문서의 크기
+                    "HTML document: " + $(document).width() + "x" + $(document).height() + "\n"
+                    
+                    + "\n"
+                    
+                    // 뷰포트의 크기
+                    + "Browser window: " + $(window).width() + "x" + $(window).height() + "\n"
+                );
+                
+            }); // document.onready
+        </script>
+
+    </head>
+    <body>
+
+        <pre id="log"></pre>
+
+    </body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--뷰포트 메타 태그에서 너비를 설정하지 않는다면 글자 크기가 똑같이 보이는 현상이 발생할 수 있다 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>11월 5일 연습문제</title>
+        <!--CSS 초기화: 브라우저에서 기본 설정하는 스타일 속성 제거-->
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            /* html, body { height: 100%; }
+            body { margin: 0; padding: 0;} */
+
+            /*header 영역*/
+            #header {
+                background-color: maroon;
+
+                /* #toggle 요소를 #header 영역을 기준으로 배치하기 위해 */
+                position: relative;
+            }
+
+            #header > h1 {
+
+                /*em은 상대적인 크기이므로 요소마다 달라질 수 있음 
+                em 단위의 기준 : 요소의 글자 크기 / 실제 작업할때는 em단위보다 px단위를 많이 씀*/
+                font-size: 2.4em;
+
+                font-weight: 900;
+                letter-spacing: -1px;
+                color: white;
+                text-align: center;
+
+                /* 헤더의 크기는 60px 담고있는 내부 컨텐츠가 높이를 지정하기 때문이다
+                사이드바 영역이 헤더의 크기만큼 내려와야 한다*/
+                height: 70px;
+                line-height: 70px;
+            }
+
+            /* button 요소에 배경 이미지를 설정해서 아이콘을 표시*/
+            #toggle {
+
+                /* 브라우저에서 button 요소에 기본적으로 설정하는 스타일 속성 초기화*/
+                background-color: transparent; /* 백그라운드 컬러의 기본값 = transparent(투명색) */
+                border: none;
+                padding: 0;
+
+                /* 배경 이미지가 표시될 만큼 요소의 크기를 지정*/
+                width: 30px;
+                height: 30px;
+
+                /* 배경 이미지를 통해 아이콘 표시*/
+                background-image: url("menu_white_icon.png");
+                background-repeat: no-repeat;
+                background-position: center;
+
+                /* #header 요쇼의 영역을 기준으로 오른쪽 가운데에 배치 */
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                /* 가운데에 배치하기 하려면(50%) 요소(30px)절반 만큼 -값을 입력해야한다 */
+                margin-top: -15px;
+            }
+
+            /* button 요소에 아이콘을 표시하고 내부 문자를 화면에서 숨기기 위해 */
+            #toggle > span { display: none; }
+
+            /*#header > img {
+                position: fixed;
+                top: 1.5%; left: 95%;
+             } */
+
+            /*menubar 영역 - gnb*/
+            #nav { 
+                border-bottom: 1px solid maroon;
+            }
+        
+            /* 모든 자식 요소에 float 스타일 속성이 설정되면 부모 요소의 영역을 잡아주기 위해*/
+            #nav >ul::after {content: ""; display: block; clear: both;}
+        
+            /* #nav > ul { 
+                margin-top: 0.8em;
+                margin-bottom: 0.8em; */
+            
+            #nav > ul > li { 
+                /* 형제 요소를 나란히 배치하기 위해 float 스타일 속성을 설정해준다 */
+                float: left;
+
+                /* ul은 블록 형식/ 글자 크기가 ul의 4분의 1정도 같은 크기로 설정하기 위해서 */
+                width: 25%;     /* % 단위의 기준: 부모 요소의 크기가 아닌 부모 요소 컨텐츠 영역의 크기 */
+                
+                /* li 요소를 기준으로 가상 요소를 배치하기 위해 */
+                position: relative;
+             }
+
+            /* 가상 요소를 이용해 메뉴 항목들 사이의 구분선을 설정 */
+            #nav > ul > li::before {
+                content: "";
+
+                /* 가상 요소를 li 요쇼를 기준으로 왼쪽에 배치*/
+                position: absolute;
+                /* 왼쪽 가장자리의 구분선을 숨기기 위해서 */
+                left: -1px;
+                /* 테두리를 짧게 표현하고 싶다면 위 아래 값을 더 높게 설정하면 된다 */
+                top: 10px;
+                bottom: 10px;
+
+                /* 가상 요소의 테두리를 이용해 구분선 설정 */
+                width: 1px;
+                border-left: 1px solid maroon;
+            }
+
+            #nav > ul > li > a {
+                /* 메뉴바에 들어가는 a 요소는 버튼 형태로 표시*/
+                display: block;
+
+                line-height: 3em;
+                /*padding: 0.4em 1em;*/
+                text-align: center;
+                text-decoration: none;
+                color: black;
+                /* border-right: 1px solid black; */
+            }
+
+            /*menubar 영역 - sidebar*/
+            #sidebar {
+                /* 문서를 기준으로 오른쪽에 배치 */
+                position: absolute;
+
+                /* 헤더 영역 크기만큼 내려와야 하므로 70px로 지정해야 함 */
+                top: 70px;      
+
+                bottom: 0; right: 0;
+                left: 75%;      
+                /* % 단위의 기준: 기준이 되는 영역(containing block)의 크기 */
+
+                background-color: rgba(0, 0, 0, 0.863);
+                padding: 2em;
+
+                /* 처음에는 보이지 않도록 설정했다가 #toggle 요소를 클릭하면 화면에 보이도록 한다 */
+                /* display: none; */
+            }
+            #sidebar > ul > li > a {
+                text-decoration: none;
+                display: block;
+                color: white;
+                line-height: 3em;               
+            }
+
+            /*content 영역*/
+            #content {
+                padding: 0.8em;
+                border-bottom: 1px solid maroon;
+            }
+
+            #content > h2 {
+                font-weight: bold;
+                font-size: 24px;
+                margin-bottom: 0.8em;
+            }
+            #content > p {
+                line-height: 1.6;
+                margin-top: 1em;
+            }
+            
+            /*footer 영역*/
+            #footer {
+                padding: 1em;
+                /* margin-top: 1em;
+                margin-bottom: 2em; */
+                /*border-top: 1px solid black;*/
+            }
+
+            #footer > strong {
+                font-weight: bold;
+            }
+            /* #footer > span {
+                font-weight: bold;
+            } */
+        </style>
+    </head>
+
+    <body>
+            <header id="header">
+                <h1>Mobile Web</h1>
+                <!--이미지 태그는 이미지 그 자체가 컨텐츠 백그라운드 이미지는 컨텐츠를 꾸며주는 속성
+                    이 상황에서는 컨텐츠를 꾸며주는 아이콘을 작성하는 상황이므로 이미지 태그보다는 
+                    백그라운드 이미지를 주는 것이 맞다.
+                <img src="menu_white_icon.png" alt="menubar" width="24px"> -->
+
+                <button id="toggle">
+                <!-- 내부 문자를 지우기 위해 span 태그를 사용함-->
+                    <span>Toggle Menu</span>
+                </button>
+            </header>
+
+            <nav id="nav">
+                <ul>
+                    <li><a href="#html">HTML</a></li>
+                    <li><a href="#css">CSS</a></li>
+                    <li><a href="#javascript">JavaScript</a></li>
+                    <li><a href="#jquery">jQuery</a></li>
+                </ul>
+            </nav>
+            <aside id="sidebar">   
+                <ul>
+                    <li><a href="#html">HTML</a></li>
+                    <li><a href="#css">CSS</a></li>
+                    <li><a href="#javascript">JavaScript</a></li>
+                    <li><a href="#jquery">jQuery</a></li>
+                </ul>
+            </aside> 
+            <article id="content">
+                <h2>Section</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Aliquam eu dui id mi auctor iaculis. Nam consequat velit turpis, 
+                    sed condimentum ipsum egestas sollicitudin.
+                    Quisque mi nunc, consequat nec turpis quis, malesuada hendrerit felis. 
+                    Vivamus semper venenatis risus. 
+                    Donec eget neque elementum quam consectetur interdum in ac est.
+                    Pellentesque a lectus magna. Ut hendrerit molestie libero a convallis.
+                    Vivamus tincidunt, velit at mattis placerat, libero diam imperdiet tortor, 
+                    vitae mollis lacus elit non massa. 
+                    Duis nunc est, faucibus nec iaculis blandit, mattis at justo.
+                    Sed finibus, elit in mollis varius,
+                    ante nulla lacinia nisi, vel eleifend diam purus non nisi.
+                </p>
+                <p>
+                    Ut sagittis luctus ipsum, et scelerisque augue auctor quis. 
+                    Curabitur et ipsum id turpis tempus dignissim. 
+                    Donec semper vel velit vel iaculis. Nullam imperdiet interdum metus vel condimentum. 
+                    Aliquam egestas placerat quam, rutrum efficitur sem placerat quis.
+                    Nulla porttitor neque lobortis mauris pulvinar egestas. 
+                    Sed eu lectus varius nulla lacinia faucibus. 
+                    Sed fringilla ornare mi, ac dictum enim imperdiet et. 
+                    Nam quis semper ipsum, sed consectetur lectus. 
+                    Integer blandit, lorem in egestas porta, quam lectus ultrices purus, 
+                    nec bibendum sem turpis et felis. 
+                    Praesent auctor enim at magna tristique varius. 
+                    Donec consequat luctus ipsum ut tincidunt. 
+                    Nam at vehicula urna, nec hendrerit ante. Suspendisse potenti. 
+                    Morbi eget pellentesque orci. 
+                </p>    
+            </article>
+            <footer id="footer">
+            <!--strong 태그로 굵은 글씨 표현 가능하다-->
+                <strong>Footer:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </footer>
+    </body>
+</html>
+
+<!-- pc에서 작성한 html 문서를 모바일에서 보이는 화면을 확인할 수 있는 방법
+    = 개발자 도구의 왼쪽 상단의 toggle device toolbar를 켜서 들어가보면 확인할 수 있다 -->

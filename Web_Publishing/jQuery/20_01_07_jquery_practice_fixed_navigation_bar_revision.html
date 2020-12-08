@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 7일 연습문제 수정본</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+
+            /* 헤더 영역 */
+            #header {
+                width: 1080px;
+                margin: 0 auto;
+            }
+
+            #header > h1 {
+                font-size: 2.6em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                line-height: 2;
+                padding-bottom: 0.2em;
+
+                text-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+            }
+
+            /* 내비게이션 영역 */
+            #nav {
+                background-color: #555;
+                font-size: 1.4em;
+
+                /* #nav에 position 속성을 설정하지 않았을 경우 #nav의 위치만큼 스크롤을 내리자마자 #nav 요소에
+                   fixed 클래스 속성이 추가되면서 position 스타일 속성이 설정되므로 부모 요소로
+                   부터 독립된다. 그러므로 스크롤을 내리자마자 #content 요소가 #nav 요소 높이 만큼
+                   위로 올라가므로 처음부터 #nav 요소에 똑같이 position 스타일 속성을 설정한다. */
+                position: absolute;
+                /* width: 100%; */
+                right: 0; left: 0;
+            }
+
+            /* 가상 요소이기 때문에 스크롤의 변화에 따라 요소의 변화를 표현할 수 없다. */
+            /* #nav::after {
+                content: "";
+                display: block;
+                width: 0;
+                height: 5px;
+                background-color: cornflowerblue;
+            } */
+
+            #nav.fixed {
+                /* 스크롤을 내릴 때 화면 상단에 고정 */
+                position: fixed;
+                top: 0; right: 0; left: 0;
+            }
+
+            #nav > ul {
+                width: 1080px;
+                margin: 0 auto;
+            }
+
+            /* 모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            #nav > ul::after{ content: ""; display: block; clear: both; }
+
+            #nav > ul > li {
+                /* 형제 요소들을 나란히 배치하기 위해 float 스타일 속성 설정 */
+                float: left;
+            }
+
+            #nav > ul > li > a {
+                /* 메뉴 바의 a 요소는 버튼 형태로 표현 */
+                display: block;
+                padding: 0.8em 2em;
+
+                /* a 요소에 기본적으로 설정되는 스타일 속성 초기화 */
+                text-decoration: none;
+                color: white;
+            }
+
+            #nav > ul > li > a:hover { background-color: black; }
+
+            #indicator {
+                /* #nav 요소의 영역을 기준으로 아래에 배치 */
+                position: absolute;
+                top: 100%; left: 0;
+
+                width: 0;
+                height: 5px;
+                background-color: goldenrod;
+                transition: 200ms;
+
+                /* 처음에는 보이지 않도록 설정 */
+                display: none;
+            }
+
+            /* #nav 요소가 화면 상단에 고정됐을 때에만 #indicator 요소를 화면에 보이도록 */
+            #nav.fixed > #indicator { display: block; }
+
+            /* 본문 영역 */
+            #content {
+                width: 1080px;
+                font-size: 1.2em;
+                line-height: 1.8;
+                padding: 1.4em;
+
+            /* #nav 요소의 위치만큼 스크롤하는 순간 #nav 요소는 position 속성이 설정되어버린다.
+                그와 동시에 #nav는 부모 요소로부터 독립되기 때문에 #content 요소가 #nav의 요소의 
+                높이만큼 올라가 버린다.
+                그러므로 #content 요소의 위쪽에 #nav 요소의 높이만큼 여백을 미리 설정한다. */
+                margin: 57px auto 0;
+            }
+
+            /* 첫 번째 section 요소를 제외한 section 요소 */
+            #content > section + section {
+                margin-top: 2em;
+            }
+
+            /* nth-of-type: 해당 요소의 부모 요소의 자식 요소 중 해당 요소와 같은 유형의 요소를 찾는 선택자 */
+
+            #content h2 {
+                color: #444;
+                font-size: 1.4em;
+                font-weight: 700;
+                letter-spacing: -1px;
+
+                margin-bottom: 0.8em;
+            }
+
+            #content > p {
+                margin-top: 1em;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                //-----------------------------------------------------------------------------
+                // 1. #nav 요소의 위치를 미리 확인
+                // 2. 브라우저 화면이 스크롤 되면
+                // 2.1. 스크롤 된 높이가 #nav 요소의 위치보다 더 커지면
+                //      = 화면이 스크롤 되어 #nav 요소보다 더 아래로 내려오면
+                // 2.2. #nav 요소를 화면 상단에 고정시킨다.
+                // 2.3. 스크롤 된 높이가 #nav 요소의 위치보다 더 작아지면
+                //      = 화면이 스크롤 되어 #nav 요소의 본래 위치보다 더 위로 올라가면
+                // 2.4. #nav 요소를 본래 위치로 되돌린다.
+                
+                //-----------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $nav = $("#nav");
+                var $indicator = $("#indicator");
+                var $window = $(window);
+
+                // 1. #nav 요소의 위치를 미리 확인
+                var navTop = $nav.offset().top;
+                var headerHeight = $("#header").innerHeight();
+
+                console.log("navTop = " + navTop)
+                console.log("headerHeight = " + headerHeight)
+
+                // 스크롤 인디케이터(scroll indicator)
+                // → HTML 문서의 전체 내용을 기준으로 브라우저가 얼마나 스크롤 되었는지 나타내는 기능
+                // → 최대 스크롤 높이를 기준으로 현재 스크롤 된 높이의 비율을 구해서 구현할 수 있다.
+
+                // 최대 스크롤 높이 = 문서의 높이 - 브라우저 화면(viewport)의 높이
+                var maxScrollTop = $(document).height() - $window.height();
+
+                // 브라우저 화면 높이(viewport)의 크기가 바뀌면 최대 스크롤 높이를 다시 계산한다.
+                // → window 객체에 scroll 이벤트 핸들러를 연결해서 구현
+                $window.on("resize", function () {
+                    // 이벤트 핸들러: window 객체에 resize 이벤트가 발생하면 실행할 기능
+
+                    maxScrollTop = $(document).height() - $window.height();
+                });
+        
+                //-----------------------------------------------------------------------------
+                // 2. 브라우저 화면이 스크롤 되면
+                // → window 객체에 scroll 이벤트 핸들러를 연결해서 구현
+                //   scroll 이벤트는 매우 빈번하게 발생하므로 최대한 간단하게 구현해야 한다.
+                $window.on("scroll", function () {
+                    
+                    // 현재 스크롤 높이
+                    // → scroll 이벤트는 매우 빈번하게 발생하므로 최대한 간단하게 구현해야 한다.
+                    //   하지만 scrollTop() 메서드는 계속해서 변하는 값이기 때문에 scroll 이벤트 핸들러
+                    //   안에서 작성할 수 밖에 없다. 하지만 $(window)는 고정된 값이므로 scroll 이벤트
+                    //   핸들러 바깥에서 미리 찾아놓은 다음 변수에 저장하여 그 변수를 대입하는 것이 좋다.
+                    var scrollTop = $window.scrollTop();
+
+                    // 최대 스크롤 높이를 기준으로 현재 스크롤 높이의 백분율 계산
+                    var ratio = scrollTop / maxScrollTop * 100;
+
+                    // 스크롤 된 비율에 맞춰 #indicator 요소의 너비 설정
+                    $indicator.css("width", ratio + "%");
+
+                    // 2.1. 스크롤 된 높이가 #nav 요소의 위치보다 더 커지면
+                    //      → 스크롤 된 높이 = $(window).scrollTop()
+                    if ( scrollTop > navTop )
+                    
+                        // 2.2. #nav 요소를 화면 상단에 고정시킨다.
+                        $nav.addClass("fixed").children("div").show();
+            
+                    // 2.3. 스크롤 된 높이가 #nav 요소의 위치보다 더 작아지면
+                    else
+                        // 2.4. #nav 요소를 본래 위치로 되돌린다.
+                        //      scroll indicator를 숨긴다.
+                        $nav.removeClass("fixed").children("div").hide();
+
+                }); // window.onscroll
+
+            }); // document.onready
+
+        </script>
+
+    </head>
+    <body>
+        <header id="header">
+            <h1>Fixed Navigation Bar</h1>
+        </header>
+        <nav id="nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#html">HTML</a></li>
+                <li><a href="#css">CSS</a></li>
+                <li><a href="#javascript">JavaScript</a></li>
+                <li><a href="#jquery">jQuery</a></li>
+            </ul>
+            <!-- scroll indicator -->
+            <div id="indicator"></div>
+        </nav>
+        <article id="content">
+            <section>
+                <h2>Lorem ipsum dolor sit amet</h2>
+                <p>
+                    consectetur adipiscing elit. 
+                    Curabitur at bibendum risus, vitae finibus ex.
+                    Fusce non augue in diam ultrices dapibus nec laoreet turpis. 
+                    Pellentesque pretium fringilla diam, a tincidunt ante fringilla ac. 
+                    Quisque justo lacus, posuere ut nulla non, sagittis euismod velit. 
+                    Mauris nec mollis massa. Nulla facilisi. 
+                    Etiam eget nulla at enim porta fringilla at eu massa. 
+                    Donec ac tincidunt ipsum. Nulla condimentum, ante sed consectetur congue, 
+                    purus turpis sodales leo, vitae rhoncus enim sem non metus. 
+                    Etiam mollis pulvinar libero et placerat. 
+                    In sed sapien semper, scelerisque sapien at, lobortis felis. 
+                    Fusce feugiat nisi nec sapien pellentesque, in fringilla neque efficitur. 
+                    Sed ex magna, mollis vel nulla a, porta lacinia felis. 
+                    Donec a nibh et nulla blandit venenatis. 
+                    Morbi ut enim efficitur, convallis leo eget, fermentum urna.
+                    Orci varius natoque penatibus et magnis dis parturient montes, 
+                    nascetur ridiculus mus. Cras quis nulla pellentesque, 
+                    placerat nulla non, porta augue.
+                    Nulla nisl libero, rutrum sodales ullamcorper suscipit,
+                    Aenean nec odio ut diam tristique sollicitudin. 
+                    Cras a lacus ipsum. Mauris malesuada et urna in consectetur.
+                    Morbi consectetur, tortor eu ultrices porta, nulla felis gravida justo, 
+                    eget molestie neque ante faucibus lorem. Nullam vel vestibulum urna, ac aliquam libero.
+                    Nulla gravida velit ex, sodales posuere sapien faucibus eget. 
+                    Mauris feugiat imperdiet urna, vel convallis orci. 
+                    Sed finibus ullamcorper augue quis mollis. 
+                    In sollicitudin neque quis neque tincidunt tristique. Cras eu condimentum orci. 
+                    Vestibulum pretium felis in ligula dapibus rutrum. 
+                </p>
+            </section>
+            <section>
+                <h2>ultricies non arcu</h2>
+                <p>
+                    Vivamus et aliquam dui. 
+                    Praesent vulputate lobortis magna, in placerat magna vestibulum eget. 
+                    Proin quis felis tellus. 
+                    Pellentesque vel massa ac magna consectetur lacinia quis quis nunc.
+                    Mauris vestibulum nibh lectus, et tincidunt nunc auctor vel. 
+                    Aenean at pretium magna. Morbi congue lectus magna, 
+                    quis maximus nibh tincidunt vitae. Maecenas ac viverra diam, ut tempus nisi. 
+                    Aenean velit orci, pharetra quis gravida sed, porta ut leo. 
+                    Nam mattis mattis purus ut rutrum. Donec ac eleifend elit. 
+                    Vestibulum at ipsum in justo lobortis laoreet ac eget erat. 
+                    Morbi tortor augue, ullamcorper nec nulla sed, commodo eleifend libero. 
+                    Cras et fringilla diam. Nam vehicula semper nisi et consequat. 
+                    Sed pretium consequat augue a consectetur. 
+                    In bibendum est eu diam posuere sodales.
+                    Pellentesque dapibus urna sit amet ante hendrerit fermentum. 
+                    Phasellus id odio efficitur, dignissim nunc ac, bibendum mauris.
+                    Suspendisse ut scelerisque tellus, ac suscipit mauris. 
+                    Aenean mattis molestie odio non porttitor. Cras vel eros lectus. 
+                    Sed at nulla a sapien blandit bibendum nec varius elit. 
+                    Aenean mattis ut quam non cursus. Proin lobortis pulvinar tempus. 
+                    Sed ante est, commodo in consectetur vel, congue vitae ex.
+                    Aenean consequat vel eros in mattis. Phasellus ut rutrum metus. 
+                    Aliquam pulvinar eget nibh in tempor. 
+                    Duis sagittis rutrum neque sed consectetur. 
+                    Donec vehicula augue id nulla faucibus tempus vel non tortor. 
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                    per inceptos himenaeos. Maecenas ultrices turpis id sem tempus sagittis.
+                </p>    
+            </section>
+            <section>
+                <h2>Sed auctor pharetra nibh</h2>
+                <p>
+                    vitae aliquet lectus porttitor eu. 
+                    Nullam accumsan et tellus quis consectetur. 
+                    Curabitur faucibus, metus vitae condimentum rhoncus, 
+                    urna lacus elementum lorem, nec imperdiet enim odio vitae justo. 
+                    Suspendisse cursus cursus augue sit amet varius. 
+                    Nam sagittis nunc vitae tristique feugiat. 
+                    Phasellus ornare aliquet felis, a suscipit felis laoreet non.
+                    Nunc volutpat vitae augue at vehicula. 
+                    Maecenas venenatis sapien ut velit lacinia, non bibendum ante elementum. 
+                    Sed ullamcorper, quam vitae tristique blandit, nisi enim semper neque, 
+                    ut viverra arcu justo eu sapien. Proin malesuada diam sed magna imperdiet, 
+                    sed pellentesque nulla gravida. Pellentesque sed pulvinar felis. 
+                    In hac habitasse platea dictumst. Ut tortor magna, iaculis nec leo ut, 
+                    elementum facilisis lorem. Phasellus quis ante quis magna commodo consequat. 
+                    In ornare purus sapien, sed placerat lorem scelerisque nec. 
+                    Maecenas metus ligula, lacinia eu turpis id, congue facilisis nulla. 
+                    Sed vitae lectus nec mauris consequat gravida. 
+                    Phasellus tincidunt ex turpis, in vestibulum massa vestibulum dapibus. 
+                    Donec massa ipsum, posuere non nisi et, ultricies blandit risus. 
+                    Vestibulum vitae lacus vel diam tristique blandit.
+                    Cras justo magna, placerat venenatis tellus sit amet, varius consequat dolor. 
+                    Nulla ornare sapien venenatis justo semper, eu hendrerit lectus mollis. 
+                    Nulla maximus quam nec odio eleifend, in egestas magna tristique. 
+                    Ut eleifend molestie elit et dapibus. 
+                    Sed arcu ipsum, mattis nec nulla eget, laoreet cursus velit.
+                    Pellentesque feugiat lectus non laoreet tincidunt. 
+                    Maecenas vel velit lacinia, finibus felis sed, ullamcorper elit. 
+                    Suspendisse et mauris at eros eleifend lobortis. Vestibulum sed ultricies ex. 
+                    Vestibulum euismod nisi arcu, vehicula laoreet est mattis sed.
+                </p>
+            </section>
+
+            <section>
+                <h2>Nulla eget luctus risus</h2>
+                <p>
+                    Integer vitae leo hendrerit, interdum tortor egestas, 
+                    vehicula libero. Proin sed venenatis ex, et ornare lectus. 
+                    Aliquam feugiat odio sem, vel eleifend velit blandit a. 
+                    Mauris eu lacus nec sapien finibus interdum.
+                    Nam non elementum magna, eget hendrerit orci. 
+                    Phasellus sed nisi sit amet sapien fringilla imperdiet. 
+                    Suspendisse ut nulla ornare, placerat leo sit amet, malesuada nulla. 
+                    Aliquam efficitur tempus nisl. Nunc volutpat tempor dictum. 
+                    Aenean vitae tortor at magna sodales ultrices. 
+                    Aenean molestie nulla ipsum, sit amet finibus sem scelerisque in. 
+                    Nam accumsan at metus et consectetur. Sed tincidunt ac est ac volutpat. 
+                    Nunc imperdiet facilisis molestie. Mauris id metus tortor.
+                    Cras non dui ut nulla aliquet commodo. Donec vitae consectetur odio, 
+                    pellentesque volutpat eros. Maecenas ornare magna vitae leo sagittis efficitur. 
+                    Maecenas at ultricies diam. Maecenas facilisis nunc id pharetra maximus. 
+                    Vestibulum semper erat tempus, pellentesque purus ut, cursus dui. Nam felis mi, 
+                    feugiat ut velit sed, blandit suscipit quam. Nulla faucibus a urna non blandit. 
+                    Sed tortor neque, lacinia pharetra dui ut, hendrerit fermentum ex. 
+                    Mauris aliquet nisi id nisi convallis dictum.
+                    Donec blandit justo ac gravida pharetra. Suspendisse sed nibh eros. 
+                    Mauris sit amet nulla at neque facilisis tempus. 
+                    Nulla non lectus nec diam volutpat dignissim sed vitae lectus. 
+                    Donec blandit ornare nulla, sed sollicitudin arcu lobortis eu. 
+                    Nulla sodales dolor sed tellus ornare facilisis. 
+                    Etiam vehicula posuere enim at feugiat. Praesent ornare, 
+                    risus faucibus varius volutpat, odio nisi placerat justo, 
+                    quis faucibus urna metus posuere massa.
+                </p>
+            </section>
+    </article>
+    </body>
+    </html>

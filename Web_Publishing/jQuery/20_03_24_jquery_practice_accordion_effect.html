@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 3em;
+                color: white;
+                background-color: black;
+            }
+
+            #accordion {
+                width: 600px;
+                margin: 50px auto;
+            }
+
+            #accordion > section:not(:last-child) {
+                margin-bottom: 10px;
+            }
+
+            #accordion > section > h2 {
+                font-size: 20px;
+                border: 1px solid #aaa;
+                border-radius: 4px;
+                padding: 0.5em 1em;
+                background-color: #333;
+                cursor: pointer;
+
+                /* 커서로 셀렉트가 되지 않도록 설정 */
+                user-select: none;
+
+                /* 배경색을 줄 때 transition 효과 지정 */
+                transition-duration: 200ms;
+            }
+
+            #accordion > section > h2:hover {
+                background-color: #444;
+            }
+
+            #accordion > section.on > h2 {
+                background-color: darkslategrey;
+            }
+
+            #accordion > section > p {
+                margin: 0;
+                border: 1px solid #aaa;
+                border-top: none;
+                padding: 1em;
+                line-height: 1.4;
+
+                /* 처음에는 보이지 않도록 설정 */
+                display: none;
+            }
+/*
+            "Positioned center": {
+                "prefix": "poscenter",
+                "body": [
+                    "position: absolute;\ntop: 50%; left: 50%;\ntransform: translate(-50%, -50%);"
+                ],
+
+            }
+*/
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+
+                // 1. #accordion 요소의 h2 요소를 클릭하면
+                // 1.1. #accordion 요소의 section 요소들 중에서 on 클래스가 설정되어 있는 요소를 찾아
+                // 1.2. 그 요소의 설정했던 on 클래스를 제거하고
+                // 1.3. 그 요소의 자식 요소 중 p 요소를 접어서 사라지게 한다.
+                // 1.4. 클릭한 요소의 다음에 나오는 p 요소를 찾아서
+                // 1.5. 그 요소를 펼쳐 나타나게 하고
+                // 1.6. 그 요소의 부모 요소의 on 클래스를 추가한다.
+
+                //------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $sections = $("#accordion > section");
+
+                // 문서가 로드 되면 on 클래스가 설정된 section 요소의 p 요소가 화면에 보이도록 설정
+                $sections.filter(".on").children("p").css("display", "block");
+
+                // 1. #accordion 요소의 h2 요소를 클릭하면
+                $sections.children("h2").on("click", function () {
+                    // 이미 펼쳐져 있는 요소인 경우 이벤트 핸들러 종료
+                    if ($(this).parent().is(".on")) return;
+
+                    // 1.1. #accordion 요소의 section 요소들 중에서 on 클래스가 설정되어 있는 요소를 찾아
+                    // 1.2. 그 요소의 설정했던 on 클래스를 제거하고
+                    // 1.3. 그 요소의 자식 요소 중 p 요소를 접어서 사라지게 한다.
+                    $sections.filter(".on").removeClass("on").children("p").slideUp(200);
+
+                    // 1.4. 클릭한 요소의 다음에 나오는 p 요소를 찾아서
+                    // 1.5. 그 요소를 펼쳐 나타나게 하고
+                    // 1.6. 그 요소의 부모 요소의 on 클래스를 추가한다.
+                    $(this).next().slideDown(200).parent().addClass("on");
+                });
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div id="accordion">
+            <section class="on">
+                <h2>Lorem ipsum dolor sit amet</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae metus ligula. 
+                    In eget tristique tortor, et laoreet ipsum. Nulla venenatis id est at luctus. 
+                    Curabitur imperdiet semper leo, vel volutpat sem luctus volutpat. 
+                    Aenean quis ex eu sapien pretium tincidunt quis blandit mi. 
+                    Vivamus sed odio accumsan, eleifend est vel, auctor lorem. 
+                    Fusce luctus scelerisque lorem, vel dignissim mi. Donec quis quam arcu. 
+                    Aliquam in ultricies neque, tincidunt porta lorem. 
+                </p>
+            </section>
+            <section>
+                <h2>Morbi ut ultrices mi</h2>
+                <p>
+                    Morbi ut ultrices mi, nec luctus erat. Maecenas sed tempus sem, eu imperdiet mi. 
+                    Nunc eget mi euismod, placerat lectus sit amet, mattis mauris. 
+                    Nullam ultrices elit ex, congue elementum est sagittis nec. 
+                    Nulla venenatis ipsum ut ligula venenatis, non efficitur metus pulvinar.
+                    Aliquam porttitor porta lectus, ac dapibus tellus eleifend et.
+                    Quisque dui mi, lobortis id dolor hendrerit, volutpat fermentum sem. 
+                    Integer convallis quis quam vel mattis. Fusce tristique justo vitae mauris bibendum tincidunt.
+                </p>
+            </section>  
+            <section>
+                <h2>Sed viverra velit non odio rutrum</h2>
+                <p>
+                    Sed viverra velit non odio rutrum, eget molestie enim rhoncus. Fusce ultricies mauris non ante aliquam feugiat. 
+                    Aenean rutrum ipsum ultrices metus tempus egestas. Sed ultricies odio et enim hendrerit iaculis. 
+                    Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                    Etiam mollis ipsum at urna aliquet, ut accumsan leo imperdiet. 
+                    Vivamus ac viverra erat, ultrices rutrum urna. Nunc maximus mi id tincidunt efficitur.
+                    Integer pellentesque est sed sapien ullamcorper. 
+                </p>
+            </section>
+            <section>
+                <h2>Ut condimentum risus nisi</h2>
+                <p>
+                    Ut condimentum risus nisi. Praesent a sapien lorem. Fusce et mauris id enim ullamcorper semper. 
+                    Aenean scelerisque ante non porttitor semper. Donec fringilla lobortis ultricies. 
+                    Integer auctor mauris et libero convallis, non porttitor ex tincidunt. Quisque et purus justo.
+                    Vestibulum placerat ipsum auctor, viverra nisl sit amet, egestas dolor. 
+                    In hac habitasse platea dictumst.
+                    Curabitur at lectus viverra, posuere ipsum id, commodo lacus. 
+                    Pellentesque accumsan consequat quam in fringilla.
+                </p>
+            </section>
+            <section>
+                <h2>Proin sit amet rutrum mauris</h2>
+                <p>
+                    Proin sit amet rutrum mauris. Morbi tempus, neque a sagittis efficitur, est nisi scelerisque metus, 
+                    sit amet viverra risus ipsum ut ante. Nulla consequat ut lacus non lobortis. 
+                    Nam in nulla nec ex eleifend auctor nec in neque. Nam nec tristique purus. 
+                    Nulla sollicitudin a mauris at imperdiet. Maecenas eleifend metus eu tincidunt convallis.
+                    Ut tempus libero suscipit, gravida nunc non, sodales mauris. 
+                    Sed ut laoreet dui, eu sagittis nibh. Phasellus convallis ante at sagittis commodo.
+                </p>
+            </section>
+        </div>
+    </body>
+</html>

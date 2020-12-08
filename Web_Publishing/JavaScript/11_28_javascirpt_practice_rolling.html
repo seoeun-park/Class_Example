@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 28일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                background-color: black;
+            }
+            #container {
+                width: 500px;
+                height: 100px;
+                border: 10px solid gold;
+                background-color: #555;
+                color: white;
+                margin: 100px auto;
+                overflow: hidden;
+                font-size: 25px;
+            /* #roliing을 위로 이동시키기 위한 3가지 방법 중 position 스타일 속성을 주는 방법*/
+            }
+
+            /* #roliing을 위로 이동시키기 위한 3가지 방법 중 position 스타일 속성을 주는 방법*/
+            #rolling {
+                position: relative;
+                /* positon 스타일 속성의 기본값은 0이 아닌 auto이다.
+                    auto로 그냥 둘 경우 원하는 스타일이 제대로 안나올 가능성이 높으므로
+                    0으로 초기화 해주어야 한다. */
+                top: 0;
+            }
+
+            #rolling > li {
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+                
+            }
+        </style>
+    </head>
+    <body>
+    <!-- 연습문제 : 여러 항복 중 한 항목만 특정 영역에 나오는 HTML 문서 작성
+        여러 항목들이 특정 영역에 순차적으로 돌아가면서 나오도록 하는 프로그램 작성 -->
+        <div id="container">
+            <ul id="rolling">
+                <li>1. Time is gold</li>
+                <li>2. No sweat, no sweet</li>
+                <li>3. Asking costs nothing</li>
+                <li>4. Step by step goes a long way</li>
+                <li>5. You will never know until you try</li>
+            </ul>
+        </div>
+
+        <script>
+            // 1. 일정한 시간마다
+            // 2. #rolling 요소를 위로 이동시킨다.
+
+            //--------------------------------------------------------------
+            // 프로그램에서 참조하는 요소를 미리 탐색
+            var rolling = document.getElementById("rolling");
+            // → 변수 rolling에는 DOM에 찾은, #rolling 요소를 표현하는 Element 객체가 대입된다
+            //  그래서 이제부터 변수 rolling을 통해 #rolling 요소에 접근할 수 있다.
+
+            // 인덱스 변수(index variable): 프로그램에서 규칙적으로 변하는 값을 표현하기 위해 사용하는 변수
+            var i = 1;
+
+            // 1. 일정한 시간마다
+            //   → window.setInterval 메서드로 타이머를 등록해서 구현
+            window.setInterval(function () {
+
+                // 2. #rolling 요소를 위로 이동시킨다.
+                //   → 이 함수가 실행될 때마다 항목들을 순차적으로 보여주기 위해 #rolling 요소의
+                //     위치를 li 요소 하나만큼(100px) 계속 위로 이동시킨다.
+
+                // 요소의 위치를 이동시킬 때 사용하는 스타일 속성
+                // 1. margin 스타일 속성
+                // 2. position 스타일 속성이 설정되었을 때 top, right, bottom, left 스타일 속성
+                // 3. transform 스타일 속성의 translate 함수
+
+                // margin-top: -100px, -200px, -300px, -400px, 0, -100px, -200px, ...
+                // → 이렇게 규칙적으로 변하는 값을 표현하기 위해 인덱스 변수를 사용한다.
+                // i = 1, 2, 3, 4, 0, 1, 2, ...
+
+                // 1. margin 스타일 속성
+                rolling.style.marginTop = (i *-100) + "px";
+                // 크기를 설정하는 스타일 속성에는 반드시 단위까지 붙여서 값을 설정해야 한다.
+
+                // 2. position 스타일 속성
+                rolling.style.top = (i * -100) + "px";
+
+                // 3. transform 스타일 속성
+                rolling.style.transform = "translateY(" + (i * -100) + "px)";
+
+                // 다음에 이 함수가 실행됐을 때를 위해 변수 i의 값 증가
+                i++;
+
+                // 변수 i의 값은 계속 증가할 수 없다. 만약 변수 i의 값이 5가 되면, 변수 i에 0을 대입한다.
+                // if (i == 5) i = 0
+                // if (i == rolling.children.length) i = 0; 
+                i %= rolling.children.length;
+                
+            }, 2000);
+        </script>
+        
+        <!--
+        <script>
+            var i = 0;
+            var rolling = document.getElementById("rolling");
+            var sayings = document.getElementsByTagName("li");
+
+            window.setInterval(function () {
+
+                rolling.style.transform = "translateY(-100px)"
+                
+                i++;
+
+                i %= sayings.length;
+                
+            }, 1000);
+        </script>
+    -->
+
+    </body>
+</html>    

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>11월 4일 웹페이지 레이아웃</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            #container {
+                width: 960px;
+                margin: 0 auto;
+            }
+            #header, #nav, #sidebar, #content, #footer {
+                border:  10px solid #555;
+                border-radius: 6px;
+                padding: 0.4em 1em;
+                font-weight: 900; /* extra-bold*/
+                font-size: 1.2em;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+            }
+            #sidebar, #content {
+                height: 300px;
+            }
+            #wrap::after { content: ""; display: block; clear: both;}
+            #sidebar {
+                float: left;
+                width: 200px;
+                margin-right: 10px;
+            }
+            #content {
+                float: left;
+                width: 750px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--고정 폭 레이아웃에서 모든 영역의 너비를 설정하기 위해 추가한 요소-->
+        <div id="container">
+            <header id="header">
+                Header
+            </header>
+
+            <nav id="nav">
+                Navigation
+            </nav>
+        <!--한 행에 두 영역이 나온 경우에는 묶어서 정리한다-->
+        <div id="wrap">
+            <aside id="sidebar">
+                Sidebar
+            </aside>
+
+            <main id="content">
+                Content
+            </main>
+        </div> <!-- /#wrap-->
+
+            <footer id="footer">
+                Footer
+            </footer>
+        </div> <!-- /#container-->
+    </body>
+</html>

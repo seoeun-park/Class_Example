@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 11일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                background-color: black;
+            }
+
+            #hello {
+                color: white;
+                background-color: #555;
+                width: 350px;
+                margin: 100px auto;
+                font-size: 50px;
+                font-weight: 900;
+                letter-spacing: -1px;
+                text-align: center;
+                border-radius: 8px;
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <!--
+           <script>
+               // 연습문제(12/11): 5초가 지나면 h1 요소가 화면 위로 올라가 사라지도록하는
+               //  JavaScirpt 프로그램을 jQuery를 이용해 작성하라
+               
+               //-------------------------------------------------------------------------
+               // 1. 5초가 지난 후
+               // 2. #hello 요소를 (요소의 Y축 상의 위치와 요소의 높이를 더한 값)만큼 위로 이동시킨다
+               
+                //-------------------------------------------------------------------------
+                window.addEventListener("load", function () {
+                    // 이벤트 핸들러: window 객체에 load 이벤트가 발생하면 실행할 기능
+                    // → 브라우저가 HTML 문서를 읽어들인 이후에 발생하는 이벤트
+                        
+                    // 프로그램에서 참조하는 요소를 미리 탐색
+                    var hello = document.getElementById("hello");
+                    // → 변수 hello에는 DOM에서 찾아놓은 #hello 요소를 표현하는 Element 객체가 대입되어 있다.
+                    
+                    // 디버그 메시지
+                    console.log("hello.offsetTop = " + hello.offsetTop);
+                    console.log("hello.offsetHeight = " + hello.offsetHeight);
+                
+                    window.setTimeout(function () {
+                        // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 5000ms가 지난후에 실행된다.
+                        
+                        // 2. #hello 요소를 (요소의 Y축 상의 위치와 요소의 높이를 더한 값)만큼 위로 이동시킨다
+                        
+                        // 2.1. 이동할 거리 계산
+                        var delta = hello.offsetTop + hello.offsetWidth;
+                        
+                        // 2.2. #hello 요소를 계산한 거리만큼 위로 이동시킨다. 
+                        hello.style.marginTop = (-1 * delta) + "px";
+                        hello.style.transition = "1s";
+                        
+                    }, 5000)
+                    
+                }); //window.load
+            </script>
+        -->
+
+        <!-- ----------------------------------------------------------------------------- -->
+        <script>
+                // 연습문제(12/11): 5초가 지나면 h1 요소가 화면 위로 올라가 사라지도록하는
+                //  JavaScirpt 프로그램을 jQuery를 이용해 작성하라
+                
+            $(function () {
+                // 이벤트 핸들러: window 객체에 ready 이벤트가 발생하면 실행할 기능
+                // → HTML 문서를 읽어들인 후 해석하고 DOM 구축을 끝낸 시점에 발생하는 이벤트
+                // → window 객체의 load 이벤트와 비슷한 시점에 발생하는 이벤트
+
+                //---------------------------------------------------------------------
+                // 1. 5초가 지난 후
+                // 2. #hello 요소가 화면 위로 사라지도록 한다.
+                
+                //---------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $hello = $("#hello");
+                
+                // 디버그 메시지
+                console.log("$hello.offsetTop = " + $hello.offsetTop);          //undefined
+                console.log("$hello.offsetHeight = " + $hello.offsetHeight);    //undefined
+                // → Element.offsetTop과 Element.offsetHeight는 Element 객체를 대상으로 하는 속성이다.
+                //   여기서 $hello는 jQuery객체이므로 undefined가 뜨는 것이다.
+                
+                // 1. 5초가 지난 후
+                //    → widow.setTimeout 메서드로 타이머를 등록해서 구현
+                window.setTimeout (function () {
+                    // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 5000ms가 지난후에 실행된다.
+                
+                    // 2. #hello 요소가 화면 위로 사라지도록 한다.
+                    // transition: 0.4s;
+                    // margin-top: -150px;
+                    
+                    $hello.css("margin-top", "-150px");
+                    $hello.css("transition", "1s");
+
+                }, 5000)
+                
+            }); //document.onready
+        </script>
+
+    </head>
+    <body>
+        <h1 id="hello">Hello World!</h1>
+    </body>
+</html>

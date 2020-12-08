@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>display 속성(inline과 inline-block)</title>
+        <style>
+            #sbs {
+                list-style-type: none;
+            }
+            #sbs > li {
+                background-color: yellowgreen;
+                margin: 4px;
+                padding: 8px;
+                display: inline-block;
+                /* inline을 적용했을 때와 inline-block을 적용했을 때 차이점
+                    → 인라인은 상단에 더 붙어있고 인라인 블록은 상대적으로 떨어져 있다.
+                      그러나 형식은 똑같다. */
+
+                /* ul과 li 요소는 기본적으로 display 속성이 block이다. */
+            }                           
+        </style>
+    </head>
+    <body>
+        <ul id=sbs>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery</li>
+            <li>Portfolio</li>
+        </ul>
+    </body>
+</html>

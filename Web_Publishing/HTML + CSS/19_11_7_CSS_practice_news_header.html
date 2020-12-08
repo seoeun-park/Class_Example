@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="reset.css">
+        <title>11월 8일 연습문제</title>
+        <style>
+            #container {
+                width: 640px;
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+                margin: 10px auto;
+            }
+
+            #header {
+                font-size: 20px;
+                font-weight: 900;
+                letter-spacing: -1px;
+                padding: 25px 0;
+            }
+
+            #wrap::after { content: ""; display: block; clear: both; }
+
+            #wrap > div {
+                width: 200px;
+                height: 360px;
+                float: left;
+                line-height: 25px;
+                position: relative;
+                margin-right: 20px;
+            }
+            #wrap > div::after {
+                content: "";
+                width: 1px;
+                border-right: 1px solid darkgray;
+                position: absolute;
+                top: 10px;
+                bottom: -30px;
+                right: -10px;
+            }
+            #wrap > div > h2 {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            #wrap > div > h3 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 6px;
+            }
+            #wrap > ul { float: left;}
+            #wrap > ul > li {
+                width: 160px;
+                line-height: 30px;
+                padding-bottom: 15px;
+                /*margin-bottom: 15px;*/
+                /*position: relative;*/
+            }
+            /* #wrap > ul > li::after {
+                content: "";
+                width: 1px;
+                border-bottom: 1px solid darkgray;
+                position: absolute;
+                left: 10px;
+                right: 10px;
+                bottom: -15px;
+            } */
+            #wrap > ul > li:not(:last-child) {
+                border-bottom: 1px solid darkgray;
+            }
+
+            #wrap > ul > li > h2 {
+                font-size: 14px;
+            }
+            #wrap > ul > li > p {
+                font-size: 18px;
+                font-weight: bold;
+            }            
+
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <h1 id="header">News</h1>
+            <div id="wrap">
+                <div>
+                    <img src="https://place-hold.it/200x120" alt="thumnail">
+                    <h2>International</h2>
+                    <h3>Lorem ipsum dolor sit amet</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Suspendisse eu dui et turpis porttitor mollis eu at nisl.
+                        Aenean a consequat orci.
+                        Integer volutpat imperdiet leo et laoreet. </p>
+                </div>
+                <div>
+                    <img src="https://place-hold.it/200x120" alt="thumnail">
+                    <h2>International</h2>
+                    <h3>Lorem ipsum dolor sit amet</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Suspendisse eu dui et turpis porttitor mollis eu at nisl.
+                        Aenean a consequat orci.
+                        Integer volutpat imperdiet leo et laoreet. </p>
+                </div>
+                <ul>
+                    <li>
+                        <h2>Science</h2>
+                        <p>Morbi faucibus at quam eget tincidunt</p>
+                    </li>
+                    <li>
+                        <h2>Society</h2>
+                        <p>accumsan orci mattis, euismod velit </p>
+                    </li>
+                    <li>  
+                        <h2>International</h2>
+                        <p>Sed in aliquam felis, sed tincidunt massa </p>
+                    </li>
+                </ul>
+            </div> <!-- /#wrap-->
+        </div> <!-- /#container-->
+    </body>
+</html>

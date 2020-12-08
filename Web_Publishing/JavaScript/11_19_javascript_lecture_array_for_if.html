@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>11월 19일 배운 내용</title>
+</head>
+
+<body>
+    <pre><script>
+
+        //연습문제 (1) : 1부터 20까지 정수 중에서 짝수인 정수를 출력하는 프로그램을 작성하라.
+
+        // 방법 (1)-----------------------------------------------------------
+
+        // document.writeIn(2);
+        // document.writeIn(4);
+        // document.writeIn(6);
+        //...
+        // document.writeIn(20);
+        
+        // for 구문을 이용해 반복문을 작성할 때 고려할 사항
+        // 1. 반복해서 실행할 문장
+        //  → document.writeIn(1);
+        // 2. 반복해서 실행할 문장에서 변하는 값 = 인덱스 변수를 이용해서 표현
+        //  → i = 2, 4, 6, 8, 10, 12, 14, 16, 18, 20;
+        // 3. 인덱스 변수의 초기값 = for 구문의 첫 번째 표현식(초기식)
+        //  → i = 2;
+        // 4. 인덱스 변수의 범위 = for 구문의 두 번재 표현식(조건식)
+        //  → i <= 20;
+        // 5. 인덱스 변수의 변화 = for 구문의 세 번째 표현식(종료식, 증가식)
+        //  → (i = i + 2) → (i += 2) 
+
+        for (var i = 2; i <= 20; i += 2)
+            document.writeln(i);
+
+        // 방법 (2)----------------------------------------------------------------
+
+         /* if (1 % 2 == 0)
+            document.writeIn(1);
+           if (2 % 2 == 0)
+            document.writeIn(2);
+           if (3 % 2 == 0)
+            document.writeIn(3);
+           ...
+           if (20 % 2 == 0)
+            document.writeIn(20) 
+        */
+
+        // for 구문을 이용해 반복문을 작성할 때 고려할 사항
+        // 1. 반복해서 실행할 문장
+        //  → if (1 % 2 == 0) document.writeIn(1);
+        // 2. 반복해서 실행할 문장에서 변하는 값 = 인덱스 변수를 이용해서 표현
+        //  → i = 1, 2, 3, 4, ..., 19, 20;
+        // 3. 인덱스 변수의 초기값 = for 구문의 첫 번째 표현식(초기식)
+        //  → i = 1;
+        // 4. 인덱스 변수의 범위 = for 구문의 두 번재 표현식(조건식)
+        //  → i <= 20;
+        // 5. 인덱스 변수의 변화 = for 구문의 세 번째 표현식(종료식, 증가식)
+        //  → i++;
+
+        // 인덱스 변수가 1에서 부터 20보다 작거나 같을 때까지 1씩 증가하면서
+        // 변수가 짝수이면
+        // 문서에 변수의 값을 출력
+
+        for (var i = 1; i <= 20; i++)
+            if (i % 2 == 0)
+                document.writeln(i);
+
+        //-----------------------------------------------------------------------
+        /* 연습문제 (2) : 1부터 100까지 정수 중에서 3의 배수이거나
+            7의 배수인 정수를 출력하는 프로그램을 작성하라. */
+
+        // 1부터 100까지의 정수 중에서
+        //  → for 구문을 이용해 인덱스 변수의 값을 1부터 100까지 1씩 증가시키면서
+        // 인덱스 변수의 값이 3의 배수이거나(OR) 7의 배수이면
+        // 인덱스 변수의 값을 문서에 출력
+
+        for (var i = 1; i <= 100; i++)
+            if (i % 3 == 0 || i % 7 == 0)
+                document.writeln(i);
+
+        //-----------------------------------------------------------------------
+        // 배열(array): 저장 공간들의 집합
+        //  → 같은 유형의 값들을 저장하기 위해 사용
+        //  → 배열 리터럴([])을 이용해서 생성
+        // 배열의 원소(item): 배열의 각 저장 공간
+        // 배열의 인덱스(index): 배열의 원소에 접근하기 위해 사용하는, 0부터 시작하는 정수
+        // 배열의 크기(length): 배열에서 원소들의 개수
+
+        var numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+
+        // 1. 배열의 모든 원소를 순서대로 출력
+        // document.writeIn(number[0]);
+        // document.writeIn(number[1]);
+        // document.writeIn(number[2]);
+        // document.writeIn(number[3]);
+        // ...
+        // document.writeIn(number[8]);
+        // document.writeIn(number[9]);
+
+        // for 구문을 이용해 반복문을 작성할 때 고려할 사항
+        // 1. 반복해서 실행할 문장
+        //  → document.writeln(numbers[0]);
+        // 2. 반복해서 실행할 문장에서 변하는 값 = 인덱스 변수를 이용해서 표현
+        //  → i = 0, 1, 2, 3, ..., 9;
+        // 3. 인덱스 변수의 초기값 = for 구문의 첫 번째 표현식(초기식)
+        //  → i = 0; (배열의 첫 번째 원소의 인덱스)
+        // 4. 인덱스 변수의 범위 = for 구문의 두 번재 표현식(조건식)
+        //  → (i <= 9) → (i < 10) → (i < 배열 numbers의 크기) → (i < numbers.length) 
+        // 5. 인덱스 변수의 변화 = for 구문의 세 번째 표현식(종료식, 증가식)
+        //  → i++;
+
+        for (var i = 0; i < numbers.length; i++)
+            document.writeln(numbers[i]);
+
+        // 2. 배열의 모든 원소를 역순으로 출력
+
+        // document.writeIn(numbers[9]);
+        // document.writeIn(numbers[8]);
+        // ...
+        // document.writeIn(numbers[3]);
+        // document.writeIn(numbers[2]);
+        // document.writeIn(numbers[1]);
+        // document.writeIn(numbers[0]);
+
+        // for 구문을 이용해 반복문을 작성할 때 고려할 사항
+        // 1. 반복해서 실행할 문장
+        //  → document.writeIn(numbers[0]);
+        // 2. 반복해서 실행할 문장에서 변하는 값 = 인덱스 변수를 이용해서 표현
+        //  → i = 9, 8, 7, 6, ..., 1, 0;
+        // 3. 인덱스 변수의 초기값 = for 구문의 첫 번째 표현식(초기식)
+        //  → (i = 9;) → ( i = 배열의 마지막 원소의 인덱스;) → (i = numbers.length - 1;)
+        // 4. 인덱스 변수의 범위 = for 구문의 두 번재 표현식(조건식)
+        //  → i >= 0;
+        // 5. 인덱스 변수의 변화 = for 구문의 세 번째 표현식(종료식, 증가식)
+        //  → i--;
+
+        for (var i = numbers.length - 1; i>= 0; i--)
+            document.writeln(numbers[i]);
+
+        //-----------------------------------------------------------------------
+        // 연습문제 (3) : 다음과 같은 배열에서 짝수 번째 원소만 출력하는 프로그램을 작성하라
+
+        var numbers = [4, 17, 32, 3, 8, 13, 41, 27, 16, 1];
+
+        // 짝수 번째 원소의 인덱스
+        // → 1, 3, 5, 7, 9
+
+        // document.writeIn(numbers[1]);
+        // document.writeIn(numbers[3]);
+        // document.writeIn(numbers[5]);
+        // document.writeIn(numbers[7]);
+        // document.writeIn(numbers[9]);
+
+        // 배열의 모든 원소 중에서
+        // 인덱스가 홀수이면
+        // 그 인덱스에 해당하는 배열의 원소를 출력한다
+
+        for (var i = 0; i < numbers.length; i++)
+            if (i % 2 == 1)
+                document.writeln(numbers[i]);
+
+
+    </script></pre>
+</body>
+
+</html>

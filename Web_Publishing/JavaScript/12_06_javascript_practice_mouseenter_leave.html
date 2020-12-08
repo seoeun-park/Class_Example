@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 6일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                background-color: black;
+            }
+
+            /* 컨텐츠가 롤링되는 영역 */
+            #container {
+                /* 요소의 영역에 li 요소 하나만 표시될 수 있도록 요소의 높이 설정 */
+                height: 100px;
+
+                width: 600px;
+                border: 5px solid green;
+                margin: 100px auto;
+                color: white;
+                font-size: 25px;
+
+                /* 요소의 영역에 li 요소 하나만 표시될 수 있도록 */
+                overflow: hidden;
+            }
+
+            #rolling {
+                position: relative;
+                top: 0;
+            }
+
+            #rolling > li {
+                /* #container 요소의 영역에 li 요소 하나만 표시되도록 요소의 높이 설정 */
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+            }
+
+            #rolling > li > span {
+                font-size: 30px;
+                font-weight: bold;
+                color: green;
+                padding-right: 10px;
+            }
+
+        </style>
+        <script>
+            window.addEventListener("load", function () {
+                // 이벤트 핸들러: window 객체에 load 이벤트가 발생하면 실행할 기능
+                // → 브라우저가 HTML 문서의 내용을 모두 읽고 해석한 다음 발생하는 이벤트
+                // → 따라서 이 이벤트 핸들러에서는 DOM에 있는 요소들에 정상적으로 접근할 수 있다.
+
+                //---------------------------------------------------------------------------
+                // 1. 일정한 시간마다
+                // 1.1. #rolling 요소를 li 요소 하나의 높이만큼 위로 이동시킨다.
+                // 1.2. #rolling 요소의 움직임이 끝나면
+                // 1.3. #rolling 요소에 적용했던 스타일 속성을 제거하고
+                // 1.4. #rolling 요소의 첫 번째 자식 요소를 마지막으로 옮긴다.
+
+                // 2. #container 요소의 영역에 마우스 포인터가 들어가면
+                // 2.1. #rolling 요소가 움직이는 것을 멈추게 한다.
+
+                // 3. #container 요소의 영역에서 마우스 포인터가 빠져나가면
+                // 3.1. #rolling 요소가 다시 움직이도록 한다.
+
+                //---------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var rolling = document.getElementById("rolling");
+                var conttainer = document.querySelector("#container");
+
+                // 등록했던 타이머를 해제하기 위해 타이머 ID를 저장할 변수(전역 변수)
+                var timerId;
+
+                //---------------------------------------------------------------------------
+                // 1. 일정한 시간마다
+                //     → window.setInterval 메서드로 타이머를 등록해서 구현
+                //     → setInterval 메서드가 반환하는 값, 즉 타이머를 ID를 나중에 활용하기 위해
+                //       변수 timerId에 대입해둔다.
+                timerId = window.setInterval(doRolling, 2000);
+
+                // 디버그 메시지
+                console.log("SET: timerId = " + timerId);
+         
+                //---------------------------------------------------------------------------
+                // 2. #container 요소의 영역에 마우스 포인터가 들어가면
+                //    → #container 요소에 mouseenter 이벤트 핸들러를 연결해서 구현
+                conttainer.addEventListener("mouseenter", function () {
+                    // 이벤트 핸들러: #container 요소에 mouseenter 이벤트가 발생하면 실행할 기능
+
+                    // 디버그 메시지
+                    console.log("SET: timerId = " + timerId);
+
+                    // 2.1. #rolling 요소가 움직이는 것을 멈추게 한다.
+                    //      → 위에서 setInterval 메서드로 등록한 타이머에 의해 #rolling 요소가
+                    //        반복적으로 움직인다. 따라서 #rolling 요소가 움직이는 것을 멈추게 하려면
+                    //        위에서 등록했던 타이머를 해제하면 된다.
+
+                    //      → 타이머를 해제하기 위해서는 타이머 ID가 필요하다. 따라서 위에서
+                    //        setInterval 메서드로 타이머를 등록한 후 반환하는 값, 즉 타이머 ID를
+                    //        알고 있어야 한다. 따라서 setInterval 메섣가 반환하는 값을 변수에
+                    //        대입해두고 여기에서 그 값을 이용해 타이머를 해제한다.
+
+                    //       → 여기서 clearInterval 메서드를 timerId에 대입하지 않는다면?
+                    //        등록했던 타이머와 해제하려는 타이머를 같은 변수에 대입하지 않는다면
+                    //        mouseenter 이벤트가 발생했을 때 해제해야 하는 타이머가 어떤 타이머인지
+                    //        브라우저가 알 수 없으므로 해제해야 하는 타이머를 제대로 해제할 수 없게 된다.
+                    timerId = window.clearInterval(timerId);
+
+                    conttainer.style.fontSize = "35px";
+                });
+
+                //---------------------------------------------------------------------------
+                // 3. #container 요소의 영역에서 마우스 포인터가 빠져나가면
+                //    → #container 요소에 mouseleave 이벤트 핸들러를 연결해서 구현
+                conttainer.addEventListener("mouseleave", function () {
+                    // 이벤트 핸들러: #container 요소에 mouseleave 이벤트가 발생하면 실행할 기능
+
+                    // 3.1. #rolling 요소가 다시 움직이도록 한다.
+                    //      → 위에서 setInterval 메서드로 등록했던 타이머와 같은 동작을 수행하는 타이머를
+                    //        다시 등록한다. 
+
+                    //      → 여기서 등록하려는 setInterval 함수를 timerId에 대입하지 않는다면?
+                    //        mouseleave 이벤트가 발생했을 때 등록되는 setInterval 타이머의 아이디는
+                    //        undefined가 되므로 mouseenter과 mouseleave 이벤트가 발생했을때 타이머의
+                    //        등록과 해제가 제대로 되지 않는다.
+
+                    //      → 그리고 여기서 var timerId로 대입해서는 제대로 작동되지 않는다!
+                    //        왜냐하면 var이라는 키워드는 새로운 저장 공간을 형성하는 변수를 선언할때
+                    //        사용하는 키워드 이다. 그러므로 var timerId라고 대입한다면 위에서 선언한
+                    //        timerId가 아닌 새로운 timerId라는 변수가 선언되는 것이다.
+                    timerId = window.setInterval(doRolling, 2000);
+
+                    conttainer.style.fontSize = "";
+
+                    // 디버그 메시지
+                    console.log("SET: timerId = " + timerId);
+                });
+
+
+
+                //---------------------------------------------------------------------------
+                // 타이머에서 실행할 기능을 미리 함수로 선언
+                // → 프로그램 내에서 똑같은 프로그램 코드를 여러 번 사용하는 것은 낭비이므로
+                //   이렇게 함수로 선언해두고 사용한다.
+                function doRolling () {
+                    // 이 함수는 setInterval 메서드로 등록한 타이머에 의해 2000ms마다 실행된다.
+
+                    // 1.1. #rolling 요소를 li 요소 하나의 높이만큼 위로 이동시킨다.
+                    rolling.style.marginTop = "-100px";
+                    rolling.style.transition = "0.4s";
+
+                    // 1.2. #rolling 요소의 움직임이 끝나면
+                    //      → #rolling 요소는 위에서 설정한 transition 스타일 속성 때문에 0.4초에 걸쳐서
+                    //        이동하게 된다. 따라서 0.4초가 지나면 움직임이 끝난다
+                    //      → window.setTimeout 메서드로 타이머를 등록해서 구현
+                    window.setTimeout(function () {
+
+                        // 1.3. #rolling 요소에 적용했던 스타일 속성을 제거하고
+                        rolling.removeAttribute("style");
+
+                        // 1.4. #rolling 요소의 첫 번째 자식 요소를 마지막으로 옮긴다.
+                        rolling.appendChild(rolling.firstElementChild);
+                    }, 400);
+
+                }   // function doRolling
+
+            }); // window.click
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <ul id="rolling">
+                <li><span>1</span> Time is gold</li>
+                <li><span>2</span> No sweat, no sweet</li>
+                <li><span>3</span> Asking costs nothing</li>
+                <li><span>4</span> Step by step goes a long way</li>
+                <li><span>5</span> You will never know until you try</li>                    
+            </ul>
+        </div>
+    </body>
+</html>

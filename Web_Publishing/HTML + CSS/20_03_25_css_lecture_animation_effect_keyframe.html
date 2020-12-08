@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            /* 문제 설명
+            다음과 같은 상자를 표시하는 HTML 문서를 작성하라
+                1. 높이 100px, 너비 200px, 모서리 반경 10px, 내부 문자 CSS3
+                2. 배경색 gold, 글자 색상 midnightblue 
+            위에서 작성한 상자가 10초 동안 움직이는데 시간의 변화에 따라 다음과 같은
+            움직임을 보이도록 스타일 시트를 작성하라
+                1. 처음: 화면 좌상단에 위치
+                2. 2초 후: 화면의 우상단에 위치, 배경색 yellowgreen
+                3. 5초 후: 화면의 우하단에 위치, 배경색 hotpink
+                4. 8초 후: 화면의 좌하단에 위치, 배경색 yellowgreen
+                5. 10초 후: 화면의 좌상단에 위치, 배경색 gold
+            */
+            
+            body {
+                background-color: #222;
+                overflow: hidden;
+            }
+
+            #box {
+                width: 200px; height: 100px;
+                border-radius: 10px;
+                background-color: gold;
+                color: midnightblue;
+                text-align: center;
+                font-size: 2em;
+                font-weight: 900;
+                line-height: 100px;
+
+                position: absolute;
+
+                animation: box 10s infinite;
+
+            }
+                /* keyframes 규칙에서는 각 키프레임에 같은 스타일 속성을 설정해야 한다. */
+                @keyframes box {
+                    from { 
+                        background-color: gold; 
+                        top: 10px; left: 10px; 
+                        transform: rotate(10deg); 
+                    }
+
+                    20% { 
+                        background-color: yellowgreen; 
+                        top: 10px; left: 70%; 
+                        transform: rotate(60deg); 
+                    }
+
+                    50% { 
+                        background-color: hotpink; 
+                        top: 70%; left: 70%; 
+                        transform: rotate(-360deg); 
+                    }
+
+                    80% { 
+                        background-color: yellowgreen; 
+                        top: 70%; left: 10px; 
+                        transform: rotate(360deg);
+                    }
+
+                    to { 
+                        background-color: gold; 
+                        top: 10px; left: 10px; 
+                        transform: rotate(10deg) 
+                    }
+                }
+        </style>
+    </head>
+    <body>
+        <div id="box">CSS3</div>
+    </body>
+</html>

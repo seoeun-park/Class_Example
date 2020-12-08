@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 11일 배운 거</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            
+            /* 반응형 웹(responsive web)을 위한 미디어 쿼리 */
+
+            /* 중단점: 768px, 1024px */
+            /* 1. width < 767px */
+            /* 2. 768px < width < 1023px */
+            /* 3. 1024px < width */
+
+            /* 0. 모든 해상도에서 공통적으로 적용되는 CSS 블록 */
+            #box {
+                font-size: 2em;
+                font-weight: 900;
+                letter-spacing: -1px;
+                padding: 1em 2em;
+            }
+
+            /* 1. width < 767px */
+            /*    → (max-width: 767px) */
+            @media screen and (max-width:767px) {
+                #box { background-color: darkgreen; }
+            }
+
+            /* 2. 768px < width < 1023px */
+            /*    → (min-width: 768px) and (max-width: 1023px) */
+            @media screen and (min-width: 768px) and (max-width: 1023px) {
+                #box { background-color: maroon; }
+            }
+
+            /* 3. 1024px < width */
+            /*    → (min-width: 1024px) */
+            @media screen and (min-width: 1024px) {
+                #box { background-color: navy; }
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div id="box">BOX</div>
+    
+    </body>
+</html>

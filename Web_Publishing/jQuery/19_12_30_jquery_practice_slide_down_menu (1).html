@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 30일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            /* 헤더 영역 */
+            #header {
+                width: 1080px;
+                margin: 0 auto;
+            }
+
+            #header > h1 {
+                font-size: 2.5em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                text-align: center;
+                line-height: 2;
+                text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+                padding-bottom: 10px;
+
+            }
+
+            /* 내비게이션 영역 */
+            #nav {
+                border-top: 2px solid blue;
+                border-bottom: 2px solid blue;
+
+                /* #dropdown 요소가 이 요소의 영역을 기준으로 배치되도록 position 스타일 속성 설정 */
+                position: relative;
+            }
+
+            #nav > ul {
+                width: 1080px;
+                margin: 0 auto;
+            }
+
+            /* 모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            #nav > ul::after { content: ""; display: block; clear: both; }
+            
+            #nav > ul > li {
+                /* 형제 요소들을 나란히 배치하기 위해 float 스타일 속성 설정 */
+                float: left;
+                width: 25%;
+            }
+
+            #nav > ul > li > a {
+                /* 메뉴 바에 들어가는 a 요소는 버튼 형태로 표현 */
+                display: block;
+                text-align: center;
+
+                /* a 요소에 기본적으로 적용되는 스타일 속성들을 초기화 */
+                text-decoration: none;
+                color: black;
+
+                line-height: 3;
+                
+                /* 막대를 표현하는 가상 요소가 이 요소의 영역을 기준을 배치되도록 설정 */
+                position: relative;
+            }
+
+            /* #nav > ul > li > a > span {
+                display: block;
+                width: 70%; height: 5px;
+                background-color: navy;
+                position: absolute;
+                bottom: 0; left: 50%;
+                transform: translateX(-50%);
+
+                display: none;
+            } */
+
+            /* hover 상태에서 메뉴 항목 아래에 표시되는 막대를 표현하기 위해 가상 요소 추가 */
+            #nav > ul > li > a::after {
+                /* 가상 요소 선택자에는 반드시 content 속성 설정 */
+                content: "";
+
+                /* a 요소의 영역을 기준으로 아래쪽 가운데에 배치 */
+                position: absolute;
+                bottom: 0; left: 50%;
+                transform: translateX(-50%);
+
+                width: 0; height: 5px;
+                background-color: navy;
+                transition: 0.2s;
+            }
+
+            /* a 요소의 영역에 마우스 포인터가 들어갔을 때 막대를 표현하는 가상 요소의 너비 설정 */
+            #nav > ul > li > a:hover::after {
+                width: 70%;
+            }
+
+            /* 드랍다운 메뉴 영역 */
+            #dropdown {
+                /* #nav 요소의 영역을 기준으로 아래쪽에 배치 */
+                position: absolute;
+                top: 105%; left: 0; right: 0;
+
+                border-bottom: 2px solid blue;
+                background-color: rgba(223, 217, 217, 0.95);
+                
+                /* 처음에는 드랍다운 메뉴가 화면에 보이지 않도록 설정 */
+                display: none;
+            }
+
+            #dropdown > div {
+                /* 드랍다운 메뉴들의 너비를 설정하기 위해 추가한 요소 */
+                width: 1080px;
+                margin: 0 auto;
+            }
+
+            #dropdown > div > ul {
+                /* 형제 요소들을 나란히 배치하기 위해 float 스타일 속성 설정 */
+                float: left;
+                width: 25%;
+                padding: 1em 0;
+                box-sizing: border-box;
+
+                text-align: center;
+            }
+
+            #dropdown > div> ul > li > a {
+                /* 메뉴바에 들어가는 a 요소는 버튼 형태로 표현 */
+                display: block;
+
+                /* a 요소에 기본적으로 적용되는 스타일 속성들을 초기화 */
+                text-decoration: none;
+                color: black;
+
+                line-height: 1.8;
+            }
+
+            /* 본문 영역 */
+            #content {
+                width: 1080px;
+                margin: 0 auto;
+                padding: 1em 0;
+            }
+
+            #content > p {
+                line-height: 1.5;
+                margin-top: 1em;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                //---------------------------------------------------------------------------
+                // 1. #nav > ul > li > a 요소를 클릭하면
+                // 1.1. #dropdown 요소가 화면에 나타나도록 한다.
+                // 2. #nav 요소의 영역에서 마우스 포인터가 빠져나가면
+                // 2.1. #dropdown 요소를 화면에서 숨긴다.
+                
+                //---------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $dropdown = $("#dropdown");
+                var $nav_buttons = $("#nav > ul > li > a");
+
+                // 1. #nav > ul > li > a 요소를 클릭하면
+                $nav_buttons.on("click", function (event) {
+                    // 이벤트 핸들러: a 요소에 click 이벤트가 발생하면 살행할 기능
+
+                    // a 요소의 기본 이벤트 제거
+                    event.preventDefault();
+
+                    // 1.1. #dropdown 요소가 화면에 나타나도록 한다.
+                    $dropdown.slideDown(200);
+                });
+
+                // 2. #nav 요소의 영역에서 마우스 포인터가 빠져나가면
+                $nav_buttons.parents("#nav").on("mouseleave", function() {
+                    // 이벤트 핸들러: #nav 요소에 mouseleave 이벤트가 발생하면 실행할 기능
+
+                    // 2.1. #dropdown 요소를 화면에서 숨긴다.
+                    $dropdown.slideUp(200);
+                });
+
+                //----------------------------------------------------------------------------
+                // $nav_buttons.each(function () {
+                //     $(this).hover(
+                //         function () {
+                //             $(this).children().show(200);
+                //         },
+
+                //         function() {
+                //             $(this).children().hide(200);
+                //         }
+                //     ); // $nav_button.hover
+                // }); // $nav_buttons.each()
+                
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <header id="header">
+            <h1>My Work</h1>
+        </header>
+        <nav id="nav">
+            <ul>
+                <li><a href="#html">HTML<!-- <span></span> --></a></li>
+                <li><a href="#css">CSS<!-- <span></span> --></a></li>
+                <li><a href="#javascript">JavaScript<!-- <span></span> --></a></li>
+                <li><a href="#jquery">jQuery<!-- <span></span> --></a></li>
+            </ul>
+            <!-- 드롭다운 메뉴 -->
+            <div id="dropdown">
+                <div>
+                    <ul>
+                        <li><a href="#html-tutorial">Tutorial</a></li>
+                        <li><a href="#html-reference">Reference</a></li>
+                        <li><a href="#html-example">Example</a></li>
+                        <li><a href="#html-exercise">Exercise</a></li>
+                        <li><a href="#html-faq">FAQ</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#css-tutorial">Tutorial</a></li>
+                        <li><a href="#css-reference">Reference</a></li>
+                        <li><a href="#css-example">Example</a></li>
+                        <li><a href="#css-exercise">Exercise</a></li>
+                        <li><a href="#css-faq">FAQ</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#javascript-tutorial">Tutorial</a></li>
+                        <li><a href="#javascript-reference">Reference</a></li>
+                        <li><a href="#javascript-example">Example</a></li>
+                        <li><a href="#javascript-exercise">Exercise</a></li>
+                        <li><a href="#javascript-faq">FAQ</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#jquery-tutorial">Tutorial</a></li>
+                        <li><a href="#jquery-reference">Reference</a></li>
+                        <li><a href="#jquery-example">Example</a></li>
+                        <li><a href="#jquery-exercise">Exercise</a></li>
+                        <li><a href="#jquery-faq">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <article id="content">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Ut nec rutrum neque. Nam suscipit eros quis ligula tristique tempor ac quis lacus.
+                Fusce et iaculis nunc, at imperdiet enim. Sed at nisl tristique, sagittis risus vel, 
+                bibendum urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                In hac habitasse platea dictumst. Etiam ac cursus dui, at consectetur augue. 
+                Praesent pretium ultricies augue, faucibus ullamcorper massa semper ut. 
+                Etiam sollicitudin volutpat sollicitudin. 
+                Curabitur quis ipsum in tellus pulvinar suscipit quis et tellus. 
+                Vivamus enim urna, luctus ac tempus a, ornare eget risus. Donec purus magna, 
+                pellentesque quis maximus a, efficitur a nisl. 
+                Ut magna neque, gravida eu placerat quis, scelerisque facilisis ipsum. 
+                Vestibulum id dignissim tortor, ut posuere tellus. 
+                Vivamus vel leo aliquam, gravida massa non, placerat arcu. 
+                Mauris commodo eu lorem id consectetur.
+            </p>
+            <p>
+                Mauris porta in justo eget porttitor. Curabitur sit amet dolor mi. 
+                Integer ultrices mauris ut turpis imperdiet, eget iaculis risus vestibulum. 
+                Quisque placerat nunc eget scelerisque pellentesque. 
+                Fusce facilisis vehicula augue in dignissim. Integer sit amet metus odio. 
+                Nullam efficitur erat non ex luctus, id rutrum est gravida. 
+                Maecenas non suscipit odio, at varius mauris. 
+                Aliquam lacinia bibendum lacus, non efficitur libero imperdiet sit amet. 
+                Integer eget dignissim augue. Quisque laoreet fringilla lacus, 
+                sed dignissim lectus mollis vel. Quisque et sem tincidunt, vulputate elit eget, 
+                gravida augue.
+            </p>
+            <p>
+                Cras nec bibendum lorem, eu posuere nunc. 
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                per inceptos himenaeos. Mauris in mauris eros. Curabitur non viverra justo, 
+                id rutrum libero. Aenean ullamcorper, purus ut tincidunt lobortis, 
+                dolor odio imperdiet odio, sollicitudin congue ex urna quis libero. 
+                Suspendisse egestas nec ex nec ullamcorper. Nulla mollis elit eros, 
+                vitae condimentum libero luctus rhoncus. Nam elementum enim eleifend, 
+                lacinia tortor sit amet, cursus purus. Integer ullamcorper tincidunt metus, 
+                non pellentesque nibh euismod vitae. 
+                Aliquam feugiat tortor in arcu mollis condimentum.
+            </p>
+            <p>
+                Donec vestibulum, enim vel tristique facilisis, risus nisl fringilla tellus, at placerat eros eros eu dolor. 
+                In volutpat varius nulla, vel tincidunt tortor dignissim in. Proin hendrerit sagittis aliquam.
+                Phasellus a congue ex. Quisque enim libero, tincidunt nec risus sit amet, placerat consequat mi. 
+                Suspendisse pretium, dolor nec tempor luctus, tortor massa posuere nunc, eu porta neque dui eu massa.
+                Vivamus leo magna, eleifend et turpis ac, accumsan cursus nibh.
+                Aenean eget purus ac dui scelerisque scelerisque. 
+                Aliquam ut nulla scelerisque turpis tincidunt sollicitudin et id mauris.
+                Nam sodales elit libero, malesuada luctus quam pharetra a.
+            </p>
+        </article>
+    </body>
+</html>

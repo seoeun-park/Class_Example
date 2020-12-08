@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>후손 & 자손 선택자</title>
+        <style>
+            div span:disabled {
+                color: red;
+            }
+            div > span {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <span id="sample">먹을 거</span>
+
+            <ul>
+                <li class="important">치킨</li>
+                <li>떡볶이</li>
+                <li>파스타</li>
+                <li>피자<span class="important">와우!</span></li>
+            </ul>
+        </div>
+    </body>
+</html>

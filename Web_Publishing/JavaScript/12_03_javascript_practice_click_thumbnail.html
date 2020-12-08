@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>12월 03일 연습문제</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+         body {
+
+            background-color: black;
+        }
+
+        #container {
+            margin-bottom: 2em;
+        }
+
+        #photo {
+            display: block;
+            
+            /* max-width: 요소의 최대 크기 설정
+                → 요소는 max-width 스타일 속성에 설정해놓은 크기보다 더 커질 수 없다
+                → viweport를 줄여도 비율에 맞춰 그 크기에 맞게 줄어든다. */
+            max-width: 50%;
+
+            /* min-width: 요소의 최소 크기 설정
+                → 요소는 min-width 스타일 속성에 설정해놓은 크기 보다 더 작아질 수 없다
+                → viewport를 아무리 줄여도 최소 크기보다 더 줄어들지 않는다. */
+            /* % 단위의 기준: 부모 요소 컨텐트 영역의 크기 */
+            /* min-width: 920px; */
+
+            border: 10px solid white;
+            margin: 0 auto;
+        }
+
+        /* 형제 요소들을 나란히 배치시키는 방법 */
+        /* 1. 형제 요소들에 스타일 속성을 설정 */
+        /* 2. 형제 요소들에 display 스타일 속성을 "inline-block"으로 설정 */
+        /* 3. 부모 요소에 display 스타일 속성을 "table"로 설정하고,
+              형제 요소들에 display 스타일 속성을 "table-cell"로 설정
+              → 브라우저에서 table을 만드는 것 자체가 무리가 가는 작업이므로
+                3번 방법보다는 1번, 2번 방법을 쓰는 것이 훨씬 효율적이다. */
+
+        #gallery {
+            /* 요소를 table 요소처럼 배치 */
+            display: table;
+
+            /* table 요소는 담고 있는 컨텐츠에 의해 너비가 결정된다 */
+            margin: 0 auto;
+        }
+
+        #gallery > li {
+            /* 요소를 td 요소처럼 배치 */
+            display: table-cell;
+
+            padding: 0 10px;
+        }
+
+        #gallery > li > img {
+            display: block;
+            width: 200px;
+            border: 4px solid white;
+            
+            /* 마우스 포인터의 형태 변경 */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 큰 사진 -->
+    <div id="container">
+        <img src="https://cdn.pixabay.com/photo/2016/11/22/23/19/constellation-1851128_960_720.jpg" alt="Photo" id="photo">
+    </div>
+
+    <!-- 썸네일 이미지들의 나열 -->
+    <ul id="gallery">
+        <li><img src="https://cdn.pixabay.com/photo/2016/11/22/23/19/constellation-1851128_960_720.jpg" alt="Thumbnail" class="thumnail"></li>
+        <li><img src="https://cdn.pixabay.com/photo/2018/04/29/01/22/tea-plantation-3358870_960_720.jpg" alt="Thumbnail" class="thumnail"></li>
+        <li><img src="https://cdn.pixabay.com/photo/2018/08/21/23/29/fog-3622519_960_720.jpg" alt="Thumbnail" class="thumnail"></li>
+    </ul>
+
+    <script>
+        //-------------------------------------------------------------------------------
+        // 1. #gallery 요소의 img 요소를 클릭하면
+        // 2. 클릭한 요소의 src 속성 값을 #photo 요소의 src 속성 값으로 설정한다
+
+        //-------------------------------------------------------------------------------
+        // 프로그램에서 참조하는 요소를 미리 탐색
+        var thumbnail = document.getElementsByClassName("thumnail");
+        // var thumbnail = document.querySelectorAll("#gallery > li > img");
+        // → 변수 thumbnail에는 #gallery 요소의 img 요소들을 표현하는 Element 객체의 배열이
+        //   대입된다.
+
+        var photo = document.getElementById("photo");
+
+        // thumbnail[0].addEventListener("click", function () {
+        //     photo.src = this.src;
+        // });
+        // thumbnail[1].addEventListener("click", function () {
+        //     photo.src = this.src;
+        // });
+        // thumbnail[2].addEventListener("click", function () {
+        //     photo.src = this.src;
+        // });
+        
+        
+        // 1. #gallery 요소의 img 요소를 클릭하면
+        //  → 배열 thumbnail에 저장되어 있는 각 Element 객체를 반복문을 이용해서 순차적으로 조작
+        for (var i = 0; i < thumbnail.length; i++)
+
+            thumbnail[i].addEventListener("click", function () {
+                // 이벤트 핸들러: #gallery 요소의 img 요소에 click 이벤트가 발생하면 실행할 기능
+
+                // 2. 클릭한 요소의 src 속성 값을 #photo 요소의 src 속성 값으로 설정한다.
+                // photo.setAttribute("src", this.src);
+                photo.src = this.src;
+            });
+        
+        /*
+        var i;
+
+        for (i = 0; i < thumbnail.length; i++)
+
+            thumbnail[i].addEventListener("click", function () {
+                photo.src = thumbnail[i].src;
+            });
+        */
+
+        // → 이렇게 작성했을 때 콘솔창에 오류가 뜨면서 실행이 되지 않는 이유는?
+        //   자바스크립트에서 함수는 기능이고 값이다. 그러므로 호출하기 이전에는 단순한 문장에 지나지 않는다.
+        //   앞의 이벤트 핸들러는 클릭했을 때야 비로소 함수가 호출이 되면서 그 기능이 작동하므로
+        //   함수를 클릭했을 때는 이미 for 반복문이 끝났으므로 이벤트 핸들러 안의 thumbnail[i]의 i는 3의 값이 대입된다.
+        //   thumbnail[3]은 li 요소의 4번째 요소를 가리키는데 4번째 요소는 존재하지 않으므로 콘솔창에 오류가 뜬다.
+        //   만약 변수 i를 앞서 전역변수가 아닌 지역 변수로 선언한다면? → for(var i = 0; i < thumbnail.length; i++)
+        //   지역 변수는 for 반복문이 끝나면 소멸하므로 thumbnail[i]는 undefined가 된다.
+
+    </script>
+</body>
+</html>

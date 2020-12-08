@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 19일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 3em;
+                background-color: black;
+            }
+
+            #container {
+                /* 높이 값 설정
+                    → #gallery의 position 속성이 absolute 되면서 부모 요소로부터 독립하므로
+                      #container가 담고 있는 컨텐츠가 없기 때문에 높이 값을 따로 설정해야 한다. */
+                height: 450px;
+
+                width: 800px;
+                border: 5px solid white;
+                margin: 50px auto;
+
+                /* #gallery에 적용된 float 스타일 속성을 줬을때 생기는 문제점을 해결하는 방법 중
+                    3번째 방법*/
+                overflow: hidden;
+
+                /* #gallery가 이 요소를 기준으로 배치되도록 설정 */
+                /* position: relative; */
+            }
+            
+            #gallery {
+                /* 사진 4장이 나열될 수 있도록 요소의 너비 설정 */
+                width: 400%;
+                
+                /* 기준이 되는 영역(#container)의 우상단에 배치 */
+                /* position: absolute; */
+                /* top: 0; right: 0; */
+
+                /* #container 요소의 오른쪽에 배치 */
+                /* #gallery > li에 적용된 float 스타일 속성을 줬을때 생기는 문제점을 해결하는 방법 중
+                    2번째 방법 */
+                float: right;
+            }
+            
+            /* 모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            /* #gallery 요소에 float 스타일 속성이 설정된 경우에는 아래 가상 요소가 필요없다. */
+            /* #gallery::after { content: ""; display: block; clear: both; } */
+
+            #gallery > li {
+                /* 사진의 배치 순서 결정 */
+                float: right;
+
+                /* 사진 한 장의 너비만큼 요소의 너비 설정 */
+                width: 25%;
+            }
+
+            #gallery > li > img {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+
+                var $gallery = $("#gallery");
+                
+                window.setInterval(function () {
+
+                    // 사진의 이동 방향 결정
+                    // $gallery.css( { "right": "-100%", "transition": "0.4s" });
+                    $gallery.css({ "margin-right": "-100%", "transition": "0.4s" });
+
+                    window.setTimeout(function () {
+
+                        // 사진의 이동 순서 결정
+                        $gallery.removeAttr("style").children(":first").appendTo($gallery);
+
+                    }, 400);
+        
+                }, 2000);
+                
+            }); // document.onready
+        </script>
+
+    </head>
+    <body>
+        <div id="container">
+            <ul id="gallery">
+                <li><img src="https://i.imgur.com/sduLRvf.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/QguApMA.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/Xulubox.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/PnSeZX3.jpg" alt="image"></li>
+            </ul>
+        </div>
+    </body>
+</html>

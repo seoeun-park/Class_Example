@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 27일 연습문제</title>
+    </head>
+    <body>
+        <!-- 연습문제 : 5초가 지난 후에 h1 요소가 1초에 걸쳐서 화면에서 점차 흐릿하게
+            사라지도록 하는 프로그램을 작성하라 -->
+
+        <!-- 화면에서 사라지게 하는 스타일 속성 3가지
+            1. display = none
+            2. opacity = 0
+            3. visibility = hidden -->
+
+        <!-- tramsition에 영향을 받는 속성은 opacity와 visibility 두 개 뿐이다. -->
+
+        <h1 id="hello">Hello World!</h1>
+
+        <script>
+
+            // 5초가 지난 후 #hello 요소가 화면에서 사라지도록 한다.
+            
+            // 1. 5초가 지난 후
+            //    → window.setTimeout 메서드로 타이머를 등록해서 구현
+            window.setTimeout(function () {
+                // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 5000ms가 지난 후에 실행된다.
+
+                // 2. #hello 요소가 화면에서 사라지도록 한다.
+                document.querySelector("#hello").style.display = "none";
+
+            }, 5000);
+
+            //-------------------------------------------------------------------------------
+            // 1. 5초가 지난 후
+            //    → window.setTimeout 메서드로 타이머를 등록해서 구현
+            window.setTimeout(function () {
+                // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 5000ms가 지난 후에 실행된다.
+
+                // 2. #hello 요소가 화면에서 사라지도록 한다.
+                document.querySelector("#hello").style.display = "none";
+                // transition 스타일 속성이 설정되면, transition 스타일 속성에 변화가
+                // 생겼을 때 그 변화가  transition-duration 스타일 속성에 지정한 시간에
+                // 걸쳐서 진행된다.
+                hello.style.transition = "1s";
+
+                hello.style.opacity = "0";
+
+                // opacity는 투명도를 설정하는 속성이므로 opacity를 0으로 지정할 때 
+                // visibility도 같이 hidden으로 설정해야 한다.
+                hello.style.visibility = "hidden";
+
+            }, 5000);
+        </script>
+    </body>
+</html>

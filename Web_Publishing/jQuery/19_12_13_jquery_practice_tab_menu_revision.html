@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 13일 연습문제 수정본</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            /* 탭 컨텐츠를 감싸는 컨테이너: 전체 너비 설정 */
+            #container {
+                width: 200px;
+                margin: 100px auto;
+            }
+
+            /* 탭 버튼 */
+            /* 모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            #tab-buttons::after { content: ""; display: block; clear: both; }
+            
+            #tab-buttons > li {
+                /* 형제 요소들을 나란히 배치 */
+                float: left;
+
+                width: 50%;
+                padding: 10px;
+                box-sizing: border-box;
+                font-weight: 900;
+                letter-spacing: -1px;
+
+                /* 초기 상태는 비활성화된 상태로 표시 */
+                color: #666;
+                background-color: #ddd;
+                border-bottom: 1px solid black;
+                cursor: pointer;
+            }
+
+            /* 활성화된 탭 버튼 */
+            #tab-buttons > li.on {
+                color: black;
+                background-color: white;
+                border: 1px solid black;
+                border-bottom: none;
+                cursor: default;                
+            }
+            /* 탭 컨텐츠 (비활성화 된 상태) */
+            .tab-contents {
+                padding: 10px;
+                display: none;
+            }
+
+            /* 활성화된 탭 컨텐츠 */
+            .tab-contents.on {
+                display: block;
+                border: 1px solid black;
+                border-top: none;
+            }
+
+            .tab-contents > li {
+                line-height: 1.5;
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+<!-- 
+    <script>
+        $(function () {
+            // 이벤트 핸들러: document 객체에서 ready 이벤트가 발생하면 실행할 기능
+            // → HTML 문서를 읽어들인 후 해석하고 DOM 구축을 끝낸 시점에 발생하는 이벤트
+            
+            //-----------------------------------------------------------------------
+            // 1. (#tab-buttons > li:first-child) 요소를 클릭하면
+            // 1.1. (#tab-buttons > li:last-child) 요소에서 on 클래스를 제거하고
+            // 1.2. 클릭한 요소에 on 클래스를 부여한다.
+            // 1.3. .tab-contents 요소 중 두 번째 요소에서 on 클래스를 제거하고
+            // 1.4. .tab-contents 요소 중 첫 번째 요소에서 on 클래스를 부여한다.
+            
+            // 2. (#tab-buttons > li:last-child) 요소를 클릭하면
+            // 2.1. (#tab-buttons > li:fitst-child) 요소에서 on 클래스를 제거하고
+            // 2.2. 클릭한 요소에 on 클래스를 부여한다.
+            // 2.3. .tab-contents 요소 중 첫 번째 요소에서 on 클래스를 제거하고
+            // 2.4. .tab-contents 요소 중 두 번째 요소에서 on 클래스를 부여한다.
+            
+            //-----------------------------------------------------------------------
+            // 프로그램에서 참조하는 요소를 미리 탐색
+            var $buttons = $("#tab-buttons > li");
+            var $contents = $(".tab-contents");
+            
+            
+            // 2. (#tab-buttons > li:last-child) 요소를 클릭하면
+            $buttons.eq(1).on("click", function () {
+                // 이벤트 핸들러: $buttons 요소들 중 두 번째 요소에서 click 이벤트가
+                //  발생하면 실행할 기능
+                
+                // 2.1. (#tab-buttons > li:fitst-child) 요소에서 on 클래스를 제거하고
+                $buttons.eq(0).removeClass("on");
+                
+                // 2.2. 클릭한 요소에 on 클래스를 부여한다.
+                // → 이벤트 핸들러에서 this 이벤트가 발생한 요소를 나타내는 Element 객체이다.
+                $(this).addClass("on");
+                
+                // 2.3. .tab-contents 요소 중 첫 번째 요소에서 on 클래스를 제거하고
+                $contents.eq(0).removeClass("on");
+                
+                // 2.4. .tab-contents 요소 중 두 번째 요소에서 on 클래스를 부여한다.
+                $contents.eq(1).addClass("on");
+            });
+            // 1. (#tab-buttons > li:first-child) 요소를 클릭하면
+            $buttons.eq(0).on("click", function () {
+                // 이벤트 핸들러: $buttons 요소들 중 첫 번째 요소에서 click 이벤트가
+                //  발생하면 실행할 기능
+                
+                // 1.1. (#tab-buttons > li:last-child) 요소에서 on 클래스를 제거하고
+                $buttons.eq(1).removeClass("on");
+                
+                // 1.2. 클릭한 요소에 on 클래스를 부여한다.
+                $(this).addClass("on");
+                
+                // 1.3. .tab-contents 요소 중 두 번째 요소에서 on 클래스를 제거하고
+                $contents.eq(1).removeClass("on");
+                
+                // 1.4. .tab-contents 요소 중 첫 번째 요소에서 on 클래스를 부여한다.
+                $contents.eq(0).addClass("on");
+            });
+            
+        }); // document.onready
+    </script>
+-->
+    <!-- --------------------------------------------------------------------------- -->
+    <!-- 위의 코딩을 더 간략하게 작성하는 방법 -->
+    <script>
+        $(function () {
+            var $buttons = $("#tab-buttons > li");
+            var $contents = $(".tab-contents");
+            
+            // $contents.eq(0, 1).addClass("on")을 하나로 합쳐서 작성하는 방법
+            
+            // 1. 특징 판별 is 메서드를 이용하는 방법
+            // → var index = 1;
+            //   if ($(this).is(":first-child")) index = 0;
+            //   그러나 이는 $contents의 자식 요소가 총 2개라서 가능한 방법
+            //   3개 이상이면 이 방법을 써먹지 못한다.
+
+            // 2. index 메서드를 이용하는 방법
+            //   index 메서드
+            // → 매개변수로 주어진 요소가 jQuery 객체에 담겨있는 요소들 중에서 몇 번째 요소인지 확인
+            //   var index = $buttons.index(this);
+
+            // 3. 사용자 정의 데이터 속성을 통해 attr 메서드를 이용하는 방법
+            //  attr 메서드
+            // → 요소의 속성(attribute)을 읽어오는 메서드
+            var index = $(this).attr("data-index");
+            // 이때 반환해주는 값은 숫자가 아니라 문자열! 즉 "0"아니면 "1"
+
+            console.log("index = " + index);
+
+            $buttons.on("click", function () {
+
+                $buttons.removeClass("on");
+                $(this).addClass("on");
+                $contents.removeClass("on");
+                $contents.eq(index).addClass("on");
+            });
+            
+        }); // document.onready        
+    </script>
+    </head>
+    <body>
+        <div id="container">
+            <ul id="tab-buttons">
+                <!-- 사용자 정의 데이터 속성은 data-식별자로 표현 -->
+                <li data-index="0" class="on">Front-end</li>
+                <li data-index="1">Back-end</li>
+            </ul>
+
+            <ul class="tab-contents on">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>jQuery</li>
+            </ul>
+            <ul class="tab-contents">
+                <li>PHP</li>
+                <li>ASP</li>
+                <li>JSP</li>
+                <li>MySQL</li>
+            </ul>
+        </div>  <!--#container-->
+    </body>
+</html>

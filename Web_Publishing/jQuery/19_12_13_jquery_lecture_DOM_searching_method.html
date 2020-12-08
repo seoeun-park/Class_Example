@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 13일 배운 거</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 0.4em 1em;
+                font-size: 2em;
+            }
+
+            #list {
+                width: 500px;
+                margin: 100px auto;
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+<!-- 
+    <script>
+        $(function () {
+            
+            // 1. 기본 필터링 메서드
+            
+                $("li").css("background-color", "#ddd");
+                $("li:even").css("color", "red");
+                
+                
+                $("li").css("background-color", "#ddd")
+                .filter(":even").css("color", "red");
+                // filter 메서드는 jQuery 객체에 포함된 요소 중에서
+                // 매개 변수로 주어진 선택자로 일부 요소만 선택한다.
+                
+            }); // document.onready
+        </script>
+-->
+<!-- 
+    <script>
+        $(function () {
+                
+                // 2. 문서 객체 탐색 종료 메서드
+                
+                $("li").css("background-color", "#ddd");
+                $("li:even").css("color", "red");
+                $("li:odd").css("color", "blue");
+
+                $("li").css("background-color", "#ddd")
+                    .filter(":even").css("color", "red")
+                    .filter(":odd").css("color", "blue");
+                    // 두 번째 filter 메서드는 li 요소의 인덱스 변수가 짝수인 요소 중에
+                    // 홀수인 요소를 찾는다.
+                    
+                    $("li").css("background-color", "#ddd")
+                    .filter(":even").css("color", "red").end()
+                    .filter(":odd").css("color", "blue");
+                    
+            }); // document.onready
+        </script>
+-->
+<!-- 
+    <script>
+        $(function () {
+            
+            // 2. 특정 위치의 문서 객체 선택 메서드
+            
+            $("li").eq(0).css("color", "red");
+            // → eq 메서드에서는 배열처럼 '0'이 첫 번째 요소이다.
+            
+            $("li").eq(-1).css("color", "blue");
+            // → eq 메서드의 매개변수로 음수를 넣으면 마지막 요소에서부터 접근한다.
+            // → 여기에서는 마지막에서 첫 번째 요소에 접근한다.
+
+        }); // document.onready
+    </script>
+-->
+<!-- 
+    <script>
+        $(function () {
+            
+            // 3. 문서 객체 추가 선택 메서드
+            
+            $(".hi").css("color", "red")
+            .add(".hello").css("font-weight", "bold");
+            // → add 메서드는 메서드 체이닝으로 넘어온 객체들에 매개 변수로 넣은 선택자에
+            //   의해 선택된 객체들을 추가한다.
+            
+        }); // document.onready
+    </script>
+-->
+    <script>
+        $(function () {
+
+            // 4. 문서 객체의 특징 판별 메서드
+
+            $("li").each(function () {
+                if ($(this).is(".hello")) {
+                    // is 메서드는 객체가 매개 변수로 넣은 선택자에 의해
+                    // 선택되는지 확인해서 불린 값을 반환한다.
+                    $(this).css("background-color", "green");
+                }
+            });
+        }); // document.onready
+    </script>  
+    </head>
+    <body>
+        <ul id="list">
+            <li class="hi">Apple</li>
+            <li>Bag</li>
+            <li class="hello">Coffee</li>
+            <li class="bye">Dog</li>
+        </ul>
+    </body>
+</html>

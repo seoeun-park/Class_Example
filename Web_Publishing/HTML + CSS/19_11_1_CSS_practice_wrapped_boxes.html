@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>11월 1일 연습문제</title>
+    <style>
+        body { background-color: #ccc; }
+        #container {
+            width: 640px;
+            padding: 20px;
+            border: 2px solid #333;
+            background-color: white;
+            margin: 30px auto;
+            }
+        #container > div { 
+            float: left;
+            text-align: center;
+            font-weight: bold;
+            }
+        #container::after {
+            content: "";
+            display: block;
+            clear: both;
+            }
+        #container > div:first-child {
+            width: 200px;
+            height: 220px;
+            line-height: 220px;
+            background-color: gold;
+            }
+        .box > div {
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            margin-left: 20px;
+            }
+        /* 질문 : 처음 선택자를 작성할 때 각각 .box:first-child > div:first-child /
+        .box:first-child > div:last-child라는 선택자로 작성했습니다
+        그런데 개발자도구를 통해서 보면 선택자가 오류가 난 것으로 뜨던데 그 이유를 모르겠습니다... */
+
+        /* first-child는 무조건 부모요소를 살펴야 한다.
+        .box의 부모요소는 #container이고 #container의 첫번째 자식요소(first-child)는 gold 박스이다
+        :는 and의 의미이므로 클래스 선택자가 class 인 요소와 gold 박스라는 요소의 교집합인데 이는
+        애초에 존재하지 않는 선택자이므로 브라우저에 아무것도 안뜨는 것이다 */
+        .box:first-child > div:first-child {
+            background-color: pink;
+            }
+        .box:first-child > div:last-child {
+            background-color: gray;
+            margin-top: 20px;
+            }      
+        .box:last-child > div:first-child {
+            background-color: yellowgreen;
+            }
+        .box:last-child > div:last-child {
+            background-color: cyan;
+            margin-top: 20px;
+            }
+    </style>
+
+    <body>
+        <div id="container">
+            <div>Gold</div>
+            <div class="box">
+                <div>Pink</div>
+                <div>Gray</div>
+            </div>
+            <div class="box">
+                <div>Yellowgreen</div>
+                <div>Cyan</div>
+            </div>
+        </div>
+    </body>
+</html>

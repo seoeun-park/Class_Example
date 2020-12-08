@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 15일 연습문제(1)</title>
+    </head>
+    <body>
+        <pre><script>
+        //어떤 두 수 중에서 큰 수에서 작은 수를 뺀 값을 계산
+            var x = 16;
+            var y = 29;
+
+            /* var max = (x > y) ? x : y;
+            var min = (x < y) ? x : y;
+            var result = max - min;
+
+            document.writeln(result + " = max - min"); */
+
+        // "조건문"을 이용해 두 수 중에서 어떤 수가 큰지 확인
+            if (x > y)
+                document.writeln("x - y = " + (x - y)); //여기서 x-y에 괄호를 쓰지 않으면 + 연산자가 먼저 연산되는 결과를 가져온다
+            else (y > x)
+                document.writeln("y - x = " + (y - x));
+
+        // "조건 연산자"를 이용해 두 수 중에서 어떤 수가 큰 지 확인
+
+        //  (x > y) ? (x - y) : (y - x);
+        // → (16 > 29) ? (16 - 29) : (29 - 16);
+        // → false ? (16 - 29) : (29 - 16);
+        // → (29 - 16);
+        // → 13;
+            document.writeln("max - min = " + ((x > y) ? (x - y) : (y - x)));
+        </script></pre>
+    </body>
+</html>

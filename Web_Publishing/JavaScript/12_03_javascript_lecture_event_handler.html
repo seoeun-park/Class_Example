@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>12월 03일 배운 거</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+         body {
+
+            background-color: black;
+        }
+
+        #container {
+            width: 200px;
+            padding: 20px 40px;
+            margin: 30px auto;
+            background-color: #555;
+            border-radius: 10px;
+        }
+
+        #google {
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <a href="http://www.google.com" id="google">Google</a>
+    </div>
+
+    <script>
+        //---------------------------------------------------------------------
+        // 이벤트 객체(event object)
+        // → 이벤트가 발생했을 때 이벤트에 대한 정보와 기능을 담고 있는 객체
+        // → 이벤트 객체는 이벤트가 발생할 때마다 자동으로 생성된다.
+        // → 이렇게 생성된 이벤트 객체를 참조하고 싶다면 이벤트 핸들러의 매개변수로
+        //   받아 와서 활용할 수 있다.
+
+        // 기본 이벤트(default event)
+        // → 몇몇 HTML 요소들은 이벤트 핸들러를 연결하지 않아도 기본적으로 가지고 있는 기능들이 있다.
+        //   이를 "기본 이벤트"라고 한다.
+        // → 대표적으로 a 요소, input 요소, form 요소 등이 있다.
+        // → 상황에 따라서는 이러한 기본 이벤트가 동작하지 않도록 제거해야 한다.
+        //   이를 "기본 이벤트를 제거한다"라고 표현한다
+        // → 기본 이벤트를 제거하는 2가지 방법
+        //   1. 이벤트 객체의 preventDefault 메서드 호출 → 주로 이 방법을 많이 쓴다.
+        //   2. 이벤트 핸들러에서 false 반환
+
+        // 이벤트 전달(event propagation)
+        // → 하위 요소에서 발생한 이벤트는 상위 요소들에게 순차적으로 전달된다.
+        // → 하위 요소에서 발생한 이벤트가 상위 요소에게 전달되지 않도록 막는 것을
+        //   "이벤트 전달을 제거한다"라고 표현한다.
+        // → 이벤트 전달을 제거하는 방법
+        //   이벤트 객체의 stopPropagation 메서드를 호출
+
+        //-----------------------------------------------------------------------
+        document.querySelector("#google").onclick = function (event) {
+            // 이벤트 핸들러: #google 요소에 click 이벤트가 발생하면 실행할 기능
+
+            // #google 요소는 a 요소이므로 click 이벤트가 발생하면 href 속성에 지정해 놓은
+            // URL로 이동하는 것이 기본 이벤트이다.
+            // 필요에 따라 이 기본 이벤트를 제거할 수 있고 제거하게 되면 url로 이동하지 않고
+            // 인라인 스타일 속성에 지정되어 있는 스타일 속성만 적용된다.
+
+            // 기본 이벤트를 제거하는 첫 번째 방법
+            // → 이벤트 객체의 preventDefault 메서드 호출
+            event.preventDefault();
+
+            // 이벤트 전달 제거
+            // → #google에 발생한 이벤트를 상위 요소들(#container, body, html)
+            //   에게 전달되는 것을 막기 위해
+            event.stopPropagation();
+
+            this.style.color = "hotpink";
+
+            // 기본 이벤트를 제거하는 두 번째 방법
+            // return false;
+            // 이 방법은 스타일 속성이 적용된 후에 작성되어야 한다.(순서 중요)
+
+        };
+        
+        document.querySelector("#container").onclick = function () {
+            // 이벤트 핸들러: #container 요소에 click 이벤트가 발생하면 실행할 기능
+
+            this.style.backgroundColor = "navy";
+
+            // 하위 요소(#google)에 발생한 이벤트는 상위 요소들(#container, body, html)
+            // 에게 순차적으로 전달되므로 하위 요소에 이벤트 전달 제거를 해주지 않으면
+            // #google을 클릭(onclick)하게 되면 상위 요소에 적용했던 스타일 속성까지 동시에 나타난다.
+            // 그러므로 하위 요소(#google)에 "이벤트 전달을 제거"해야 한다 
+        };
+
+        //...
+        //...
+/*
+        // 몇 백줄이 지난 후, #google 요소의 이벤트 핸들러를 이미 작성했다는 사실을
+        // 잊어버려 다시 작성했다고 가정해보면
+        document.querySelector("#google").onclick = function (event) {
+            // 이벤트 핸들러(#google 요소에 click 이벤트가 발생하면 실행할 기능)를 통해
+            // 스타일 속성을 "추가"할 목적으로 작성
+            // 그러나 추가되지 않고 기존에 적용되었던 스타일 속성을 덮어쓰게 된다.
+
+            event.preventDefault();
+
+            this.innerHTML = "Go Google!";
+
+            // → 변수에 또 다른 값을 대입하면 초기화되는 것과 같이 이와 같은 경우에도
+            //   여기서 작성된 스타일 속성이 앞에서 작성된 핸들러를 통해 실행할 스타일
+            //   속성을 덮어쓰게 된다.
+            // → addEventListener를 통해 해결
+        };
+*/
+///*
+        document.querySelector("#google").addEventListener("click", function () {
+
+            // 기본 이벤트 제거
+            event.preventDefault();
+
+            // 스타일 속성 설정
+            this.innerHTML = "Go Google!";
+        });
+
+        // 이벤트 핸들러와 객체를 다룰 때는 되도록 addEventListener으로 작성하는 것이 좋다.
+//*/
+    </script>
+</body>

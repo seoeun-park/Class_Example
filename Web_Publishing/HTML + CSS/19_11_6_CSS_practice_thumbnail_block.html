@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="reset.css">
+        <title>11월 6일 연습문제</title>
+        <style>
+
+            #container {
+                margin: 10px auto;
+                width: 600px;
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+            }
+
+            #container::after { content: ""; display: block; clear: both;}
+
+            #container > div {
+                border: 1px solid black;
+                float: left;
+                width: 290px;
+                height: 190px;
+                padding: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            #container > div:nth-child(odd) {
+                margin-right: 10px;
+            }
+
+            #container > div:nth-child(even) {
+                margin-left: 10px;
+            }
+                
+            #container > div > img {
+                float: left;
+                margin-right: 10px;
+            }
+
+            #container > div > p {
+                line-height: 20px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+             <div>
+                <img src="https://place-hold.it/120x80" alt="Thumnail">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                 Nunc in ligula a augue commodo molestie.
+                 Vivamus in lobortis magna, eget fermentum ligula. </p>
+            </div>
+            <div>
+                <img src="https://place-hold.it/120x80" alt="Thumnail">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Nunc in ligula a augue commodo molestie.
+                Vivamus in lobortis magna, eget fermentum ligula. </p>
+            </div>
+            <div> 
+                <img src="https://place-hold.it/120x80" alt="Thumnail">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Nunc in ligula a augue commodo molestie.
+                Vivamus in lobortis magna, eget fermentum ligula. </p>
+            </div>
+            <div>
+                <img src="https://place-hold.it/120x80" alt="Thumnail">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Nunc in ligula a augue commodo molestie.
+                Vivamus in lobortis magna, eget fermentum ligula. </p>
+            </div>
+        </div> <!-- /#container-->
+    </body>
+</html>

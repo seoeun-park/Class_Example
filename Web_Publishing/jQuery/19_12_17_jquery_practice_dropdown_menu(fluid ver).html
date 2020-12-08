@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 17일 연습문제 (고정 폭 레이아웃)</title>
+        <!-- CSS 초기화: 브라우저에서 기본 설정하는 스타일 속성 제거 -->
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            /* 헤더 영역 */
+            #header > h1 {
+                font-size: 2.4em;
+                font-weight: 900;
+                letter-spacing: -1px;
+                text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+                padding: 0.5em 1em;
+            }
+
+            /* 내비게이션 영역 */
+            #nav { 
+                background-color: #555;
+                box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);  
+                margin-bottom: 5px;
+            }
+
+            #nav::after {content: ""; display: block; clear: both; }
+
+            #nav > ul:first-child { float: left; }
+            #nav > ul:last-child { float: right; }
+
+            #nav > ul > li { 
+                float: left;
+
+                /* .dropdown 요소가 이 요소의 영역을 기준으로 배치되도록 */
+                position: relative; 
+            }
+
+            #nav > ul > li > a {
+                display: block;
+                text-decoration: none;
+                color: white;
+                padding: 1em 2em ;
+            }
+            #nav > ul > li > a:hover { background-color: black; }
+
+            /* 드랍다운 메뉴 */
+            .dropdown {
+                /* li 요소를 기준으로 하단에 배치 */
+                position: absolute;
+                top: 108%;
+                left: 0;
+
+                padding: 1em;
+                border-radius: 5px;
+                background-color: #555;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+                /* 처음에는 보이지 않도록 설정 */
+                display: none;
+            }
+
+            .dropdown > li > a {
+                /* a 요소에 기본적으로 적용되는 스타일 속성 초기화 */
+                text-decoration: none;
+                color: white;
+
+                /* 메뉴 바에 들어가는 a 요소는 버튼 형태로 표현 */
+                display: block;
+                padding: 0.4em 1em;
+            }
+
+            /* ---------------------------------------------------------------------- */
+            /* 가변 폭 레이아웃(fluid layout) */
+            #container {
+                /* 5. 화면 오른쪽으로 밀려나가 있는 #wrap 요소로 인해 화면 아래쪽에 스크롤바가 생성되므로
+                      이 스크롤바를 없애기 위해 #container 요소의 영역을 벗어난 #wrap 요소의 영역을
+                      화면에서 숨긴다. */
+                /* 모든 자식 요소에 float 스타일 속성을 설정한 경우 부모 요소에 overflow 스타일 속성을
+                    설정하면 부모 요소의 영역을 잡아줄 수 있다. */
+                overflow: hidden;
+            }
+
+            /* #container::after { content: ""; display: block; clear: both; } */
+            /* 위의 #container 요소 안에 overflow 속성이 설정되어 있으므로 굳이 가상요소를
+                추가할 필요가 없다. */
+
+            #sidebar, #wrap {
+                float: left;
+            }
+
+            #sidebar {
+                width: 200px;
+            }
+            
+            #wrap {
+                /* 2. #content 영역의 너비를 (100% -200px)로 만들기 위해 #wrap 요소의 너비를 100%로 설정 */
+                width: 100%;
+
+                /* 3. #sidebar 요소와 #wrap 요소를 나란히 배치하기 위해 #wrap 요소를 화면 오른쪽으로
+                      #sidebar 요소의 너비만큼 밀어낸다. */
+                margin-right: -200px;
+            }
+
+            #content {
+                /* 4. 컨텐츠가 화면 오른쪽으로 밀려나가는 것을 방지하기 위해 #content 요소의 오른쪽에
+                      #sidebar 요소의 너비만큼 여백을 설정한다. */
+                margin-right: 200px;
+            }
+
+            /* ----------------------------------------------------------------------- */
+
+            /* 사이드바 영역 */
+            #sidebar {
+                padding-top: 1em;
+            }
+
+            #sidebar > ul > li {
+                padding: 0.4em 0;
+            }
+
+            #sidebar > ul > li > a {
+                display: block;
+                text-decoration: none;
+                color: black;
+                padding: 0.4em 1em;
+            }
+
+            #sidebar > ul > li > a:hover {
+                background-color: black;
+                color: white;
+            }
+            #content {
+                border-left: 2px solid darkgray;
+                padding: 2em;
+                box-sizing: border-box;
+            }
+
+            #content > h2 {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 0.8em;
+            }
+
+            #content > p {
+                line-height: 1.5em;
+                margin-top: 0.8em;
+            }
+
+            /* 푸터 영역 */
+            #footer {
+                text-align: right;
+                background-color: darkgrey;
+                font-size: 0.8em;
+                padding: 3em;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+
+        <script>
+            $(function () {
+                // 이벤트 핸들러: document 객체에서 ready 이벤트가 발생하면 살행할 기능
+                // → window 객체의 load 이벤트와 비슷한 시점에 발생하는 이벤트
+
+                //-----------------------------------------------------------------------
+                // 1. .menu-item 요소를 클릭하면
+                // 1.1. 그 다음에 나오는 .dropdown 요소가 화면에 보이는 상태이면
+                // 1.2. 그 다음에 나오는 .dropdown 요소를 화면에서 숨기고
+                // 1.3. 그렇지 않으면 (그 다음에 나오는 .dropdown 요소가 보이지 않는 상태이거나
+                //      클릭하지 않은 .menu-item 요소의 다음에 나오는 .dropdown 요소가 보이는 상태)
+                // 1.4. 현재 화면에 보이는 다른 .dropdown 요소를 화면에서 숨기고
+                // 1.5. 그 다음에 나오는 .dropdown 요소를 화면에 나타나도록 한다.
+
+                //-----------------------------------------------------------------------
+                // 1. .menu-item 요소를 클릭하면
+                $(".menu-item").on("click", function (event) {
+                    // 이벤트 핸들러: .menu-item 요소에 click 이벤트가 발생하면 실행할 기능
+
+                    // a 요소의 기본 이벤트 제거
+                    event.preventDefault();
+
+                    // 그 다음에 나오는 .dropdown을 미리 변수로 찾는다.
+                    var $next = $(this).next();
+                    // → var $next = $(this).next(".dropdown"); 와 같다.
+
+                    // 1.1. 그 다음에 나오는 .dropdown 요소가 화면에 보이는 상태이면
+                    if( $next.is(":visible") ) {
+                    // → 이는 $next가 visible인 상태를 확인하는 조건문이다.
+
+                        // 1.2. 그 다음에 나오는 .dropdown 요소를 화면에서 숨기고
+                        // $next.css("display", "");
+                        // $next.css("display", "none");
+                        $next.removeAttr("style");
+                        // else 구문에서 설정한 인라인 스타일 속성을 제거
+                    }
+
+                    // 1.3. 그렇지 않으면
+                    else {
+                        // 1.4. 현재 화면에 보이는 다른 .dropdown 요소를 화면에서 숨기고
+                        $(".dropdown:visible").removeAttr("style");
+
+                        // 1.5. 그 다음에 나오는 .dropdown 요소를 화면에 나타나도록 한다.
+                        $next.css("display", "block");
+                    }
+                }); // $(".menu-item").onclick
+
+            }); // document.onready
+        </script>
+    </head>    
+    <body>
+        <header id="header">
+            <h1>Fluid Layout</h1>
+        </header>
+
+        <nav id="nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li>
+                    <a href="#html" class="menu-item">HTML</a>
+
+                    <!-- 중첩된 목록을 이용해 각 메뉴 항목에 드랍다운 메뉴를 추가한다. -->
+                    <!-- 드랍다운 메뉴 -->
+                    <ul class="dropdown">
+                        <li><a href="#html-tutorial">Tutorial</a></li>
+                        <li><a href="#html-reference">Reference</a></li>
+                        <li><a href="#html-example">Example</a></li>
+                        <li><a href="#html-faq">FAQ</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#css" class="menu-item">CSS</a>
+
+                    <!-- 드랍다운 메뉴 -->
+                    <ul class="dropdown">
+                        <li><a href="#css-tutorial">Tutorial</a></li>
+                        <li><a href="#css-reference">Reference</a></li>
+                        <li><a href="#css-example">Example</a></li>
+                        <li><a href="#css-faq">FAQ</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#javascript" class="menu-item">Javascript</a>
+
+                    <!-- 드랍다운 메뉴 -->
+                    <ul class="dropdown">
+                        <li><a href="#javascript-tutorial">Tutorial</a></li>
+                        <li><a href="#javascript-reference">Reference</a></li>
+                        <li><a href="#javascript-example">Example</a></li>
+                        <li><a href="#javascript-faq">FAQ</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#jquery" class="menu-item">jQuery</a>
+
+                    <!-- 드랍다운 메뉴 -->
+                    <ul class="dropdown">
+                        <li><a href="#jquery-tutorial">Tutorial</a></li>
+                        <li><a href="#jquery-reference">Reference</a></li>
+                        <li><a href="#jquery-example">Example</a></li>
+                        <li><a href="#jquery-faq">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li><a href="login">Login</a></li>
+                <li><a href="signup">Sign Up</a></li>
+            </ul>
+        </nav>
+
+        <div id="container">
+            <aside id="sidebar">
+                <ul>
+                   <li><a href="#home">Home</a></li>
+                   <li><a href="#html">HTML</a></li>
+                   <li><a href="#css">CSS</a></li>
+                   <li><a href="#javascript">Javascript</a></li>
+                   <li><a href="#jquery">jQuery</a></li>
+                </ul>
+            </aside>
+
+            <!-- #content 영역의 너비를 (100% - 200px)로 만들기 위해 새로운 컨테이너를 추가 -->
+            <div id="wrap">
+                <article id="content">
+                    <h2>Lorem ipsum</h2>
+                    <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Maecenas interdum massa ac scelerisque gravida.
+                    Nullam in mi at mi volutpat congue faucibus vel tellus. 
+                    Duis congue leo sed convallis molestie. 
+                    Nullam congue consequat ante nec egestas.
+                    Donec eget magna faucibus, bibendum nibh ut, tincidunt ipsum. 
+                    Nunc aliquam faucibus est sed tristique. Cras quis condimentum nunc, ac vulputate ex. 
+                    Phasellus at aliquam urna. Nam hendrerit nulla risus, quis gravida diam volutpat id.
+                    Donec vestibulum, enim vel tristique facilisis, risus nisl fringilla tellus, at placerat eros eros eu dolor. 
+                    In volutpat varius nulla, vel tincidunt tortor dignissim in. Proin hendrerit sagittis aliquam.
+                    </p>
+                    <p>
+                    Phasellus a congue ex. Quisque enim libero, tincidunt nec risus sit amet, placerat consequat mi. 
+                    Suspendisse pretium, dolor nec tempor luctus, tortor massa posuere nunc, eu porta neque dui eu massa. 
+                    Vivamus leo magna, eleifend et turpis ac, accumsan cursus nibh.
+                    Aenean eget purus ac dui scelerisque scelerisque. 
+                    Aliquam ut nulla scelerisque turpis tincidunt sollicitudin et id mauris.
+                    Nam sodales elit libero, malesuada luctus quam pharetra a.
+                    Sed luctus, felis nec faucibus consequat, enim dolor tincidunt tortor, vel imperdiet sem arcu id ex.
+                    Sed consectetur at lorem condimentum rhoncus.
+                    Morbi varius magna id dui facilisis, id interdum ligula lobortis.
+                    Donec urna mi, ultricies et dui a, pellentesque venenatis nulla. 
+                    In ultricies felis ut libero porttitor, eu sollicitudin urna rhoncus. 
+                    </p>
+                </article>
+            </div>  <!--/#wrap-->  
+        </div> <!--/#container-->
+
+        <footer id="footer">
+            @ 2019 Fluid Layout
+        </footer>
+
+    </body>
+</html>

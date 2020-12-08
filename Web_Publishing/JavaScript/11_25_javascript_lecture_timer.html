@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 25일 배운 거</title>
+    </head>
+    <body>
+        <pre><script>
+            // window 객체의 타이머
+            // 1. 일정한 시간(ms)이 "지난 후에" 지정한 기능(function)을 수행하는 타이머
+            //    → window.setTimeout 메서드로 등록
+            //    → window.clearTimeout 메서드로 해제
+
+            // 2. 일정한 시간(ms)"마다" 지정한 기능(function)을 수행하는 타이머
+            //    → window.setInterval 메서드로 등록
+            //    → window.clearInterval 메서드로 해제
+            /* → window.setTimeout 메서드 또는 window.setInterval 메서드는
+                 타이머를 등록 한 후 등록한 타이머의 ID를 반환한다. */
+
+            // 1000ms → 1초(1s)
+
+            //-----------------------------------------------------------------
+            // 2초가 지난 후에
+            // → window.setTimeout 메서드로 타이머를 등록해서 구현(인자는 총 2개 → function, ms)
+            // → 아래 문장은 타이머를 등록한다. 이렇게 등록한 타이머에 의해 2000ms가 지나면
+            //   첫 번째 인자로 넣어준 함수가 실행된다.
+            window.setTimeout(function () {
+
+                console.log("Hello World!");
+            }, 2000);
+            // 타이머는 등록만 해놓을 뿐 실행은 브라우저가 하는 것이다.
+            // 그러므로 window ~ 2000); 문장은 브라우저에 바로 출력되고
+            // 콘솔창에 "Hello World!"는 2초 뒤에 출력되는 것이다.
+
+            //-----------------------------------------------------------------
+            // 함수의 매개변수에 함수를 전달하고자 할 때 이렇게 전달할 함수를 미리 선언해두고
+            // 함수의 식별자를 통해 함수의 매개변수에 전달할 수 있다.
+            function sayMerong () {
+                console.log("메롱!");
+            }
+
+            // 1초마다
+            // → window.setInterval 메서드로 타이머를 등록해서 구현
+            var timerId = window.setInterval(sayMerong, 1000);
+
+            console.log("SET: timerId = " + timerId);
+            // → SET: timerId = 2;
+
+            //-----------------------------------------------------------------
+            // 등록해놓은 타이머를 해제
+            // 1. window.setTimeout 메서드로 등록한 타이머를 해제
+            //    → window.clearTimeout 메서드로 해제
+            // 2. window.setInterval 메서드로 등록한 타이머를 해제
+            //    → window.clearInterval 메서드로 해제
+
+            window.setTimeout(function () {
+                // 이 함수는 setTimeout 메서드로 등록한 타이머에 의해 5000ms가 지난 후에 실행된다.
+                console.log("CLEAR: timerId = " + timerId);
+
+                // 등록해놓은 타이머를 해제하기 위해서는 해제하고자 하는 타이머의 ID를 알고 있어야 한다.
+                // 타이머 ID는 window.setTimeout 메서드 또는 window.setInterval 메서드가 타이머를 등록한 후 반환하는 값이다.
+                // 따라서 나중에 타이머를 해제하기 위해서는 이 메서드들이 반환하는 값을 변수에 대입해놓아야 한다
+                window.clearInterval(timerId);
+                // → 변수 timerId에는 위에서 setInterval 메서드로 등록한 타이머의 ID가 저장되어 있다
+                //  따라서 clearInterval 메서드는 위에서 setInterval 메서드로 등록한 타이머를 해제한다.
+
+            }, 5000);
+
+        </script></pre>
+    </body>
+</html>

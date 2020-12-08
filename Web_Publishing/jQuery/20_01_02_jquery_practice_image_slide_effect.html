@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 2일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 3em;
+                background-color: black;
+            }
+
+            #container {
+                width: 970px; /* (303px * 3) = 369px */
+                margin: 100px auto;
+
+                overflow: hidden;
+            }
+
+            #gallery {
+                width: 200%;    /* container 요소 너비의 6/3 */
+            }
+
+            #gallery::after{ content: ""; display: block; clear: both; }
+
+            #gallery > li {
+                float: left;
+                width: 300px;
+                border: 3px solid white;
+                box-sizing: border-box;
+                margin: 10px;
+            }
+
+            #gallery > li > img {
+                display: block;
+                width: 100%;
+            }
+
+            /* #container:hover > ul > li {
+                animation: hover 0.4s;
+            }
+
+            @keyframes hover {
+                from { width: 301px; }
+                50% { width: 302px; }
+                to { width: 303px; }
+            } */
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+
+            $(function () {
+                var $gallery = $("#gallery");
+
+                var timerId = window.setInterval(slideImage, 2000);
+
+                $("#container").hover(
+                    function() {
+                        window.clearInterval(timerId);
+
+                        $gallery.children("li").animate({ width: 303 }, 400, "linear");
+                    },
+
+                    function() {
+                        timerId = window.setInterval(slideImage, 2000);
+
+                        $gallery.children("li").removeAttr("style");
+                        // $gallery.children("li").animate({ width: 300 }, 400, "linear");
+                    }
+                );
+            
+            //-----------------------------------------------------------------------
+            function slideImage () {
+                    $gallery.css({"margin-left": "-320px", "transition": "0.4s"});
+
+                    window.setTimeout(function () {
+                        $gallery.removeAttr("style").children(":first").appendTo($gallery);
+                    }, 400);
+                }
+                
+            }); // document.onready
+
+        </script>
+
+    </head>
+    <body>
+        <div id="container">
+            <ul id="gallery">
+                <li><img src="https://i.imgur.com/Yy7wdEP.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/az1H9tl.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/5QkjSce.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/U0Eg5wb.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/c7Llx1m.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/P4hWwz4.jpg" alt="image"></li>
+            </ul>
+        </div>
+    </body>
+</html>

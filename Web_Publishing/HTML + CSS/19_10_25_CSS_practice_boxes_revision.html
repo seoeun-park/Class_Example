@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 25일 연습문제 수정</title>
+        <style>
+            #yg {
+                background-color: yellowgreen;
+                width: 600px;
+            /*  pink라는 후손 선택자를 포함한 gold라는 컨텐츠를 포함하고 있으므로
+                굳이 height를 지정할 필요가 없다*/
+            }
+            #gold {
+                background-color: gold;
+                width: 400px;
+            }
+            #pink {
+                background-color: pink;
+                width: 200px;
+
+            /*  내부문자 혹은 후손요소(컨텐츠)를 포함하고 있지 않으므로 이와 같은 경우에는
+                height를 지정해주어야 한다*/
+                height: 200px;
+            }
+
+            /*  각 선택자에 공통된 스타일 속성이 들어가 있을 경우 class 선택자를
+                이용하는 것이 편리하다*/
+            .box {
+                padding: 20px;
+
+            /*  box-sizing 스타일 속성은 width, height 스타일 속성이 어떤 영역의 크기를 지정하는
+                스타일 속성을 사용할 것인지를 설정한다 box-sizing 스타일 속성의 기본 값은
+                content-box이고 이 값은 width, height 스타일 속성이 콘텐츠 영역의 크기를
+                지정하는 스타일 속성으로 사용된다는 의미이다
+                border-box으로 설정하면 width, height 스타일 속성은 테두리까지 포함하는
+                영역의 크기를 지정하는 스타일 속성으로 사용된다 */
+                box-sizing: border-box;
+                
+                margin: 0 auto;
+                border: 1px solid black;  
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="yg" class="box">
+            <div id="gold" class="box">
+                <div id="pink" class="box"></div>
+            </div>
+        </div>
+    </body>
+</html>

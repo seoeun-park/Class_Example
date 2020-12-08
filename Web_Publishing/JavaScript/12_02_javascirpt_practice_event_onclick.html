@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 02일 연습문제 </title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+
+                background-color: black;
+            }
+            #hello {
+                width: 300px;
+                padding: 10px;
+                margin: 30px;
+                color: white;
+                background-color: #555;
+                font-size: 50px;
+                font-weight: 900;
+                text-align: center;
+                letter-spacing: -1px;
+                border-radius: 10px;
+            }
+            #color {
+                margin-left: 150px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 연습문제 : button 요소를 클릭하면 h1 요소의 글자 색상을 red로 바꾸거나
+            본래 상태로 되돌리는 프로그램을 작성하라
+            이때 button의 요소의 내부 문자는 버튼의 기능에 따라 바뀌도록 한다 -->
+
+        <h1 id="hello">Hello World!</h1>
+        
+        <p>
+            <button id="color">COLOR</button>
+        </p>
+        
+        <!-- ----------------------------------------------------------------------- -->
+        <!-- 내가 푼 방법
+        <script>
+                
+            var hello = document.querySelector("#hello");
+                
+            var i = 0;
+            
+            document.getElementById("color").onclick = function () {
+                
+                hello.style.color = "red";
+                this.innerHTML = "RESET";
+                
+                i++;
+                
+                if (i % 2 == 0) {
+                    
+                    hello.style.color = "";
+                    this.innerHTML = "COLOR";
+                }    
+            };
+        </script>
+        -->
+        <script>
+            //---------------------------------------------------------------------------
+            // 1. #color 요소를 클릭하면
+            // 2-1. #color 요소의 내부 문자가 "COLOR"이면
+            // 2-2 = (#hello 요소의 color 스타일 속성의 값이 없으면)
+            // 3. #hello 요소의 글자 색상을 빨간색으로 바꾸고
+            // 4. #color 요소의 내부 문자를 "RESET"으로 바꾼다.
+            // 5. 그렇지 않으면
+            // 6. #hello 요소의 글자 색상을 본래 색상으로 되돌리고
+            // 7. #color 요소의 내부 문자를 "COLOR"으로 바꾼다
+
+            //----------------------------------------------------------------------------
+
+            var hello = document.querySelector("#hello");
+
+                console.log("hello.style.color = " + hello.style.color);
+                console.log("this.innerHTML = " + this.innerHTML);
+
+                hello.style.color = "red";
+                this.innerHTML = "RESET";
+
+                console.log("hello.style.color = " + hello.style.color);
+                console.log("this.innerHTML = " + this.innerHTML);
+
+                hello.style.color = "";
+                this.innerHTML = "COLOR";
+
+                console.log("hello.style.color = " + hello.style.color);
+                console.log("this.innerHTML = " + this.innerHTML);
+
+            //----------------------------------------------------------------------------
+            // 1. #color 요소를 클릭하면
+            //    → #color 요소에 click 이벤트 핸들러를 연결해서 구현
+            document.getElementById("color").onclick = function () {
+                // 이벤트 핸들러: #color 요소에 click 이벤트가 발생하면 실행할 기능
+
+                // JavaScript에서 거짓을 의미하는 값
+                // 1. number - 0
+                // 2. string - ""
+                // 3. boolean - false
+                // 4. function - function () {}
+                // 5. object - {}, []
+                // 6. undefined
+
+                // 2-1. #color 요소의 내부 문자가 "COLOR"이면
+                // 2-2. #hello 요소의 color 스타일 속성의 값이 없으면
+                // → if (!hello.style.color)
+                if (this.innerHTML == "COLOR") {
+
+                    // 3. #hello 요소의 글자 색상을 빨간색으로 바꾸고
+                    hello.style.color = "red";
+
+                    // 4. #color 요소의 내부 문자를 "RESET"으로 바꾼다.
+                    this.innerHTML = "RESET";
+                }
+                // 5. 그렇지 않으면
+                else {
+
+                    // 6. #hello 요소의 글자 색상을 본래 색상으로 되돌리고
+                    hello.style.color = "";
+
+                    // 7. #color 요소의 내부 문자를 "COLOR"으로 바꾼다
+                    this.innerHTML = "COLOR";
+                }
+            };        
+        </script>
+    </body>
+</html>

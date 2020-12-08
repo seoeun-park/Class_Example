@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 30일 연습문제</title>
+    </head>
+    <style>
+        #container {
+            width: 440px;
+            height: 240px;
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 30px auto;
+        }
+        .box {
+            width: 200px;
+            margin: 10px;
+            text-align: center;
+            float: right;
+            }
+        .box:nth-child(2) , .box:nth-child(3) {
+            height: 100px;
+            line-height: 100px;
+            }
+        .box:nth-child(1) {
+            height: 220px;
+            background-color: gold;
+            line-height: 220px;
+
+            }       
+        .box:nth-child(2) { 
+            background-color: pink;
+            }
+        .box:nth-child(3) {
+            background-color: yellowgreen;
+            }
+    </style>
+
+    <body>
+        <div id="container">
+            <div class="box">Gold</div>
+            <div class="box">Pink</div>
+            <div class="box">Yellowgreen</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+
+            #effect {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                /* 너비를 따로 설정하는 이유는? 너비를 설정하지 않으면
+                    가운데에 배치되어 있으므로 글자가 나올 때 가운데서부터 나오게 된다.
+                    너비를 설정하게 되면 왼쪽부터 차례대로 나오게 된다. */
+                width: 950px;
+
+                font-size: 7em;
+                font-weight: 900;
+                letter-spacing: -4px;
+                white-space: nowrap;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+
+                // 1. #effect 요소의 내부 문자를 한 글자씩 잘라낸다.
+                // 1.A. String 객체의 charAt 메서드를 이용
+                // 1.B. String 객체의 split 메서드를 이용
+                // 2. #effect 요소의 내부 문자를 제거한다.
+                // 3. 한 글자씩 자라놓은 문자들을 #effect 요소에 추가한다.
+                // 3.A. 모든 문자들을 보이지 않게 추가해놓고 한 글자씩 보이게 한다.
+                // 3.B. 순차적으로 글자를 하나씩 #effect 요소에 추가한다.
+                //      → A가 더 편한 방법이므로 A로 JavaScript 프로그램을 작성하도록 한다.
+                // 4. #effect 요소에 커서(caret)를 표현할 요소를 추가
+                // 5. 지정한 시간이 지난 다음 문자들이 순차적으로 나오도록 지연을 설정하고, 글자가 보이게 한다.
+                // 6. 글자가 모두 화면에 표시된 다음에 커스(caret)이 깜빡이도록 설정
+                
+                //---------------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $effect = $("#effect");
+
+                // 글자들이 입력되는 간격 → 표준 입력값은 이렇게 변수에 저장하는 것이 좋다.
+                var typingDelay = 200;
+
+                // 커서(caret)가 깜빡이는 간격
+                var caretDelay = 600;
+                
+                // 1. #effect 요소의 내부 문자를 한 글자씩 잘라낸다.
+                //    → html() 메서드는 white-space를 포함한 html 내부문자를 불러들인다.
+                //    → white-space는 공백(space), 개행, 탭을 포함하는데 이러한 white-space를 제외한
+                //    → 내부문자를 불러들이려면 trim() 메서드를 이용한다.     
+                var effectText = $effect.html().trim();
+
+                // 1.A. String 객체의 charAt 메서드를 이용
+                // for (var i = 0; i < effectText.length; i++)
+                //    console.log("effectText[i] = " + effectText.charAt(i));
+
+                // 1.B. String 객체의 split 메서드를 이용
+                //       → 첫번째 인자가 어떤 글자를 기준으로 쪼갤 것인지(생략 가능, 만약 생략한다면 글자 전체를 반환),
+                //       → 빈문자열을 인자로 삼는다면 쪼개 놓은 문자열을 담은 배열이 반환값이 된다.
+                var letters = effectText.split("");
+                
+                // 2. #effect 요소의 내부 문자를 제거한다.
+                $effect.html("");
+
+                // 3. 한 글자씩 자라놓은 문자들을 #effect 요소에 추가한다.
+                // 3.A. 모든 문자들을 보이지 않게 추가해놓고 한 글자씩 보이게 한다.
+                // 3.B. 순차적으로 글자를 하나씩 #effect 요소에 추가한다.
+                //      → A가 더 편한 방법이므로 A로 JavaScript 프로그램을 작성하도록 한다.
+                
+                // 3.A. 모든 문자들을 보이지 않게 추가해놓고 한 글자씩 보이게 한다.
+                for (var i = 0; i < letters.length; i++) {
+                    // 빈칸(space)의 경우 HTML 문서에서 제대로 표현되지 않으므로 HTML 엔티티를 이용해서 표현
+                    letters[i] = (letters[i] == " ") ? "&nbsp;" : letters[i]
+                    // if 조건문보다 ?: 조건문을 쓰는 것이 처리 속도가 훨씬 빠르다.
+
+                    // 3.A.1. 새로운 span 요소를 생성해서 각 문자들을 내부 문자로 설정하고
+                    //        보이지 않게 한 다음 #effect 요소에 추가
+                    $("<span></span>").html(letters[i]).hide().appendTo($effect);
+                }
+
+                // 4. #effect 요소에 커서(caret)를 표현할 요소를 추가
+                var $caret = $("<span></span>").addClass("caret").css({
+                    display: "inline-block", height: "1em", width: "0.4em",
+                    // borderBottom: "20px solid #555", transform: "translateY(30px)",
+                    borderBottom: "20px solid #555", marginBottom: -30,
+                }).appendTo($effect);
+
+                // 5. 지정한 시간이 지난 다음 문자들이 순차적으로 나오도록 지연을 설정하고, 글자가 보이게 한다.
+                window.setTimeout(function () {
+                    $effect.children().each(function (index) {
+                        $(this).delay(index * typingDelay).show(10);
+                    })
+                }, 2000);
+                
+                // 6. 글자가 모두 화면에 표시된 다음에 커스(caret)이 깜빡이도록 설정
+                //    → 글자가 모두 화면에 표시되는데 걸리는 시간 = (글자의 개수) * (표시되는 간격)
+                //      = (letters.length + typingDelay)
+                window.setTimeout(function () {
+                    window.setInterval(function () {
+                        $caret.hide().delay(caretDelay / 2).show(10);
+                        // show 메서드는 시간을 주지 않으면 애니메이션 큐에 쌓이지 않고 바로 실행되므로
+                        // 짧게라도 시간을 인자로 주어야 한다.
+                    }, caretDelay);
+                }, letters.length * typingDelay);
+                
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div id="effect">
+            Have a good time!
+        </div>
+    </body>
+</html>

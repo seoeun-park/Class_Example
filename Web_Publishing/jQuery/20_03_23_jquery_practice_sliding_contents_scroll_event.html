@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            html, body {height: 100%;}
+
+            .container {
+                height: 100%;
+
+                position: relative;
+            }
+
+            .container:last-child {
+                margin-bottom: 25%;
+            }
+
+            .wrap {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                width: 70%; height: 90%;
+                padding: 20px 0;
+                box-sizing: border-box;
+            }
+
+            .wrap::after {content: ""; display: block; clear: both;}
+
+            .contents {
+                position: absolute;
+                width: 50%; height: 50%;
+                padding: 20px;
+                box-sizing: border-box;
+
+                font-size: 20px;
+                line-height: 30px;
+
+                overflow: hidden;
+            }
+            #contents-first {left: 0;}
+            .wrap:first-child > .contents:nth-child(1) { top: 0; left: -70%;}
+            .wrap:first-child > .contents:nth-child(2) { top: 0; right: 0;}
+            .wrap:last-child > .contents:nth-child(1) { top: 50%; left: 0;}
+            .wrap:last-child > .contents:nth-child(2) { top: 50%; right: -70%;}
+
+            .contents > img {
+                width: 100%;
+                height: 100%;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                var $wrap = $(".wrap");
+                var posTop = $wrap.offset().top + 10;
+                console.log($wrap.offset().top);
+
+                var imageScrolled = false;
+
+                    $(window).on("scroll", function () {
+                        if (!imageScrolled && $(window).scrollTop > posTop) {
+                            $wrap.children().eq(0).animate({"left": "0"}, 1000);
+                            $wrap.children().eq(1).animate({"right": "0"}, 1000, function () {
+                                imageScrolled = true;
+                            });
+                        }
+                        else if (imageScrolled && $(window).scrollTop < posTop) {
+                            $contents.children().eq(0).animate({"left": "0"}, 1000);
+                            $contents.children().eq(1).animate({"right": "0"}, 1000, function () {
+                                imageScrolled = false;
+                            });
+                        }
+                }); // window.onscroll
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="wrap">
+                <div class="contents" id="contents-first"><img src="https://t1.daumcdn.net/movie/d055c2d8c1a37dbaaa968f43dbacecbdd2a2b90b" alt="Photo"></div>
+                <div class="contents">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae metus ligula. 
+                    In eget tristique tortor, et laoreet ipsum. Nulla venenatis id est at luctus. 
+                    Curabitur imperdiet semper leo, vel volutpat sem luctus volutpat. 
+                    Aenean quis ex eu sapien pretium tincidunt quis blandit mi. 
+                    Vivamus sed odio accumsan, eleifend est vel, auctor lorem. 
+                    Fusce luctus scelerisque lorem, vel dignissim mi. Donec quis quam arcu. 
+                    Aliquam in ultricies neque, tincidunt porta lorem. 
+                </div>
+            </div> <!--.wrap-->
+            <div class="wrap">
+                <div class="contents">
+                    Morbi ut ultrices mi, nec luctus erat. Maecenas sed tempus sem, eu imperdiet mi. 
+                    Nunc eget mi euismod, placerat lectus sit amet, mattis mauris. 
+                    Nullam ultrices elit ex, congue elementum est sagittis nec. 
+                    Nulla venenatis ipsum ut ligula venenatis, non efficitur metus pulvinar.
+                    Aliquam porttitor porta lectus, ac dapibus tellus eleifend et.
+                    Quisque dui mi, lobortis id dolor hendrerit, volutpat fermentum sem. 
+                    Integer convallis quis quam vel mattis. Fusce tristique justo vitae mauris bibendum tincidunt.
+                </div>
+                <div class="contents"><img src="https://t1.daumcdn.net/cfile/12110210A87E371BD1" alt="Photo"></div>
+            </div> <!--.wrap-->
+        </div> <!--.container-->
+        
+        <div class="container">
+            <div class="wrap">
+                <div class="contents"><img src="https://t1.daumcdn.net/movie/b96d95aba5ff446ff81427bada040d95281c5647" alt="Photo"></div>
+                <div class="contents">
+                    Sed viverra velit non odio rutrum, eget molestie enim rhoncus. Fusce ultricies mauris non ante aliquam feugiat. 
+                    Aenean rutrum ipsum ultrices metus tempus egestas. Sed ultricies odio et enim hendrerit iaculis. 
+                    Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                    Etiam mollis ipsum at urna aliquet, ut accumsan leo imperdiet. 
+                    Vivamus ac viverra erat, ultrices rutrum urna. Nunc maximus mi id tincidunt efficitur.
+                    Integer pellentesque est sed sapien ullamcorper. 
+                </div>
+            </div> <!--.wrap-->
+            <div class="wrap">
+                <div class="contents">
+                    Ut condimentum risus nisi. Praesent a sapien lorem. Fusce et mauris id enim ullamcorper semper. 
+                    Aenean scelerisque ante non porttitor semper. Donec fringilla lobortis ultricies. 
+                    Integer auctor mauris et libero convallis, non porttitor ex tincidunt. Quisque et purus justo.
+                    Vestibulum placerat ipsum auctor, viverra nisl sit amet, egestas dolor. 
+                    In hac habitasse platea dictumst.
+                    Curabitur at lectus viverra, posuere ipsum id, commodo lacus. 
+                    Pellentesque accumsan consequat quam in fringilla.
+                </div>
+                <div class="contents"><img src="https://t1.daumcdn.net/movie/aea72afb2b5620d8e51d62b7c1e5e87d210f06dd" alt="Photo"></div>
+            </div> <!--.wrap-->
+        </div> <!--.container-->
+        
+        <div class="container">
+            <div class="wrap">
+                <div class="contents"><img src="https://t1.daumcdn.net/movie/09ccef3cbc124b5a994c9aaf949854311554859490824" alt="Photo"></div>
+                <div class="contents">
+                    Pellentesque vitae risus nec dolor pulvinar ornare sed eget leo. 
+                    Morbi ut blandit nisi, et pellentesque leo. Praesent id consectetur est, quis lobortis nulla. 
+                    Maecenas vestibulum risus dui, vitae gravida elit malesuada vel. 
+                    Duis id mauris faucibus, suscipit dui a, commodo ante.
+                    Cras scelerisque blandit arcu at consectetur. 
+                    Curabitur volutpat sem a sapien ultricies, at volutpat dui condimentum.
+                    Etiam purus elit, vestibulum rutrum orci auctor, aliquam sollicitudin enim. 
+                    Aenean vitae congue tellus. 
+                </div>
+            </div> <!--.wrap-->
+            <div class="wrap">
+                <div class="contents">
+                    Proin sit amet rutrum mauris. Morbi tempus, neque a sagittis efficitur, est nisi scelerisque metus, 
+                    sit amet viverra risus ipsum ut ante. Nulla consequat ut lacus non lobortis. 
+                    Nam in nulla nec ex eleifend auctor nec in neque. Nam nec tristique purus. 
+                    Nulla sollicitudin a mauris at imperdiet. Maecenas eleifend metus eu tincidunt convallis.
+                    Ut tempus libero suscipit, gravida nunc non, sodales mauris. 
+                    Sed ut laoreet dui, eu sagittis nibh. Phasellus convallis ante at sagittis commodo.
+                </div>
+                <div class="contents"><img src="https://t1.daumcdn.net/movie/16fddeeae2c44170c9d5cc2f69b6b73f8c84dd13" alt="Photo"></div>
+            </div> <!--.wrap-->
+        </div> <!--.container-->
+    </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body  {background-color: #222; }
+
+            #effect {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                color: white;
+                font-size: 10em;
+                font-weight: 900;
+                letter-spacing: -1px;
+                white-space: nowrap;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+
+                //---------------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $effect = $("#effect");
+
+                // 1. #effect 요소의 너비 설정
+                $effect.css("width", $effect.outerWidth());
+
+                // 2. #effect 요소의 내부 문자를 읽어놓은 다음 내부 문자를 제거한다.
+                var text = $effect.html().trim();
+                $effect.html("");
+
+                // 3. #effect 요소의 내부 문자를 한글자씩 잘라내서 배열에 저장
+                var letters = text.split("");
+
+                console.log("letters = " + letters);
+
+                // 4. 새로운 span 요소를 생성해 잘라놓은 글자를 내부 문자로 설정한 후
+                //    #effect 요소에 추가
+                // $.each() 메서드 → 이때 $ 기호는 jQuery를 가리키고 첫번째 인자는 배열, 두번째 인자는 함수
+                $.each(letters, function (index, item) {
+                    $("<span></span>").html(item).appendTo($effect);
+                });
+
+                // 5. #effect 요소의 각 span 요소들의 위치(x축 값)를 저장해둔다.
+                $effect.children().each(function () {
+
+                    // offset() 메서드는 본래 문서의 좌상단점을 기준으로 좌표를 구한다.
+                    // 여기서는 문서의 좌상단점이 아닌 #effect 영역의 좌상단점을 기준으로 구해야 한다.
+                    // #effect 요소의 영역을 기준으로 한 span 요소의 좌표
+                    // var left = $(this).offset().left - $effect.offset().left;
+
+                    // offsetParent() 메서드 → 문서가 아닌 요소의 조상 요소 중에 position이 static이 아닌 요소(위치 지정 요소)를 찾는 메서드
+                    // offsetPosition() 메서드 → 조상 요소 중 가장 가까운 위치 지정 요소를 기준으로 한 좌표를 구하는 메서드
+                    var left = $(this).position().left;
+
+                    $(this).data("left", left);
+                    // $(this).attr("data-left", $(this).offset().left);
+                });
+
+                    // 6. span 요소들을 #effect 요소의 영역을 기준으로 가운데에 배치
+                    $effect.children().css({
+                        position: "absolute",
+                        top: "50%", left: "50%",
+                        transform: "translateY(-50%)",
+                        fontSize: "0.1em",
+                        opacity: 0,
+                    });
+                    
+                    // 7. span 요소들을 순차적으로 본래 위치로 배치
+                    $effect.children().each(function (index) {
+                        $(this).delay(index * 400).animate({ 
+                            left: $(this).data("left"), fontSize: "1.2em", opacity: "0.6"
+                        }).animate({ fontSize: "1em", opacity: "1" })
+                    });
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div id="effect">EFFECT</div>
+    </body>
+</html>

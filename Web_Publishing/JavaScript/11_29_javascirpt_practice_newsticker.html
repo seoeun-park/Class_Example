@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 29일 연습문제 </title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                background-color: black;
+            }
+
+            #container {
+                width: 500px;
+                height: 100px;
+                border: 10px solid gold;
+                margin: 100px auto;
+                color: white;
+                background-color: #555;
+                font-size: 25px;
+                overflow: hidden;
+            }
+
+            #rolling > li {
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+            }
+
+        </style>
+    </head>
+    <body>
+
+    <!-- 연습문제 : 네이버 첫 화면의 "인기 검색어"와 비슷하게 여러 항목 중 한 항목만
+        특정 영역에 나오는 프로그램 작성 / 여러 항목들이 특정 영역에 순차적으로 돌아가면서
+        나오도록하는 프로그램 작성 -->
+
+        <div id="container">
+            <ul id="rolling">
+                <li>1. Time is gold</li>
+                <li>2. No sweat, no sweet</li>
+                <li>3. Asking costs nothing</li>
+                <li>4. Step by step goes a long way</li>
+                <li>5. You will never know until you try</li>
+            </ul>
+        </div>
+<!-- ------------------------------------------------------------------------------>
+<!--
+        <script>
+            var i = 1;
+            var rolling = document.querySelector("#rolling");
+            
+            window.setInterval(function () {
+                
+                    rolling.style.transition = "1s";
+                    
+                    rolling.style.marginTop = (i * -100) + "px";
+                    
+                    i++;
+                    
+                    i %= rolling.children.length;
+                    
+                    // 타이머 → 등록 자체는 브라우저가 하므로 타이머에서 설정한 시간과 아무 관련이 없음
+                    //        → 타이머에서 설정한 함수는 2초가 지난 후에 실행한다.
+                    //        → 타이머에서 설정한 함수에서 작성된 문장들은 타이머에서 설정한 시간대로 실행x
+                    //        → 함수에서 작성된 문장들은 거의 동시라고 할 수 있을 정도로 빠른 시간안에 한꺼번에 실행된다.
+                    // 그러므로 함수 안에 removeAttribute로 스타일을 제거하게 되면 transition이 실행되기도 전에
+                    // 모든 inline 스타일(marginTop, transition)이 제거된다.
+                    
+                    if ( i % rolling.children.length == 1 ) {
+                        
+                        rolling.removeAttribute("style");
+                        
+                    }
+                    
+                    rolling.appendChild(rolling.firstElementChild);
+                    
+                    
+                }, 2000);
+            </script>
+-->
+
+    <script>
+        //------------------------------------------------------------------------------
+        // 1. 일정한 시간마다
+        // 2. #rolling 요소를 li 요소 하나의 높이만큼 위로 이동시킨다.
+        // 3. #rolling 요소의 움직임이 끝나면
+        // 4. #rolling 요소에 적용했던 스타일 속성을 제거하고
+        // 5. #rolling 요소의 첫 번째 자식 요소를 #rolling 요소의 마지막으로 옮긴다.
+        //------------------------------------------------------------------------------
+
+        // 프로그램에서 참조하는 요소를 미리 탐색
+        var rolling = document.getElementById("rolling");
+
+        // 1. 일정한 시간마다
+        //  → window.setInterval 메서드로 타이머를 등록해서 구현(2초마다 실행)
+        window.setInterval(function () {
+            
+            // 2. #rolling 요소를 li 요소 하나의 높이만큼 위로 이동시킨다.
+            rolling.style.marginTop = "-100px";
+            rolling.style.transition = "0.4s";
+            
+            // 3. #rolling 요소의 움직임이 끝나면
+
+            //  → #rolling 요소는 위에서 적용한 transition 스타일 속성 때문에 0.4초에 걸쳐
+            //    움직임이 진행된다. 따라서 아래 기능들은 이 시간이 지난 후에 실행되어야 한다.
+
+            //  → 0.4초가 지난 후에
+            //  → window.setTimeout 메서드로 타이머를 등록해서 구현
+            //    타이머를 실행하는 시간이 0.4초가 아닌 타이머에서 등록된 함수가 실행되는 시간이 0.4초
+            //    즉, #rolling 요소에 적용된 스타일 속성이 0.4초(transition)동안
+            //    실행된 후에 setTimeout 타이머에 등록된 함수가 실행된다.
+            window.setTimeout(function () {
+
+                // 4. #rolling 요소에 적용했던 스타일 속성을 제거하고
+                rolling.removeAttribute("style");
+                // removeAttribute는 #rolling 요소에 적용되었던 inline 스타일 속성을 제거하기 위한 메서드
+                // → 여기서는 2가지의 스타일 속성을 제거하게 된다.
+                // rolling.style.marginTop = "";
+                // rolling.style.transition = "";
+
+                // 5. #rolling 요소의 첫 번째 자식 요소를 #rolling 요소의 마지막으로 옮긴다.
+                rolling.appendChild(rolling.firstElementChild);
+
+            }, 400); // window.setTimeout
+        }, 2000); // window.setInterval
+    </script>
+    
+    </body>
+</html>

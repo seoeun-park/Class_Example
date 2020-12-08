@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0">
+        <meta charset="utf-8">
+        <title>transform</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            #container {
+                width: 400px;
+                height: 400px;
+                margin: 30px auto;
+                background-color: thistle;
+                border: 3px solid #555;
+                box-sizing: border-box;
+
+                position: relative;
+            }
+
+            #box1 {
+                width: 200px;
+                height: 200px;
+                border: 3px solid #555;
+                background-color: pink;
+                box-sizing: border-box;
+                text-align: center;
+                line-height: 200px;
+                font-size: 30px;
+                font-weight: 900;
+                color: #555;
+
+                position: absolute;
+                top: 50%; left: 50%; /* %의 기준 : 기준이 되는 영역의 크기 */
+            }
+
+            #box2 {
+                width: 200px;
+                height: 200px;
+                border: 3px solid #555;
+                background-color: rgba(235, 164, 208, 0.7);
+                box-sizing: border-box;
+                text-align: center;
+                line-height: 200px;
+                font-size: 30px;
+                font-weight: 900;
+                color: #555;
+
+                position: absolute;
+                top: 50%; left: 50%; /* %의 기준 : 기준이 되는 영역의 크기 */
+
+                transform: translate(-50%, -50%);
+                /* %의 기준 : 요소의 크기 */
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="box1">Center 1</div>
+            <div id="box2">Center 2</div>
+        </div>
+    </body>
+</html>

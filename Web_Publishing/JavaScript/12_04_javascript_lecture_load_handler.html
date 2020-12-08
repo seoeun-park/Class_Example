@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>12월 03일 연습문제</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+         body {
+            background-color: black;
+        }
+
+        ul {
+            width: 300px;
+            margin: 50px auto;
+            text-align: center;
+            color: white;
+        }
+
+        ul > li {
+            padding: 10px;
+            border: 1px solid white;
+        }
+
+    </style>
+<!-- script의 내용은 원래 body 요소가 아닌 head 요소에 작성해야 한다.
+     그러나 body 요소에서 작성한 것처럼 head 요소에도 똑같이 작성하면 제대로 실행되지 않는다 -->
+    <script>
+
+        window.addEventListener("load", function () {
+        // head 요소에 script 내용을 작성하면서 그 기능을 제대로 실행하게 하는 방법
+            // 이벤트 핸들러: window 객체에 load 이벤트가 발생하면 실행할 기능
+            // → 브라우저가 HTML 문서의 내용을 모두 읽고 해석한 다음 발생하는 이벤트
+            // → 따라서 이 이벤트 핸들러에서는 DOM에 있는 요소들에 정상적으로 접근할 수 있다.
+
+    //------------------------------------------------------------------------------------
+        // 연습문제 : id 속성이 "html"인 요소 다음에 나오는 요소의 글자 색상은 파란색,
+        //           그 요소 다음에 나오는 요소의 글자 색을 빨간색으로 바꾸는 프로그램을 작성하라
+        //           단 script 태그는 head 요소 내에 작성
+
+        var html = document.getElementById("html");
+        
+        html.style.color = "blue";
+
+        html.nextElementSibling.style.color = "red";
+        // → element.nextElementSibling → element 객체의 다음 형제 요소를
+        //   나타내는 Element 객체의 속성을 나타낸다.
+
+        }); // window.onload
+    </script>
+</head>
+
+<body>
+
+    <ul>
+        <li id="html">HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>jQuery</li>
+        <li>Portpolio</li>
+    </ul>
+
+</body>
+</html>

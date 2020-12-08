@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 24일 연습문제</title>
+        <!-- <link rel="stylesheet" href="reset.css"> -->
+        <style>
+            .tooltip {
+                border-bottom: 2px dotted darkgray;
+                font-weight: 700;
+                cursor: help;
+
+                /* JavaScript 프로그램에서 추가되는 .tooltip-box 요소의 기준 영역으로 설정*/
+                position: relative;
+
+            }
+            .tooltip:hover > .tooltip-box {
+                visibility: visible;
+                opacity: 1;
+                transition-delay: 400ms;
+            }
+
+            /* 기본 툴팁을 대신할 요소 */
+            .tooltip-box {
+                /* .tooltip 요소를 기준으로 아래쪽에 배치 */
+                position: absolute;
+                top: 150%; left: 0;
+
+                padding: 5px;
+                border-radius: 5px;
+
+                /* 개행을 하지 않도록 하는 스타일 속성과 값 */
+                white-space: nowrap;
+
+                /*.tooltip과 .tooltip-box 모두 position 스타일 속성이 적용되었기 때문에
+                */
+                z-index: 1;
+
+                font-size: 13px;
+                font-weight: 400;
+                background-color: rgba(0, 0, 0, 0.9);
+                color: white;
+
+                /* 처음에는 보이지 않도록 */
+                /* display: none; */
+                /* → transtion을 걸어주기 때문에 display: none 속성을 쓸 수 없다. */
+                visibility: hidden;
+                opacity: 0;
+                transition-duration: 200ms;
+            }
+
+            /* 말풍선의 뿔을 표현하기 위해 가상요소를 추가 */
+            .tooltip-box::before {
+                content: "";
+
+                /* 뿔 삼각형의 지름만큼 위로 올리고 오른쪽으로 밀어내야 한다. */
+                position: absolute;
+                top: -16px; left: 16px;
+
+                width: 0; height: 0;
+                border: 8px solid transparent;
+                border-bottom-color: rgba(0, 0, 0, 0.9);
+
+                /* 삼각형을 만드는 방법 중 정사각형을 만든 다음 45도 각도로 돌리는 방법이
+                있지만 여기서는 배경색에 투명도를 설정했기 때문에 겹치는 부분이 중첩되
+                므로 적절한 방법이 아니다.  */
+                /* position: absolute; 
+                top: -2px; left: 10px;
+                width: 14px; height: 14px;
+                transform: rotate(45deg);
+                background-color: black; */
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                // 연습문제 (12/24) : 특정 단어에 마우스 포인터를 올리면 그 단어에 대한 설명이 나오는
+                //                    툴팁을 생성하는 프로그램 작성 
+
+                //------------------------------------------------------------------------
+                // 1. 브라우저의 기본 툴팁을 대신해서 툴팁을 표현할 요소를 추가
+                // 1.1. .tooltip 요소 중에서 title 속성이 설정된 요소들을 대상으로
+                // 1.2. title 속성의 값을 읽어와서
+                // 1.3. 툴팁을 표현할 새로운 요소를 생성하고
+                // 1.4. 툴팁을 표현할 요소의 내부 문자를 .tooltip 요소의 title 속성 값으로 설정한다.
+                // 1.5. 툴팁을 표현할 요소를 .tooltip 요소의 자식 요소로 추가한다.
+                // 1.6. 브라우저의 기본 툴팁이 표시되지 않도록 .tooltip 요소의 title 속성을 제거한다.
+                // 2. .tooltip 요소 중에서 title 속성이 설정된 요소의 영역에 마우스 포인터가 들어가면
+                // 2.1. 툴팁을 표현하는 요소를 화면에 나타나도록 한다.
+                // 3. .tooltip 요소 중에서 title 속성이 설정된 요소의 영역에서 마우스 포인터가 빠져나가면
+                // 3.1. 툴팁을 표현하는 요소를 화면에서 숨긴다.
+                
+                //------------------------------------------------------------------------
+                // 1. 브라우저의 기본 툴팁을 대신해서 툴팁을 표현할 요소를 추가
+                // 1.1. .tooltip 요소 중에서 title 속성이 설정된 요소들을 대상으로
+                $(".tooltip[title]").each(function (index, item) {
+                    // 이 함수는 각각의 .tooltip 요소를 대상으로 메서드로서 실행된다.
+                    
+                    // 1.2. title 속성의 값을 읽어와서
+                    var title = $(this).attr("title");
+                    
+                    // 1.3. 툴팁을 표현할 새로운 요소를 생성하고
+                    // 1.4. 툴팁을 표현할 요소의 내부 문자를 .tooltip 요소의 title 속성 값으로 설정한다.
+                    // 1.5. 툴팁을 표현할 요소를 .tooltip 요소의 자식 요소로 추가한다.
+                    $("<span></span>").html(title).addClass("tooltip-box").appendTo(this);
+                    
+                    // 1.6. 브라우저의 기본 툴팁이 표시되지 않도록 .tooltip 요소의 title 속성을 제거한다.
+                    $(this).removeAttr("title").attr("data-title", title);
+                    // 속성을 제거해버리면 더 이상 다시 쓸 수 없으므로 혹시 모를 상황을 대비해
+                    // 사용자 정의 데이터 속성으로 남겨두는 것이 좋다.
+                });
+                /*
+                .hover(
+                    // 2. .tooltip 요소 중에서 title 속성이 설정된 요소의 영역에 마우스 포인터가 들어가면
+                    function () {
+                        // 이벤트 핸들러: .tooltip 요소에 mouseenter 이벤트가 발생하면 실행할 기능
+                        
+                        // 2.1. 툴팁을 표현하는 요소를 화면에 나타나도록 한다.
+                        $(this).children(".tooltip-box").delay(400).show(10);
+                    },
+
+                    // 3. .tooltip 요소 중에서 title 속성이 설정된 요소의 영역에서 마우스 포인터가 빠져나가면
+                    function () {
+                        // 이벤트 핸들러: .tooltip 요소에 mouseleave 이벤트가 발생하면 실행할 기능
+                        
+                        // 3.1. 툴팁을 표현하는 요소를 화면에서 숨긴다.
+                        $(this).children(".tooltip-box").hide();
+                    }
+                );
+               */    
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <p><span title="Hyper-Text Markup Language" class="tooltip">HTML</span>
+            is the language for building web pages.</p>
+        <p><span title="Cascading Style Sheet" class="tooltip">CSS</span>
+            is the language that describes the style of an HTML document.</p>
+    </body>
+</html>

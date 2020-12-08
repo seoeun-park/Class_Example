@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 13일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            #container {
+                width: 200px;
+                margin: 100px auto;
+            }
+            
+            #tab-buttons > li {
+                width: 50%;
+                padding: 10px;
+                box-sizing: border-box;
+                font-weight: 900;
+                float: left;
+            }
+
+            #tab-buttons::after { content: ""; display: block; clear: both; }
+
+
+            #tab-buttons > li:first-child {
+                border: 1px solid #111;
+                border-bottom: none;
+            }
+
+            #tab-buttons > li:last-child {
+                background-color: #ddd;
+                border-bottom: 1px solid #111;
+            }
+
+            .tab-contents {
+                padding: 10px;
+                border: 1px solid #111;
+                border-top: none;
+            }
+            .tab-contents > li {
+                padding: 3px;
+            }
+
+            .tab-contents:last-of-type { display: none; }
+
+
+        </style>
+
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+
+            <script>
+                $(function () {
+                    
+                    var $tab_f = $("#tab-buttons > li:first-child");
+                    var $tab_b = $("#tab-buttons > li:last-child");
+                    var $content_f = $(".tab-contents:nth-of-type(2)");
+                    var $content_b = $(".tab-contents:last-of-type");
+                    
+                    $tab_f.on("click", function () {
+                        $(this).css({
+                            "background-color": "white",
+                            "border": "1px solid #111",
+                            "border-bottom": "none"
+                        });
+                        
+                        $tab_b.css({
+                            "border": "none",
+                            "border-bottom": "1px solid #111",
+                            "background-color": "#ddd"
+                        });
+                        
+                        $content_b.css("display", "none");
+                        $content_f.css("display", "block");
+                    }); // #tab_f.onclick
+                    
+                    $tab_b.on("click", function () {
+                        $(this).css({
+                            "background-color": "white",
+                            "border": "1px solid #111",
+                            "border-bottom": "none"
+                        });
+                        
+                        $tab_f.css({
+                            "border": "none",
+                            "border-bottom": "1px solid #111",
+                            "background-color": "#ddd"
+                        });
+                        
+                        $content_f.css("display", "none");
+                        $content_b.css("display", "block");
+                    }); // #tab_b.onclick
+                    
+                }); // document.onready
+            </script>
+            
+    </head>
+    <body>
+        <div id="container">
+            <ul id="tab-buttons">
+                <li>Front-end</li>
+                <li>Back-end</li>
+            </ul>
+
+            <ul class="tab-contents">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>jQuery</li>
+            </ul>
+            <ul class="tab-contents">
+                <li>PHP</li>
+                <li>ASP</li>
+                <li>JSP</li>
+                <li>MySQL</li>
+            </ul>
+        </div>  <!--#container-->
+    </body>
+</html>

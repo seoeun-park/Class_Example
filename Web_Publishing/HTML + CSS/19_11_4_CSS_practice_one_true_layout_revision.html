@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>11월 4일 연습문제</title>
+        <!-- CSS 초기화: 브라우저에서 기본 설정하는 스타일 속성 제거 -->
+        <link rel="stylesheet" href="reset.css">
+    </head>
+    <style>
+        /* 고정 폭 레이아웃에서 영역들의 너비의 설정*/
+        #container {
+            width: 960px;
+            margin: 0 auto;
+        }
+        #header > h1 {
+            font-size: 2.6em;
+            font-weight: 900; /*extra-bold*/
+
+        /* header 영역의 글자는 letter spacing을 주는 것이 좋다 */
+            letter-spacing: -1px;
+
+        /* text-shadow는 rgba 색상을 통해 투명도를 조정한 색을 적용하는 것이 좋다*/
+            text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+            padding: 0.4em 1em;
+            /*margin: 5px;*/
+        }
+        #nav { 
+            background-color: #555;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+
+        /* 그림자가 컨텐츠를 가리지 않고 배치될 수 있도록 하기 위해*/    
+            margin-bottom: 5px;
+        }
+        /*모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해*/
+        #nav::after {content: ""; display: block; clear: both; }
+
+        /* 첫번째 GNB는 왼쪽으로 붙여서 배치 */
+        #nav > ul:first-child { float: left; }
+
+        /* 두번째 GNB는 오른쪽으로 붙여서 배치 */
+        #nav > ul:last-child { float: right; }
+
+        /* 메뉴 항목들을 나란히 배치 */
+        #nav > ul > li { float: left; }
+
+        /* li 요소에 각각 float 속성을 줄 경우 float:right;는 오른쪽부터 데이터가 정렬되기 때문에
+           데이터를 역으로 입력해야하는 수고로움이 있을 수 있다  
+        #list1 > li { float: left; }
+        #list2 > li { float: right; } */
+
+        #nav > ul > li > a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 1em 2em ;
+        }
+        #nav > ul > li > a:hover {
+            background-color: green;
+            color: white;
+        }
+
+        /* 고정 폭 레이아웃에서 한 행에 두 영역이 배치되는 경우 영역을 정리해주기 위해 */
+        #wrap::after {content: ""; display: block; clear: both;}
+
+        #sidebar {
+        /* content 영역과 나란히 배치하기 위해*/
+            float: left;
+            width: 200px;
+            padding-top: 1em;
+        }
+        #sidebar > ul > li > a {
+        /* 메뉴바의 a 요소를 버튼 형태로 표현하기 위해 */
+            display: block;
+        /* a 요소에 적용되는 스타일 속성을 초기화하기 위해 */    
+            text-decoration: none;
+            color: black;
+            padding: 1em;
+        }
+        #sidebar > ul > li > a:hover {
+            background-color: green;
+            color: white;
+        }
+        #content {
+        /* sidebar 영역과 나란히 배치하기 위해*/
+            float: left;
+
+            width: 760px;
+
+        /* sidebar 영역과의 구분선 */
+            border-left: 2px solid darkgray;
+
+        /* 컨텐츠가 여유 있게 배치될 수 있도록 */
+            padding: 2em;
+
+        /*border와 padding 값을 지정하면 너비가 760px가 넘기때문에 
+            나란히 배치되지 않으므로 이러한 속성을 줘야함*/
+            box-sizing: border-box;
+        }
+        #content > h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 0.8em;
+        }
+        #content > p {
+            line-height: 1.5em;
+            margin-top: 0.8em;
+        }
+        #footer {
+            text-align: right;
+            background-color: darkgrey;
+            font-size: 0.8em;
+            padding: 3em;
+            /*margin-top: 1.5em;*/
+        }
+
+    </style>
+    <!--영역 정리부터 먼저 하는게 좋다-->
+    <body>
+        <!--고정폭 레이아웃에서 모든 영역들의 너비를 똑같이 지정해주기 위해 묶어서 표현-->
+        <div id="container">
+            <header id="header">
+                <h1>One-True-Layout</h1>
+            </header>
+
+            <nav id="nav">
+            <!--서비스를 구성하는 모든 페이지에 공통적으로 사용하는 메뉴바 = GNB(global navigation bar)-->
+                <ul id="list1">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#html">HTML</a></li>
+                    <li><a href="#css">CSS</a></li>
+                    <li><a href="#javascript">Javascript</a></li>
+                    <li><a href="#jquery">jQuery</a></li>
+                </ul>
+                <ul id="list2">
+                <!--float-right 속성을 줬으므로 위치 순서를 주의해야한다-->
+                    <li><a href="signin">Sign In</a></li>
+                    <li><a href="signup">Sign Up</a></li>
+                </ul>
+            </nav>
+        <!--레이아웃을 정리했을 때 한 행에 두 영역 이상 들어간 경우 묶어서 표현-->
+        <div id="wrap">
+            <aside id="sidebar">
+            <!--특정 페이지에서만 사용하는 메뉴바 = LNB(local navigation bar)-->
+                <ul>
+                   <li><a href="#home">Home</a></li>
+                   <li><a href="#html">HTML</a></li>
+                   <li><a href="#css">CSS</a></li>
+                   <li><a href="#javascript">Javascript</a></li>
+                   <li><a href="#jquery">jQuery</a></li>
+                </ul>
+            </aside>
+
+            <article id="content">
+            <!--body 요소에 나오는 h1 태그는 기본적으로 하나만 나오는 것이 좋으므로 h2태그를 사용한다-->
+                <h2>Lorem ipsum</h2>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Maecenas interdum massa ac scelerisque gravida.
+                Nullam in mi at mi volutpat congue faucibus vel tellus. 
+                Duis congue leo sed convallis molestie. 
+                Nullam congue consequat ante nec egestas.
+                Donec eget magna faucibus, bibendum nibh ut, tincidunt ipsum. 
+                Nunc aliquam faucibus est sed tristique. 
+                Cras quis condimentum nunc, ac vulputate ex. 
+                Phasellus at aliquam urna. Nam hendrerit nulla risus, quis gravida diam volutpat id.
+                Donec vestibulum, enim vel tristique facilisis, 
+                risus nisl fringilla tellus, at placerat eros eros eu dolor. 
+                In volutpat varius nulla, vel tincidunt tortor dignissim in. 
+                Proin hendrerit sagittis aliquam.
+                </p>
+                <p>
+                Phasellus a congue ex. Quisque enim libero, 
+                tincidunt nec risus sit amet, placerat consequat mi. 
+                Suspendisse pretium, dolor nec tempor luctus, 
+                tortor massa posuere nunc, eu porta neque dui eu massa. 
+                Vivamus leo magna, eleifend et turpis ac, accumsan cursus nibh.
+                Aenean eget purus ac dui scelerisque scelerisque. 
+                Aliquam ut nulla scelerisque turpis tincidunt sollicitudin et id mauris.
+                Nam sodales elit libero, malesuada luctus quam pharetra a.
+                Sed luctus, felis nec faucibus consequat, 
+                enim dolor tincidunt tortor, vel imperdiet sem arcu id ex.
+                Sed consectetur at lorem condimentum rhoncus.
+                Morbi varius magna id dui facilisis, id interdum ligula lobortis.
+                Donec urna mi, ultricies et dui a, pellentesque venenatis nulla. 
+                In ultricies felis ut libero porttitor, eu sollicitudin urna rhoncus. 
+                </p>
+            </article>
+        </div> <!-- /#wrap-->
+
+            <footer id="footer">
+                @ 2014-2016 Layout
+            </footer>
+
+        </div> <!-- /#container-->
+    </body>
+</html>

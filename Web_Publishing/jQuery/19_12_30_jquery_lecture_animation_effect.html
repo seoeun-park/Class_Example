@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 30일 lecture 1</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                background-color: black;
+            }
+
+            #container {
+                width: 350px;
+                margin: 100px auto;
+            }
+
+            #buttons-wrap {
+                padding: 0 0 20px 14px;
+            }
+
+            #buttons-wrap > button {
+                width: 85px;
+                margin: 0 10px;
+            }
+
+            #box {
+                width: 100px; height: 100px;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                line-height: 100px;
+                color: white;
+                font-size: 2em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                background-color: blueviolet;
+                text-align: center;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+
+                var $box = $("#box");
+                var duration = 1000;
+
+                $("#fadeIn").on("click", function () {
+                    //$box.show(duration);    // 좌상단을 기준으로 너비의 값이 높아지면서 점점 크게 보여줌
+                    //$box.slideDown(duration);    // 좌상단을 기준으로 높이의 값이 높아지면서 슬라이드 효과로 보여줌
+                    $box.fadeIn(duration);      // 선명하게 하여 보여줌
+                });
+
+                $("#fadeOut").on("click", function () {
+                    //$box.hide(duration);     // 좌상단을 기준으로 너비의 값이 작아지면서 사라짐
+                    //$box.slideUp(duration);     // 좌상단을 기준으로 높이의 값이 줄어들면서 슬라이드 효과로 사라짐 
+                    $box.fadeOut(duration);     // 흐리게 하여 사라짐
+
+                });
+
+                $("#fadeToggle").on("click", function () {
+                    //$box.toggle(duration);   // 좌상단을 기준으로 너비의 값이 조정되면서 변화
+                    //$box.slideToggle(duration); // 좌상단을 기준으로 높이의 값이 조정되면서 변화    
+                    $box.fadeToggle(duration, "linear", function () {
+                        $box.html("Hello!");
+                    });
+
+                });
+
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="buttons-wrap">
+                <button id="fadeIn">fadeIn</button>
+                <button id="fadeOut">fadeOut</button>
+                <button id="fadeToggle">fadeToggle</button>
+            </div>
+            <div id="box">Box</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 26일 연습문제</title>
+    </head>
+
+    <body>
+        <!-- 연습문제 (1) : h1 요소의 내부 문자 뒤에
+            "Hello JavaScript! "를 덧붙이는 프로그램을 작성하라-->
+        
+            
+            <h1 id="hello">Hello World!</h1>
+            
+            <script>
+
+                // DOM 탐색은 브라우저에 부담을 많이 주는 기능이다.
+                // 따라서 같은 요소를 여러 번 참조하거나 조작해야 한다면, DOM에서 그 요소를 표현하는
+                // Element 객체를 탐색한 다음 변수에 대입해놓고, 변수를 통해서 접근하는 것이 좋다
+                // → id가 hello인 element객체를 변수 hello에 대입함
+                var hello = document.getElementById("hello");
+                
+                // 여기서 변수 hello는 element "객체"이므로 속성 연산자를 이용해 innerHTML이라는 속성에 접근할 수 있다.
+                // Element 객체의 innerHTML 속성: 요소의 내부 마크업(HTML 태그 포함)
+                // Element 객체의 innerText 속성: 요소의 내부 문자(HTML 태그 제외)
+                // innerHTML이라는 속성은 내부 문자 "Hello World!"를 가리킨다
+
+                hello.innerHTML += " Hello JavaScript!";
+                // → hello.innerHTML = "Hello World!" + " Hello JavaScript!";
+                // → hello.innerHTML = "Hello World! Hello JavaScript!";
+
+                // → hello.innerHTML는 document.getElementById("hello").innerHTML와 같다
+                // → document.getElementById("hello").innerHTML += " Hello JavaScript!";
+                
+            </script>
+
+        <!-- --------------------------------------------------------------------- -->
+        <!-- 연습문제 (2) : h1 요소에 i태그로 작성한 새로운 요소를 추가하는
+            프로그램을 작성하라 / 이때 i 요소의 내부 문자는 "Hey Yo!"로 지정-->
+            
+            <h1 id="world">Hello World!</h1>
+            
+            <script>
+                var world = document.getElementById("world");
+
+                world.innerHTML += " <i> Hey Yo! </i>";
+                // → world.innerHTML = world.innerHTML + " <i>Hey Yo!</i>";
+                // document.getElementById("world").innerHTML += " <i>Hey Yo!</i>";
+                
+            </script>
+
+    </body>

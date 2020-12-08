@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>css 스타일 속성</title>
+        <style>
+           h1 {
+               margin: 10px;
+               font-size: 200%;
+               line-height: 2em;  
+            /* px은 절대적인 크기 지정 %,em,rem은 상대적인 크기 지정 */
+            /* 기본적으로 1em = 16px 하지만 h1에서 글자 크기를 지정할때는
+               1em = 32px임 그러므로 em은 상대적인 크기임 */
+           }                      
+           ul {
+               padding: 10px;
+               font-size: 1.2em;
+           }
+           li {
+               margin: 8px;
+           }
+        </style>
+    </head>
+
+    <body>
+        <h1>돼지 일기</h1>
+
+        <ol>
+            <li>치킨</li>
+            <li>피자</li>
+            <li>파스타</li>
+            <li>떡볶이</li>
+        </ol>
+    </body>
+</html>

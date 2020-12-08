@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 26일 배운 거</title>
+    </head>
+
+    <body>
+        <h1 id="hello"><i>Hello World!</i></h1>
+        <script>
+        
+        // 객체(object): 특정 대상을 표현하는 여러 값과 그 값들을 다루는 기능들의 집합
+
+        // window 객체: 브라우저(browser)를 표현하는 객체
+        // document 객체: 문서(document)를 표현하는 객체
+        // Element 객체: HTML 요소(element)를 표현하는 객체
+
+        // 브라우저는 HTML 문서의 내용을 해석해서 DOM 트리를 구축한다.
+        // 그리고 DOM에 있는 내용이 브라우저 화면에 표시된다.
+        // 스타일시트나 JavaScript 프로그램에서 조작한 내용은 DOM에 포함된 내용을 조작하는 것이고
+        // DOM에 포함된 내용을 조작하면 브라우저 화면에 표시되는 내용이 바뀐다.
+
+        //--------------------------------------------------------------------------------
+        // 1. 참조 또는 조작하고자 하는 요소를 표현하는 Element 객체를 DOM에서 찾는다. (탐색)
+        var hello = document.getElementById("hello");
+        // → getElementById 메서드는 id 속성 값이 "hello"인 요소를 표현하는 Element 객체를
+        //   DOM에 찾아서 반환한다. 이 반환 값을 변수 hello에 대입한다.
+        //   따라서 변수 hello를 통해 id 속성 값이 "hello"인 요소를 표현하는 Element 객체에 접근
+
+        // Element 객체의 innerHTML 속성: 태그를 포함한 내부 마크업을 표현
+        // Element 객체의 innerText 속성: 태그를 제외한 내부 문자를 표현
+        console.log("hello.innerHTML = " + hello.innerHTML);
+        console.log("hello.innerText = " + hello.innerText);
+
+        // #hello 요소를 표현하는 Element 객체의 속성을 조작하면
+        // 브라우저 화면에 표현되는 내용을 바꿀 수 있다.
+        hello.innerHTML = "DO YOUR BEST!";
+        
+        </script>
+    </body>
+</html>

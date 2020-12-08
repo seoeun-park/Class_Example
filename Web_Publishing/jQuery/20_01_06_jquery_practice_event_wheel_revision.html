@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 6일 연습문제 수정본</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            html, body {
+                height: 100%;
+                color: white;
+
+            }
+
+            .page {
+                height: 100%;
+                padding: 3em;
+                box-sizing: border-box;
+            }
+
+            .page:nth-child(odd) {
+                background-color: #444;
+            }
+            .page:nth-child(even) {
+                background-color: #666;
+            }
+
+            .page > h1 {
+                font-size: 3em;
+                font-weight: 900;
+                letter-spacing: -2px;
+            }
+
+            .page > p {
+                font-size: 1.4em;
+                line-height: 1.8em;
+                margin-top: 2em;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                $window = $(window);
+
+                //-------------------------------------------------------------------------
+                // 1. 마우스 휠 버튼을 굴렸을 때
+                // 1.1. 마우스 휠 버튼을 위로 굴리면
+                // 1.2. 이전 페이지로 스크롤 시킨다.
+                // 1.3. 마우스 휠 버튼을 아래로 굴리면
+                // 1.4. 다음 페이지로 스크롤 시킨다.
+
+                // 2. 단, 현재 페이지를 표현하는 변수의 범위를 실제 페이지의 개수로 한정시켜야 한다.
+                // 2.1. 첫 페이지의 이전 페이지는 없으므로 이벤트 핸들러를 종료하고
+                // 2.2. 마지막 페이지의 다음 페이지는 없으므로, 이벤트 핸들러를 종료해야 한다.
+
+                // 3. 또한, Wheel 이벤트가 연달아 발생할 때, 애니메이션 큐에 쌓인 animate 메서드가
+                //    만든 효과들을 제거해야 한다.
+                // 3.1. 그러므로 현재 화면이 스크롤 중인지 나타내는 변수인 상태 변수를 선언하고
+                // 3.2. 스크롤이 진행 중이면 wheel 이벤트가 발생하더라도 이벤트 핸들러를 실행하지 않는다.
+                // 3.3. 스크롤이 끝나면 상태 변수의 값을 바꾼다.
+                
+                //-------------------------------------------------------------------------
+                // wheel 이벤트의 기본 이벤트는 scroll 이벤트이다.
+                // 그래서 마우스 휠 버튼을 굴렸을 때 스크롤이 되지 않도록 하려면 기본 이벤트를 제거해야 한다.
+                // 단, 패시브 모드 설정을 반드시 해제해야 한다.
+                window.addEventListener("wheel",
+                function (e) { e.preventDefault(); }, { passive: false });
+
+                //-------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $html = $("html");
+
+                // 현재 화면에 보이는 페이지 번호를 나타내는 변수
+                var page = 1;
+
+                // 페이지의 개수를 나타내는 변수
+                var pageLength = $(".page").length;
+
+                // 3.1. 그러므로 현재 화면이 스크롤 중인지 나타내는 변수인 상태 변수를 선언하고
+                // → 상태 변수(flag variable): 어떤 상태를 표현하기 위해 사용하는 변수
+                var scrolling = false;                
+
+                //-------------------------------------------------------------------------
+                // HTML 문서가 로드 되면 문서의 가장 상단으로 이동시킨다. 
+                // → 시간은 최대한 짧게 설정하는 것이 좋다.
+                $html.animate({"scrollTop": 0}, 10);
+
+                //-------------------------------------------------------------------------
+                // 1. 마우스 휠 버튼을 굴렸을 때
+                $(window).on("wheel", function (event) {
+                    // 이벤트 핸들러: window 객체에 wheel 이벤트가 발생했을 때 실행할 기능
+
+                    // 3.2. 스크롤이 진행 중이면 wheel 이벤트가 발생하더라도 이벤트 핸들러를 실행하지 않는다.
+                    if (scrolling) return;
+                    // return false;로 작성할 경우 콘솔창에 "Unable to preventDefault
+                    // inside passive event listener due to target being treated as passive."
+                    // 라는 오류가 뜨게 되므로 return;으로 작성하여 이벤트 핸들러를 종료시킨다.
+
+                    // 현재 페이지를 기준으로 마우스 휠 버튼을 굴린 방향에 따라 이동할 페이지를 계산한다.
+
+                    // 1.1. 마우스 휠 버튼을 위로 굴리면 (event.originalEvent.deltaY의 값이 음수인 경우)
+                    if ( event.originalEvent.deltaY < 0 ) {
+
+                        // 2.1. 첫 페이지의 이전 페이지는 없으므로 이벤트 핸들러를 종료하고
+                        //      → 변수 page의 범위를 이렇게 한정시키지 않으면 스크롤을 위로 올릴 때마다
+                        //        변수 page와 변수 scrollTop의 값이 음수값으로 계속 변한다.
+                        //        이 두 변수가 음수값으로 변한 상태에서 마우스 휠을 아무리 내려도 문서는 이동되지 않는다.
+                        if ( page == 1 ) return;
+
+                        // 1.2. 이전 페이지로 스크롤 시킨다. 
+                        //      → 이전 페이지로 이동하기 위해 페이지 번호를 1 감소시킨다.
+                        page--;
+
+                    }
+                    // 1.3. 마우스 휠 버튼을 아래로 굴리면 (event.originalEvent.deltaY의 값이 양수인 경우)
+                    else {
+
+                        // 2.2. 마지막 페이지의 다음 페이지는 없으므로, 이벤트 핸들러를 종료해야 한다.
+                        //      → 변수 page의 범위를 이렇게 한정시키지 않으면 스크롤을 아래로 내릴 때마다
+                        //        변수 page의 값은 실제 페이지 개수 이상으로 계속 변하게 된다.
+                        //        그래서 이 변수가 변한 상태에서 마우스 휠을 아무리 올려도 문서는 이동되지 않는다.
+                        if( page == pageLength ) return;
+
+                        // 1.4. 다음 페이지로 스크롤 시킨다.
+                        //      → 다음 페이지로 이동하기 위해 페이지 번호를 1 증가시킨다.
+                        page++;
+
+                    }
+
+                    // 이동할 페이지에 따라 스크롤 시킬 위치, 즉 scrollTop을 구한다.
+                    var scrollTop = $(window).height() * (page - 1);
+                    // 2번째 페이지로 스크롤을 내릴 때 → 뷰포트의 높이의 1배만큼 스크롤바가 이동해야한다.
+                    // 3번째 페이지로 스크롤을 내릴 때 → 뷰포트의 높이의 2배만큼 스크롤바가 이동해야한다. 
+                    // 4번째 페이지로 스크롤을 내릴 때 → 뷰포트의 높이의 3배만큼 스크롤바가 이동해야한다.
+
+                    // 디버그 메시지(debug message)
+                    console.log("page = " + page + ", scrollTop = " + scrollTop);
+
+                    // 스크롤 시킬 위치로 화면을 부드럽게 스크롤 시킨다.
+                    // → animate 메서드는 효과를 생성해서 애니메이션 큐에 넣는다.
+                    //   wheel 이벤트가 연달아 발생하면 animate 메서드가 만든 효과들이 애니메이션 큐에
+                    //   쌓이게 되고, 그래서 사용자가 휠 버튼을 굴리지 않아도 애니메이션 큐에 쌓여있는
+                    //   효과들이 모두 실행될 때까지 움직이게 된다.
+                    //   이러한 문제를 해결하기 위해서는 총 3가지의 방법이 있다.
+
+                    // (방법 1) → $html.stop().animate({ "scrollTop": scrollTop });   → 문제: 움직임이 자연스럽지가 않음
+                    // (방법 2) → $html.clearQueue().animate({ "scrollTop": scrollTop }); 
+                    //          → 문제: 스크롤바를 연속으로 내렸을 때 여러 페이지가 한꺼번에 내려간다.
+
+                    // 스크롤 바를 연속으로 내려도 한 페이지만 넘기는 효과를 구현해야 하는 경우에는?
+                    // → 스크롤이 진행 중일 때는 wheel 이벤트가 발생하더라도 스크롤이 되지 않도록 한다.
+                    // → 3.2. (방법 3) → 스크롤이 진행 중일 때는 wheel 이벤트가 발생하더라도 이벤트 핸들러를 종료한다.
+
+                    // 현재 화면이 스크롤이 시작됐음을 나타내기 위해 상태 변수 scrolling의 값을 true로 설정
+                    // → 3.3. 스크롤이 끝나면 상태 변수 scrolling의 값을 다시 false로 바꾼다.
+                    scrolling = true; 
+
+                    $("html").animate({ "scrollTop": scrollTop }, function () {
+                        // callback 함수: 지정한 효과가 끝나면 실행할 기능
+                        // → 스크롤 이동하는 효과는 animate 메서드로 인해 실행되는 것이므로 callback 함수를
+                        //   이용해 상태 변수의 값을 바꾼다.
+
+                        // 3.3. 스크롤이 끝나면 상태 변수 scrolling의 값을 다시 false로 바꾼다.
+                        scrolling = false;
+                    });
+
+                }); // window.onwheel
+              
+            }); // document.onready
+
+        </script>
+
+    </head>
+    <body>
+            <div class="page">
+                <h1>1. Lorem ipsum</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+                    Curabitur at bibendum risus, vitae finibus ex.
+                </p>
+            </div>
+            <div class="page">
+                <h1>2. In sem sapien</h1>
+                <p>
+                    In sem sapien, fermentum sed orci nec, accumsan ornare turpis.<br>
+                    Fusce eget sapien sed dolor malesuada convallis a in felis.
+                </p>
+            </div>
+            <div class="page">
+                <h1>3. Nulla facilisi</h1>
+                <p>
+                    Etiam eget nulla at enim porta fringilla at eu massa.<br>
+                    Donec ac tincidunt ipsum.                    
+
+                </p>
+            </div>
+            <div class="page">
+                <h1>4. In lectus ipsum</h1>
+                <p>
+                    lacinia sit amet pulvinar et, posuere eget mi.<br>
+                    Nam ligula diam, aliquam et neque eu, gravida gravida justo. 
+                </p>
+            </div>
+    </body>
+</html>

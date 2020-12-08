@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 6일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            html, body {
+                height: 100%;
+                color: white;
+
+            }
+
+            .page {
+                height: 100%;
+                padding: 3em;
+                box-sizing: border-box;
+            }
+
+            .page:nth-child(odd) {
+                background-color: #444;
+            }
+            .page:nth-child(even) {
+                background-color: #666;
+            }
+
+            .page > h1 {
+                font-size: 3em;
+                font-weight: 900;
+                letter-spacing: -2px;
+            }
+
+            .page > p {
+                font-size: 1.4em;
+                line-height: 1.8em;
+                margin-top: 2em;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                $window = $(window);
+
+                // wheel 이벤트의 기본 이벤트를 제거
+                window.addEventListener("wheel",
+                function (e) { e.preventDefault(); }, { passive: false });
+
+                // 변수 선언
+                var page = 1;
+                var pageLength = $(".page").length;
+
+                // 첫 페이지에서 시작하도록 스크롤 설정
+                $("html").animate({"scrollTop": 0}, 10);
+
+                // var scrollTop = $(window).height() * (page - 1);
+                // → wheel 메서드 밖에서 변수 scrollTop을 선언하게 되면 여기에서 변수 page는 1로
+                //   고정되어 있기 때문에 변수 scrollTop의 값도 0으로 고정되기 때문에 wheel 이벤트가
+                //   발생한다고 해도 문서는 이동되지 않는다.
+
+                //-------------------------------------------------------------------------
+                $window.on("wheel", function (event) {
+
+                    // var scrollTop = $(window).height() * (page - 1);
+                    // → wheel 메서드 안에서 변수 scrollTop이 선언되었기 때문에 변수 scrollTop의 값은
+                    //   가변적이지만 page의 값이 바뀌기 이전에 선언되었기 때문에 wheel 이벤트가 발생함과
+                    //   동시에 변수 page의 값이 바뀌더라도 변수 scrollTop의 값은 바뀌지 않는다.
+                    //   밑에 콘솔창 참고!
+                    //   즉, page 변수가 바뀐 후에 변수 scrollTop이 선언되어야 한다.
+
+                    // 마우스 휠 버튼을 위로 굴렀을 때
+                    if( event.originalEvent.deltaY < 0 ) {
+
+
+                        if( page == 1 ) return;
+                        
+                        page--;
+
+                        var scrollTop = $(window).height() * (page - 1);
+                        $("html").animate({ "scrollTop": scrollTop });
+                        // → 이렇게 작성하면 제대로 작동하지만 굳이 if-else 구문 두 군데 다 작성할 필요는 없으므로
+                        //   if-else 구문 밖에서 작성하는 것이 더 효율적이다.
+                    }
+
+                    // 마우스 휠 버튼을 아래로 굴렀을 때
+                    else {
+
+                        if( page == pageLength ) return;
+
+                        // console.log("page = " + page + ", scrollTop = " + scrollTop);
+                        // 콘솔창 → 스크롤 아래로 1번 : page = 1, scrollTop = 0;
+                        // 콘솔창 → 스크롤 아래로 2번 : page = 2, scrollTop = 722;
+
+                        page++;
+
+                        // console.log("page = " + page + ", scrollTop = " + scrollTop);
+                        // 콘솔창 → 스크롤 아래로 1번 : page = 2, scrollTop = 0;
+                        //          변수 page의 값이 1로 저장되어 있을 때 변수 scrollTop에 저장된 값 호출
+                        // 콘솔창 → 스크롤 아래로 2번 : page = 3, scrollTop = 722;
+
+                        var scrollTop = $(window).height() * (page - 1);
+                        $("html").animate({ "scrollTop": scrollTop });
+                    }
+
+                    console.log("page = " + page + ", scrollTop = " + scrollTop);
+                        // 콘솔창
+                        // 스크롤 아래로 1번 → page = 2, scrollTop = 0(1 페이지)
+                        // 스크롤 아래로 2번 → page = 3, scrollTop = 722(2 페이지)
+                        // 스크롤 아래로 3번 → page = 4, scrollTop = 1444(3 페이지)
+                        // 스크롤 4번부터는 더 이상 내려가지 X
+                        // 스크롤 위로 1번 → page = 3, scrollTop = 2166(4 페이지)
+                        // 스크롤 위로 2번 → page = 2, scrollTop = 1444(3 페이지)
+                        // 스크롤 위로 3번 → page = 1, scrollTop = 722(2 페이지)
+                        // 스크롤 위로 4번부터는 더 이상 올라가지 X
+                        // 이때 스크롤 아래로 1번 → page = 2, scrollTop = 0(1 페이지)
+
+                }); // window.onwheel
+              
+            }); // document.onready
+
+        </script>
+
+    </head>
+    <body>
+            <div class="page">
+                <h1>1. Lorem ipsum</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+                    Curabitur at bibendum risus, vitae finibus ex.
+                </p>
+            </div>
+            <div class="page">
+                <h1>2. In sem sapien</h1>
+                <p>
+                    In sem sapien, fermentum sed orci nec, accumsan ornare turpis.<br>
+                    Fusce eget sapien sed dolor malesuada convallis a in felis.
+                </p>
+            </div>
+            <div class="page">
+                <h1>3. Nulla facilisi</h1>
+                <p>
+                    Etiam eget nulla at enim porta fringilla at eu massa.<br>
+                    Donec ac tincidunt ipsum.                    
+
+                </p>
+            </div>
+            <div class="page">
+                <h1>4. In lectus ipsum</h1>
+                <p>
+                    lacinia sit amet pulvinar et, posuere eget mi.<br>
+                    Nam ligula diam, aliquam et neque eu, gravida gravida justo. 
+                </p>
+            </div>
+    </body>
+</html>

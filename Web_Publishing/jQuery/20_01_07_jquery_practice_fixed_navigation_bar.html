@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 7일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+
+            #header {
+                padding: 1em 1.4em ;
+            }
+
+            #header > h1 {
+                font-size: 2.6em;
+                font-weight: 900;
+                letter-spacing: -2px;
+                line-height: 1.8;
+
+                text-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+            }
+
+            #nav {
+                background-color: rgba(4, 4, 4, 0.7);
+                font-size: 1.4em;
+                padding: 0.4em 1em;
+
+                /* position: fixed; */
+                position: absolute;
+                width: 100%;
+            }
+
+            #nav > ul::after{ content: ""; display: block; clear: both; }
+
+            #nav > ul > li {
+                float: left;
+            }
+
+            #nav > ul > li > a {
+                display: block;
+                text-decoration: none;
+                color: white;
+                padding: 0.4em 1.4em;
+            }
+
+            #content {
+                font-size: 1.2em;
+                line-height: 1.8;
+                padding: 1.4em;
+
+                margin-top: 59px;
+            }
+
+            #content > h2 {
+                color: #444;
+                font-size: 1.4em;
+                font-weight: 700;
+                letter-spacing: -1px;
+            }
+
+            #content > p {
+                padding-bottom: 1em;
+                margin-top: 1em;
+            }
+
+            #nav.on {
+                position: fixed;
+                top: 0; right: 0; left: 0;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                //-----------------------------------------------------------------------------
+                var $nav = $("#nav");
+                var headerHeight = $("#header").innerHeight();
+
+                console.log("headerHeight = " + headerHeight)
+
+                //-----------------------------------------------------------------------------
+                $(window).on("scroll", function () {
+
+                    if ( $(window).scrollTop() > headerHeight ) {
+                        $nav.addClass("on");
+
+                        // $nav.animate({ position: "fixed", top: 0, right: 0, left: 0 }, 10);
+                    }
+
+                    else if ( $(window).scrollTop() < headerHeight ) {
+                        $nav.removeClass("on");
+
+                        // $nav.clearQueue();
+                    }
+
+                }); // window.onscroll
+
+            }); // document.onready
+
+        </script>
+
+    </head>
+    <body>
+        <header id="header">
+            <h1>Fixed Navigation Bar</h1>
+        </header>
+        <nav id="nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#html">HTML</a></li>
+                <li><a href="#css">CSS</a></li>
+                <li><a href="#javascript">JavaScript</a></li>
+                <li><a href="#jquery">jQuery</a></li>
+            </ul>
+        </nav>
+        <article id="content">
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p>
+            consectetur adipiscing elit. 
+            Curabitur at bibendum risus, vitae finibus ex.
+            Fusce non augue in diam ultrices dapibus nec laoreet turpis. 
+            Pellentesque pretium fringilla diam, a tincidunt ante fringilla ac. 
+            Quisque justo lacus, posuere ut nulla non, sagittis euismod velit. 
+            Mauris nec mollis massa. Nulla facilisi. 
+            Etiam eget nulla at enim porta fringilla at eu massa. 
+            Donec ac tincidunt ipsum. Nulla condimentum, ante sed consectetur congue, 
+            purus turpis sodales leo, vitae rhoncus enim sem non metus. 
+            Etiam mollis pulvinar libero et placerat. 
+            In sed sapien semper, scelerisque sapien at, lobortis felis. 
+            Fusce feugiat nisi nec sapien pellentesque, in fringilla neque efficitur. 
+            Sed ex magna, mollis vel nulla a, porta lacinia felis. 
+            Donec a nibh et nulla blandit venenatis. 
+            Morbi ut enim efficitur, convallis leo eget, fermentum urna.
+            Orci varius natoque penatibus et magnis dis parturient montes, 
+            nascetur ridiculus mus. Cras quis nulla pellentesque, 
+            placerat nulla non, porta augue.
+            Nulla nisl libero, rutrum sodales ullamcorper suscipit,
+            Aenean nec odio ut diam tristique sollicitudin. 
+            Cras a lacus ipsum. Mauris malesuada et urna in consectetur.
+            Morbi consectetur, tortor eu ultrices porta, nulla felis gravida justo, 
+            eget molestie neque ante faucibus lorem. Nullam vel vestibulum urna, ac aliquam libero.
+            Nulla gravida velit ex, sodales posuere sapien faucibus eget. 
+            Mauris feugiat imperdiet urna, vel convallis orci. 
+            Sed finibus ullamcorper augue quis mollis. 
+            In sollicitudin neque quis neque tincidunt tristique. Cras eu condimentum orci. 
+            Vestibulum pretium felis in ligula dapibus rutrum. 
+        </p>
+
+        <h2>ultricies non arcu</h2>
+        <p>
+            Vivamus et aliquam dui. 
+            Praesent vulputate lobortis magna, in placerat magna vestibulum eget. 
+            Proin quis felis tellus. 
+            Pellentesque vel massa ac magna consectetur lacinia quis quis nunc.
+            Mauris vestibulum nibh lectus, et tincidunt nunc auctor vel. 
+            Aenean at pretium magna. Morbi congue lectus magna, 
+            quis maximus nibh tincidunt vitae. Maecenas ac viverra diam, ut tempus nisi. 
+            Aenean velit orci, pharetra quis gravida sed, porta ut leo. 
+            Nam mattis mattis purus ut rutrum. Donec ac eleifend elit. 
+            Vestibulum at ipsum in justo lobortis laoreet ac eget erat. 
+            Morbi tortor augue, ullamcorper nec nulla sed, commodo eleifend libero. 
+            Cras et fringilla diam. Nam vehicula semper nisi et consequat. 
+            Sed pretium consequat augue a consectetur. 
+            In bibendum est eu diam posuere sodales.
+            Pellentesque dapibus urna sit amet ante hendrerit fermentum. 
+            Phasellus id odio efficitur, dignissim nunc ac, bibendum mauris.
+            Suspendisse ut scelerisque tellus, ac suscipit mauris. 
+            Aenean mattis molestie odio non porttitor. Cras vel eros lectus. 
+            Sed at nulla a sapien blandit bibendum nec varius elit. 
+            Aenean mattis ut quam non cursus. Proin lobortis pulvinar tempus. 
+            Sed ante est, commodo in consectetur vel, congue vitae ex.
+            Aenean consequat vel eros in mattis. Phasellus ut rutrum metus. 
+            Aliquam pulvinar eget nibh in tempor. 
+            Duis sagittis rutrum neque sed consectetur. 
+            Donec vehicula augue id nulla faucibus tempus vel non tortor. 
+            Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+            per inceptos himenaeos. Maecenas ultrices turpis id sem tempus sagittis.
+        </p>    
+
+        <h2>Sed auctor pharetra nibh</h2>
+        <p>
+            vitae aliquet lectus porttitor eu. 
+            Nullam accumsan et tellus quis consectetur. 
+            Curabitur faucibus, metus vitae condimentum rhoncus, 
+            urna lacus elementum lorem, nec imperdiet enim odio vitae justo. 
+            Suspendisse cursus cursus augue sit amet varius. 
+            Nam sagittis nunc vitae tristique feugiat. 
+            Phasellus ornare aliquet felis, a suscipit felis laoreet non.
+            Nunc volutpat vitae augue at vehicula. 
+            Maecenas venenatis sapien ut velit lacinia, non bibendum ante elementum. 
+            Sed ullamcorper, quam vitae tristique blandit, nisi enim semper neque, 
+            ut viverra arcu justo eu sapien. Proin malesuada diam sed magna imperdiet, 
+            sed pellentesque nulla gravida. Pellentesque sed pulvinar felis. 
+            In hac habitasse platea dictumst. Ut tortor magna, iaculis nec leo ut, 
+            elementum facilisis lorem. Phasellus quis ante quis magna commodo consequat. 
+            In ornare purus sapien, sed placerat lorem scelerisque nec. 
+            Maecenas metus ligula, lacinia eu turpis id, congue facilisis nulla. 
+            Sed vitae lectus nec mauris consequat gravida. 
+            Phasellus tincidunt ex turpis, in vestibulum massa vestibulum dapibus. 
+            Donec massa ipsum, posuere non nisi et, ultricies blandit risus. 
+            Vestibulum vitae lacus vel diam tristique blandit.
+            Cras justo magna, placerat venenatis tellus sit amet, varius consequat dolor. 
+            Nulla ornare sapien venenatis justo semper, eu hendrerit lectus mollis. 
+            Nulla maximus quam nec odio eleifend, in egestas magna tristique. 
+            Ut eleifend molestie elit et dapibus. 
+            Sed arcu ipsum, mattis nec nulla eget, laoreet cursus velit.
+            Pellentesque feugiat lectus non laoreet tincidunt. 
+            Maecenas vel velit lacinia, finibus felis sed, ullamcorper elit. 
+            Suspendisse et mauris at eros eleifend lobortis. Vestibulum sed ultricies ex. 
+            Vestibulum euismod nisi arcu, vehicula laoreet est mattis sed.
+        </p>
+
+        <h2>Nulla eget luctus risus</h2>
+        <p>
+            Integer vitae leo hendrerit, interdum tortor egestas, 
+            vehicula libero. Proin sed venenatis ex, et ornare lectus. 
+            Aliquam feugiat odio sem, vel eleifend velit blandit a. 
+            Mauris eu lacus nec sapien finibus interdum.
+            Nam non elementum magna, eget hendrerit orci. 
+            Phasellus sed nisi sit amet sapien fringilla imperdiet. 
+            Suspendisse ut nulla ornare, placerat leo sit amet, malesuada nulla. 
+            Aliquam efficitur tempus nisl. Nunc volutpat tempor dictum. 
+            Aenean vitae tortor at magna sodales ultrices. 
+            Aenean molestie nulla ipsum, sit amet finibus sem scelerisque in. 
+            Nam accumsan at metus et consectetur. Sed tincidunt ac est ac volutpat. 
+            Nunc imperdiet facilisis molestie. Mauris id metus tortor.
+            Cras non dui ut nulla aliquet commodo. Donec vitae consectetur odio, 
+            pellentesque volutpat eros. Maecenas ornare magna vitae leo sagittis efficitur. 
+            Maecenas at ultricies diam. Maecenas facilisis nunc id pharetra maximus. 
+            Vestibulum semper erat tempus, pellentesque purus ut, cursus dui. Nam felis mi, 
+            feugiat ut velit sed, blandit suscipit quam. Nulla faucibus a urna non blandit. 
+            Sed tortor neque, lacinia pharetra dui ut, hendrerit fermentum ex. 
+            Mauris aliquet nisi id nisi convallis dictum.
+            Donec blandit justo ac gravida pharetra. Suspendisse sed nibh eros. 
+            Mauris sit amet nulla at neque facilisis tempus. 
+            Nulla non lectus nec diam volutpat dignissim sed vitae lectus. 
+            Donec blandit ornare nulla, sed sollicitudin arcu lobortis eu. 
+            Nulla sodales dolor sed tellus ornare facilisis. 
+            Etiam vehicula posuere enim at feugiat. Praesent ornare, 
+            risus faucibus varius volutpat, odio nisi placerat justo, 
+            quis faucibus urna metus posuere massa.
+        </p>
+    </article>
+    </body>
+    </html>

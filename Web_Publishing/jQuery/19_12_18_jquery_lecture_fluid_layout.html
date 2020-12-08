@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 18일 배운 거</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            #header, #nav, #sidebar, #content, #footer {
+                height: 100px;
+                border: 10px solid #aaa;
+                margin-bottom: 10px;
+            }
+
+            #container {
+                /* 5. 화면 오른쪽으로 밀려나가 있는 #wrap 요소로 인해 화면 아래쪽에 스크롤바가 생성되므로
+                      이 스크롤바를 없애기 위해 #container 요소의 영역을 벗어난 #wrap 요소의 영역을
+                      화면에서 숨긴다. */
+                overflow: hidden;
+            }
+
+            #container::after { content: ""; display: block; clear: both; }
+
+            #sidebar, #content {
+                /* float: left; */
+                height: 400px;
+                box-sizing: border-box;
+            }
+
+            #sidebar, #wrap {
+                float: left;
+            }
+
+            #wrap {
+                /* 2. #content 영역의 너비를 (100% -200px)로 만들기 위해 #wrap 요소의 너비를 100%로 설정 */
+                width: 100%;
+
+                /* 3. #sidebar 요소와 #wrap 요소를 나란히 배치하기 위해 #wrap 요소를 화면 오른쪽으로
+                      #sidebar 요소의 너비만큼 밀어낸다. */
+                margin-right: -200px;
+                /* margin-left: -200px; */
+            }
+
+            /* 가변 폭 레이아웃(fluid layout)
+               → #sidebar 영역의 너비는 고정되어 있고 #content 영역의 너비는 뷰포트 전체를 차지한다.
+                 주로 담아야할 컨텐츠의 내용이 많을 경우 가변 폭 레이아웃을 사용한다 ex) 레퍼런스 사이트(w3school) */
+            /* 즉, #sidebar 영역과 #content 영역의 너비를 합해서 #container 요소의 너비가 되어야 한다. */
+            /* 이때 문제는 #content 영역의 너비를 얼마로 설정한 것인가이다. */
+            #sidebar {
+                width: 200px;
+            }
+
+            #content {
+                /* #sidebar 영역와 #content 영역의 너비를 합해서 #container 요소의 너비가 되도록 하기 위해서
+                    앞의 방법을 쓰지 않고이와 같이 calc 함수를 써도 되지만 calc 함수는 익스플로어 9.0 버전
+                    이하의 버전에서는 적용할 수 없다. */
+                /* width: calc(100% - 200px); */
+
+                /* 4. 컨텐츠가 화면 오른쪽으로 밀려나가는 것을 방지하기 위해 #content 요소의 오른쪽에
+                      #sidebar 요소의 너비만큼 여백을 설정한다. */
+                margin-right: 200px;
+                /* margin-left: 200px; */
+
+                padding: 0.4em 1em;
+                font-size: 20px;
+                line-height: 1.8;
+            }
+        </style>
+    </head>
+    <body>
+        <header></header> 
+        
+        <nav id="nav"></nav>
+
+        <div id="container">
+            <aside id="sidebar"></aside>
+
+            <!-- 1. #content 영역의 너비를 (100% - 200px)로 만들기 위해 새로운 컨테이너를 추가 -->
+            <div id="wrap">
+                <article id="content">
+                
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Maecenas interdum massa ac scelerisque gravida.
+                Nullam in mi at mi volutpat congue faucibus vel tellus. 
+                Duis congue leo sed convallis molestie. 
+                Nullam congue consequat ante nec egestas.
+                Donec eget magna faucibus, bibendum nibh ut, tincidunt ipsum. 
+                Nunc aliquam faucibus est sed tristique. Cras quis condimentum nunc, ac vulputate ex. 
+                Phasellus at aliquam urna. Nam hendrerit nulla risus, quis gravida diam volutpat id.
+                Donec vestibulum, enim vel tristique facilisis, risus nisl fringilla tellus, at placerat eros eros eu dolor. 
+                In volutpat varius nulla, vel tincidunt tortor dignissim in. Proin hendrerit sagittis aliquam.
+
+                </article>
+            </div> <!-- #wrap -->
+        </div>  <!-- #container -->
+
+        <footer id="footer"></footer>
+
+    </body>
+</html>    

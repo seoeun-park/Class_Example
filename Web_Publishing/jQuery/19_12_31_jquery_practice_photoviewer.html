@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>12월 31일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                background-color: black;
+            }
+
+            /* 썸네일 이미지 나열 */
+            #gallery {
+                margin-left: 70px;
+            }
+
+            /* 모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            #gallery::after{ content: ""; display: block; clear: both; }
+
+            #gallery > li {
+                /* 형제 요소들을 나란히 배치하기 위해 */
+                float: left;
+                margin: 2em 0.5em;
+            }
+
+            #gallery > li > a > img {
+                /* block 형식 요소로 표현 */
+                display: block;
+                border: 5px solid white;
+            }
+
+            /* ---------------------------------------------------------------------------- */
+            /* 오버레이 레이어 */
+            #overlay {
+                /* 브라우저 화면을 기준으로 전체 영역을 차지하도록 배치 */
+                position: fixed;
+                top: 0; right: 0; bottom: 0; left: 0;
+
+                background-color: rgba(0, 0, 0, 0.8);
+
+                /* 처음에는 보이지 않도록 설정 */
+                display: none;
+            }
+
+            #overlay > img {
+                /* #overlay 요소의 영역을 기준으로 가운데에 배치 */
+                position: absolute;
+                top: 50%; left: 50%;        
+                transform: translate(-50%, -50%);     
+
+                width: 1080px;
+                border: 10px solid white;
+
+                /* 처음에는 보이지 않도록 설정 */
+                display: none;
+            }
+
+            button {
+                /* button 요소의 기본적으로 적용되는 스타일 속성 초기화 */
+                background-color: transparent;
+                margin: 0;
+                padding: 0;
+                border: none;
+                outline: none;
+                cursor: pointer;
+
+            }
+
+            /* 웹 접근성 향상을 위해 추가한 button 요소의 내부 문자를 화면에 보이지 않도록 설정 */
+            button > span { display: none; }
+
+            /* 닫기 버튼 */
+            #close {
+                /* #overlay 요소의 영역을 기준으로 우상단에 배치 */
+                position: absolute;
+                top: 5%; right: 5%;
+
+                /* 배경 이미지를 이용해 아이콘 표시 */
+                background: url("images/icon-close-white-48dp.png") no-repeat center /cover;
+                width: 48px; height: 48px;
+            }
+
+            /* 이전 사진 버튼 */
+            #prev {
+                /* #overlay 요소의 영역을 기준으로 왼쪽에 배치 */
+                /* hover를 걸어야 하므로 영역은 크게 잡는 것이 좋다. */
+                position: absolute;
+                top: 0; bottom: 0; left: 0;
+                width: 25%;
+
+                /* 배경 이미지를 이용해 아이콘 표시 */
+                background: url("images/icon_prev_white_48dp.png") no-repeat left center;
+
+                /* 처음에는 보이지 않게 설정 */
+                /* 여기서는 요소가 그대로 위치하고 있지만 보이지만 않게 하는 것이므로
+                    display 속성과 visibility를 쓰면 안된다. */
+                opacity: 0;
+                transition: 0.2s;
+            }
+
+            /* 다음 사진 버튼 */
+            #next {
+                /* #overlay 요소의 영역을 기준으로 오른쪽에 배치 */
+                position: absolute;
+                top: 0; bottom: 0; right: 0;
+                width: 25%;
+
+                /* 배경 이미지를 이용해 아이콘 표시 */
+                background: url("images/icon_next_white_48dp.png") no-repeat right center;
+
+                /* 처음에는 보이지 않게 설정 */
+                opacity: 0;
+                transition: 0.2s;
+            }
+
+            /* #next 요소와 #prev 요소의 영역에 마우스 포인터가 들어가면 화면에 보이도록 설정 */
+            #prev:hover, #next:hover {
+                opacity: 1;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+
+                //------------------------------------------------------------------------
+                // 1. #gallery 요소의 a 요소를 클릭하면
+                // 1.1 #overlay > img 요소의 src 속성을 클릭한 요소의 href 속성값으로 바꾼다.
+                // 1.2. #overlay 요소를 화면에 표시한다.
+                // 2. #close 요소를 클릭하면
+                // 2.1. #overlay 요소를 화면에 숨긴다.
+                // 3. #next 요소를 클릭하면
+                // 3.1. #overlay > img 요소에 현재 보이는 사진의 다음 사진을 확인해서 #overlay > img 요소에 표시한다.
+                // 4. #prev 요소를 클릭하면
+                // 4.1. #overlay > img 요소에 현재 보이는 사진의 이전 사진을 확인해서 #overlay > img 요소에 표시한다.
+
+                //------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $overlay = $("#overlay");
+                var $photo = $overlay.children("img");
+
+                var photoIndex = 0;
+
+                // 사진들의 목록
+                var $photoList = $("#gallery > li > a").each(function (index, item) {
+                    // 이 함수는 각각의 a 요소들을 대상으로 순차적으로 실행된다.
+
+                    // 현재 보이는 사진의 이전 사진과 다음 사진을 확인하려면 이 사진이 몇 번째 사진인 지
+                    // 알아야 하므로 사용자 정의 데이터 속성을 이용해야 한다. (data-*)
+                    // 나중에 click 이벤트가 발생했을 때 이벤트가 발생한 요소가 몇 번째 사진인지를
+                    // 확인하기 위해 data-index 속성을 추가한다. 일일이 <body> 요소에 추가할 수 있지만
+                    // 이렇게 each 메서드를 이용해서 쉽게 추가할 수도 있다.
+                    $(this).attr("data-index", index);
+                });
+
+                //------------------------------------------------------------------------
+                // 1. #gallery 요소의 a 요소를 클릭하면
+                $photoList.on("click", function (event) {
+
+                    // 기본 이벤트 제거
+                    event.preventDefault();
+
+                    // a 요소에 click 이벤트가 발생하면 현재 #overlay > img 요소에 보이는 사진이 몇 번째
+                    // 사진인지 설정한다. (1. data 속성을 이용하는 방법)
+                    photoIndex = $(this).attr("data-index");
+
+                    // a 요소들 중에서 이벤트가 발생한 요소가 몇 번째 요소인지 찾는다. (2. index 메서드를
+                    // 이용하는 방법)
+                    // photoIndex = $photoList.index(this);
+
+                    // 1.1 #overlay > img 요소의 src 속성을 클릭한 요소의 href 속성값으로 바꾼다.
+                    $photo.attr("src", $(this).attr("href"));
+
+
+                    // 1.2. #overlay 요소를 화면에 표시한다.
+                    $overlay.fadeIn(function () {
+                        // callback 함수: 지정한 효과가 끝난 후 실행할 기능
+
+                        $photo.fadeIn();
+                    });
+                }); // $photoList.onclick
+
+                //------------------------------------------------------------------------
+                // 2. #close 요소를 클릭하면
+                $("#close").on("click", function () {
+                    // 이벤트 핸들러: #close 요소에 click 이벤트가 발생하면 실행할 기능
+
+                    // 2.1. #overlay 요소를 화면에 숨긴다.
+                    $photo.fadeOut(function () {
+                        // callback 함수: 지정한 효과가 끝난 후 실행할 기능
+
+                        $overlay.fadeOut();
+                    });
+                });
+
+                //------------------------------------------------------------------------
+                // 3. #next 요소를 클릭하면
+                $("#next").on("click", function() {
+                    // 이벤트 핸들러: #next 요소에 click 이벤트가 발생하면 실행할 기능
+
+                    // 3.1. #overlay > img 요소에 현재 보이는 사진의 다음 사진을 확인해서 #overlay > img 요소에 표시한다.
+                    
+                    // 현재 #overlay > img 요소에 보이는 사진의 번호를 1만큼 증가시킨다.
+                    photoIndex++;
+                    // photoIndex = photoIndex + 1;
+
+                    // 마지막 사진의 다음 사진은 첫 번째 사진이 되어야 한다.
+                    photoIndex %= $photoList.length;
+                    // photoIndex % $photoList.length == photoIndex;
+                    // 0 % 4 == 0
+                    // 1 % 4 == 1
+                    // 2 % 4 == 2
+                    // 3 % 4 == 3
+                    // 4 % 4 == 0
+
+                    // 미리 선언해놓은 함수를 이용해 photoIndex 번째에 해당하는 사진을 표시한다.
+                    changePhoto();
+                });
+
+                //------------------------------------------------------------------------
+                // 4. #prev 요소를 클릭하면
+                $("#prev").on("click", function () {
+                    // 이벤트 핸들러: #prev 요소에 click 이벤트가 발생하면 실행할 기능
+
+                    // 4.1. #overlay > img 요소에 현재 보이는 사진의 이전 사진을 확인해서 #overlay > img 요소에 표시한다.
+                   
+                    // 현재 #overlay > img 요소에 보이는 사진의 번호를 1만큼 감소시킨다.
+                    photoIndex--;
+
+                    // 첫 번째 사진의 이전 사진은 마지막 사진이 되어야 한다.
+                    if (photoIndex < 0) photoIndex = ($photoList.length - 1);
+
+                    // 미리 선언해놓은 함수를 이용해 photoIndex 번째에 해당하는 사진을 표시한다.
+                    changePhoto();
+                });
+
+                //------------------------------------------------------------------------
+                function changePhoto() {
+                    // 이 함수는 #next 요소와 #prev 요소의 click 이벤트 핸들러에서 호출한다.
+
+                    // 인덱스를 확인한 후 $photoList에서 해당 인덱스에 해당하는 요소의 href 속성 값을 읽어온다.
+                    var photoSrc = $photoList.eq(photoIndex).attr("href");
+
+                    // 사진을 바꾸기 전에 일단 #overlay > img 요소를 숨긴다.
+                    $photo.fadeOut(function () {
+                    
+                    // #overlay > img 요소의 사진을 바군 다음 화면에 나타나게 한다.
+                    $photo.attr("src", photoSrc).fadeIn();
+                    
+                    });
+                }
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <ul id="gallery">
+            <li><a href="https://i.imgur.com/sduLRvf.jpg"><img src="images/thumbnail-01.jpg" alt="Thumbnail"></a></li>
+            <li><a href="https://i.imgur.com/QguApMA.jpg"><img src="images/thumbnail-02.jpg" alt="Thumbnail"></a></li>
+            <li><a href="https://i.imgur.com/Xulubox.jpg"><img src="images/thumbnail-03.jpg" alt="Thumbnail"></a></li>
+            <li><a href="https://i.imgur.com/PnSeZX3.jpg"><img src="images/thumbnail-04.jpg" alt="Thumbnail"></a></li>
+        </ul>
+        <!-- 오버레이 레이어 -->
+        <div id="overlay">
+            <img src="https://i.imgur.com/sduLRvf.jpg" alt="Photo">
+
+            <!-- button 요소가 모두 position 속성이 적용되었기 때문에 나열된 순서대로 차곡차곡 쌓인다.
+                 그러므로 close 버튼이 prev와 next 버튼 아래에 깔리므로 #close의 onclick 메서드가
+                 적용되지 않는다. 그러므로 #close에 z-index 속성을 주거나 혹은 마크업 순서를 마지막에
+                 배치하면 된다. -->
+            <!-- <button id="close"><span>close</span></button> -->
+            <button id="prev"><span>Previous Photo</span></button>
+            <button id="next"><span>Next Photo</span></button>
+            <button id="close"><span>close</span></button>
+        </div>
+    </body>
+</html>

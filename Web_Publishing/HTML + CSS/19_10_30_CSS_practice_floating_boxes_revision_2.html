@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 30일 연습문제 수정본</title>
+    </head>
+    <style>
+        #container {
+        /* 요소의 컨텐츠 영역의 너비 설정: 안쪽 상자 2개(각각 200px)와 안쪽 여백(20px)이 들어갈 만큼의 너비 */
+            width: 420px;
+            /*height: 240px; */
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 30px auto;
+        }
+        /* id가 wrap인 div와 id가 gold인 div만*/
+        #container > div {
+            width: 200px;
+            height: 220px;
+            text-align: center;
+            font-weight: bold;
+            float: left;
+            }
+        /* id가 pink인 div와 id가 yg인 div만 */
+        #wrap > div {
+            height: 100px;
+            line-height: 100px;
+            }
+        #gold {
+            background-color: gold;
+            line-height: 220px;
+            margin-left: 20px;
+
+            }       
+        #pink { background-color: pink; margin-bottom: 20px; }
+        #yg { background-color: yellowgreen; }
+
+        #container::after {
+            content: "";
+            display: block;
+            clear: both;
+            }
+    </style>
+
+    <body>
+        <div id="container">
+        <!-- 같은 유형의 컨텐츠는 하나로 묶어서 관리하는게 편하다-->
+            <div id="wrap">
+                <div id="pink">Pink</div>
+                <div id="yg">Yellowgreen</div>
+            </div>
+            <div id="gold">Gold</div>
+        </div>
+    </body>
+</html>

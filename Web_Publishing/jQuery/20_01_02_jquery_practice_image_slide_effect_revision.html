@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>1월 2일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            body {
+                padding: 3em;
+                background-color: black;
+            }
+
+            #container {
+                width: 80%;
+                margin: 100px auto;
+
+                overflow: hidden;
+            }
+
+            #gallery {
+                width: 200%;    /* container 요소 너비의 6/3 → 2배 */
+            }
+
+            /* 모든 자식 요소에 float 스타일 속성이 설정된 경우 부모 요소의 영역을 잡아주기 위해 */
+            #gallery::after{ content: ""; display: block; clear: both; }
+
+            #gallery > li {
+                /* 형제 요소들을 나란히 배치하기 위해 float 스타일 속성 설정 */
+                float: left;
+                width: 16.6667%;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+
+            #gallery > li > img {
+                display: block;
+                width: 100%;
+                border: 5px solid white;
+                box-sizing: border-box;
+            }
+
+            /* #container 요소의 영역에 마우스 포인터가 들어가면 이미지에 두둥 효과 부여
+               → li 요소가 아닌 img에 효과를 줘야지 레이어가 일그러지지 않는다. */
+            /* #container:hover > ul > li > img {
+                animation: hover 0.4s;
+                animation-name: hover;
+                animation-duration: 400ms;
+            }
+            */
+            /* animation 스타일 속성을 사용하기 위해 @keyframe 규칙부터 작성 */
+            /*
+            @keyframes hover {
+                from { width: 100%; }
+                50% { width: 102%; }
+                to { width: 100%; }
+            }
+            or
+            */
+            /* transform의 요소의 움직임의 기준은 한 가운데이기 때문에 위의 키프레임과
+            animate 메서드를 쓸때와 움직임이 약간 다를 수 있다. */
+            /*
+            @keyframes hover {
+                from { transform: scale(1); }
+                50% { transform: scale(1.02); }
+                to { transform: scale(1); }
+            }
+            */
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                //-----------------------------------------------------------------------
+                // 1. 일정한 시간마다
+                // 1.1. #gallery 요소를 사진 한 장의 너비만큼 왼쪽으로 이동시킨다.
+                // 1.2. #gallery 요소의 움직임이 끝나면
+                // 1.3. #gallery 요소에 적용된 스타일 속성을 제거하고
+                // 1.4. #gallery 요소의 첫 번째 자식 요소를 #gallery 요소의 마지막으로 옮긴다.
+
+                // 2. #container 요소의 영역에 마우스 포인터가 들어가면
+                // 2.1. #gallery 요소의 움직임을 멈추게 한다.
+                // 3. #container 요소의 영역에서 마우스 포인터가 빠져나오면
+                // 3.1. #gallery 요소가 다시 움직이도록 한다.
+
+                //-----------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                //-----------------------------------------------------------------------
+                // 1. 일정한 시간마다
+                var $gallery = $("#gallery");
+
+                // setInterval 메서드로 등록한 타이머의 타이머 ID를 저장할 변수
+                var timerId = window.setInterval(slideImage, 2000);
+
+                $("#container").hover(
+                    // 2. #container 요소의 영역에 마우스 포인터가 들어가면
+                    function() {
+
+                        // 2.1. #gallery 요소의 움직임을 멈추게 한다.
+                        window.clearInterval(timerId);
+
+                        // $gallery.find("img").animate({ width: "102%" }, 200, function() {
+                        //     $(this).animate({ width: "100%" }, 200);
+                        // });
+                        $gallery.find("img").animate({ width: "102%" }, 200)
+                        .animate({ width: "100%" }, 200);
+                    },
+
+                    // 3. #container 요소의 영역에서 마우스 포인터가 빠져나오면
+                    function() {
+
+                        // 3.1. #gallery 요소가 다시 움직이도록 한다.
+                        timerId = window.setInterval(slideImage, 2000);
+
+                    }
+                );  // #container.hover
+            
+            //-----------------------------------------------------------------------
+                function slideImage () {
+                    // 1.1. #gallery 요소를 사진 한 장의 너비(1/3)만큼 왼쪽으로 이동시킨다.
+                    $gallery.animate({"margin-left": "-33.33%"}, function () {
+
+                        // 1.2. #gallery 요소의 움직임이 끝나면
+                        // 1.3. #gallery 요소에 적용된 스타일 속성을 제거하고
+                        // 1.4. #gallery 요소의 첫 번째 자식 요소를 #gallery 요소의 마지막으로 옮긴다.
+                        $gallery.removeAttr("style").children(":first").appendTo($gallery);
+                    });
+                }   // function slideImage
+                
+            }); // document.onready
+        </script>
+
+    </head>
+    <body>
+        <div id="container">
+            <ul id="gallery">
+                <li><img src="https://i.imgur.com/Yy7wdEP.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/az1H9tl.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/5QkjSce.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/U0Eg5wb.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/c7Llx1m.jpg" alt="image"></li>
+                <li><img src="https://i.imgur.com/P4hWwz4.jpg" alt="image"></li>
+            </ul>
+        </div>
+    </body>
+</html>

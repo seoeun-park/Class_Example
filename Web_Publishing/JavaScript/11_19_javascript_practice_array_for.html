@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>11월 19일 연습문제</title>
+</head>
+
+<body>
+    <pre><script>
+
+        // 연습문제 (1) : 다음과 같은 배열에서 각 원소보다 5만큼 큰 값들을 출력하는 프로그램을 작성하라
+
+        var numbers = [4, 17, 32, 3, 8, 13, 41, 27, 16, 1];
+
+        // document.writeIn(numbers[0] + 5);
+        // document.writeIn(numbers[1] + 5);
+        // document.writeIn(numbers[2] + 5);
+        // ...
+        // document.writeIn(numbers[9] + 5);
+
+        // for 구문을 이용해 반복문을 작성할 때 고려할 사항
+        // 1. 반복해서 실행할 문장
+        //  → document.writeIn(numbers[0] + 5);
+        // 2. 반복해서 실행할 문장에서 변하는 값 = 인덱스 변수를 이용해서 표현
+        //  → i = 0, 1, 2, 3 ..., 8, 9;
+        // 3. 인덱스 변수의 초기값 = for 구문의 첫 번째 표현식(초기식)
+        //  → i = 0;
+        // 4. 인덱스 변수의 범위 = for 구문의 두 번재 표현식(조건식)
+        //  → (i < 10) → (i < numbers.length)
+        // 5. 인덱스 변수의 변화 = for 구문의 세 번째 표현식(종료식, 증가식)
+        //  → i++;
+
+        for (var i = 0; i < numbers.length; i++)
+                document.writeln(numbers[i] + 5);
+        
+        // 연습문제 (2): 다음과 같은 배열에서 모든 원소들 중에서 15보다 큰 원소만 출력하는 프로그램을 작성하라
+
+        /* if (numbers[0] > 15)
+            document.writeIn(numbers[0]);
+
+           if (numbers[1] > 15)
+            document.writeIn(numbers[1]);
+
+           if (numbers[2] > 15)
+            document.writeIn(numbers[2]);
+            ...
+           if (numbers[9] > 15)
+            document.writeIn(numbers[9]);
+        */
+
+        // for 구문을 이용해 반복문을 작성할 때 고려할 사항
+        // 1. 반복해서 실행할 문장
+        //  → if (numbers[0] > 15) document.writeIn(numbers[0]);
+        // 2. 반복해서 실행할 문장에서 변하는 값 = 인덱스 변수를 이용해서 표현
+        //  → i = 0, 1, 2, 3 ..., 8, 9;
+        // 3. 인덱스 변수의 초기값 = for 구문의 첫 번째 표현식(초기식)
+        //  → i = 0;
+        // 4. 인덱스 변수의 범위 = for 구문의 두 번재 표현식(조건식)
+        //  → (i < 10) → (i < numbers.length)
+        // 5. 인덱스 변수의 변화 = for 구문의 세 번째 표현식(종료식, 증가식)
+        //  → i++;
+
+        for (var i = 0; i < numbers.length; i++)
+            if (numbers[i] > 15)
+                document.writeln(numbers[i]);
+
+    </script></pre>
+</body>
+
+</html>

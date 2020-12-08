@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>가로 메뉴</title>
+        <style>
+            #menu {
+                font-size: 24px;
+                font-family: Tahoma;
+                list-style-type: none;
+                margin-top: 40px;
+            }
+
+            #menu::after {content: ""; display: block; clear: both;}
+
+            #menu > li {
+                float: left;
+            }
+            #menu > li > a { 
+                background-color: #eee;
+                border: 2px solid #999;
+                border-right: 0;
+                padding: 10px 16px;
+                color: blue;
+                text-decoration: none;
+            }
+            #menu > li:nth-child(1) > a {
+                border-radius: 8px 0 0 8px;
+            }
+            #menu > li:nth-child(5) > a {
+                border-radius: 0 8px 8px 0;
+                border-right: 2px solid #999;
+            }
+        </style>
+    </head>
+
+    <body>
+        <ul id="menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#html">HTML</a></li>
+            <li><a href="#css">CSS</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#jquery">jQuery</a></li>
+        </ul>
+    </body>
+</html>

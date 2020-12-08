@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0">
+        <meta charset="utf-8">
+        <title>11월 8일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            #container {
+                padding: 2em;
+            }
+
+           #container > h1 {
+                font-size: 2em;
+                font-weight: bold;
+                margin-bottom: 1.4em;
+            }
+
+
+            #container > p {
+                line-height: 1.8;
+                margin-bottom: 1.4em;
+            }
+
+            #overlay {
+                /* 화면 전체를 가리도록 배치 */
+                position: fixed;
+                top: 0; right: 0; left: 0; bottom: 0;
+                background-color: black;
+                opacity: 0.8;
+            }
+
+            #window {
+                /* 화면의 중앙에 배치 */
+                position: fixed;
+                top: 50%; left: 50%;
+                /* 뷰포트의 한 가운데를 중심점으로 삼아 요소의 좌상단을 기준으로 배치된다.
+                    그러므로 position 스타일 속성으로만으로 화면의 중앙에 배치할 수 없다. */
+                transform: translate(-50%, -50%);
+                /* transform 스타일 속성의 translate 함수에서 % 단위의 기준은
+                    스타일 속성이 설정된 요소의 크기이다. 그러므로 여기서 X축의 -50%는
+                    요소의 너비의 절반만큼 왼쪽으로 이동한다는 의미이고 Y축의 -50%는
+                    요소의 높이의 절반만큼 위쪽으로 이동한다는 의미이다. */
+
+                background-color: #999;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            #window > h2 {
+                font-size: 1.6em;
+                font-weight: 900;
+                letter-spacing: -1px;
+                text-align: center;
+                background-color: #555;
+                line-height: 2em;
+                border-radius: 8px;
+            }
+
+            #window > p {
+                font-size: 1.2em;
+                line-height: 1.8;
+                padding: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Lorem Ipsum</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Sed nibh enim, fringilla sit amet aliquam vel, lacinia quis justo.
+            Etiam imperdiet eros sed laoreet tempus.
+            Quisque venenatis arcu at justo consectetur vestibulum ac eu nunc.
+            Donec luctus varius ipsum, in suscipit risus accumsan non.
+            Pellentesque sagittis quam velit, congue faucibus tellus feugiat quis.
+            Fusce tristique, ante id porttitor luctus, leo odio scelerisque turpis,
+            in facilisis felis dui nec tortor.
+            Nullam tincidunt urna ac felis malesuada, eget pellentesque mi venenatis.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Quisque et tellus pellentesque, tempus ante semper, sagittis nibh. </p>
+        </div> <!-- /#container-->
+
+        <!-- 오버레이 레이어(overlay layer): 화면 전체를 가리는 반투명한 레이어 -->
+        <div id="overlay">
+            <!-- 메시지 창(message window) -->
+            <div id="window">
+                <h2>Alert!</h2>
+                <p>
+                    이것은 메시지 창입니다.
+                    오버레이 레이어 위에 올라와있습니다
+                    그래서 오버레이 레이어와 함께 나타났다가 사라집니다
+                </p>
+            </div> <!-- /#window-->
+        </div> <!-- /#overlay-->
+    </body>
+</html>
+<!-- 자식요소에 margin을 주는 것 vs 부모 요소에 padding을 주는 것 
+    : 부모 요소에 padding을 주는 경우가 훨씬 낫다 -->

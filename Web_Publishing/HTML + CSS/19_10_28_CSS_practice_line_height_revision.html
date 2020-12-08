@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>10월 28일 연습문제</title>
+        <style>
+            .box {
+                width: 100px;
+                height: 100px;
+                border: 2px solid red;
+                background-color: yellowgreen;
+                text-align: center;
+                box-sizing: border-box;
+                margin: 5px;
+            }
+            .box:nth-child(2) {
+        /* 요소의 내부 문자는 행의 가운데에 배치된다.
+            따라서 행의 높이를 요소의 높이만큼 설정하면 내부 문자는 가운데에 배치된다 */
+                line-height: 100px;
+            }
+
+            .box:nth-child(3) {
+                line-height: 170px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="box">Box</div>
+        <div class="box">Box</div>
+        <div class="box">Box</div>
+    </body>
+</html>

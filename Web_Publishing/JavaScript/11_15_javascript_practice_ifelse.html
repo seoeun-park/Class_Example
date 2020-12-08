@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>11월 15일 연습문제(2)</title>
+    </head>
+    <body>
+        <pre><script>
+        /* 연습문제 (2) : 어떤 수가 3의 배수이고 5의 배수이면 "Hello World!" 출력,
+         그렇지 않으면 "Hello JavaScript!"를 출력*/
+
+            var num = 45;
+
+            // 3의 배수: 3으로 나누어 떨어지는 수 = 3으로 나누었을 때 나머지가 0인 수
+
+            // 어떤 수가 3의 배수이고 5의 배수이다
+            // 1. 어떤 수가 3의 배수이다 → num % 3 == 0
+            // 2. 그리고 (AND) - 논리곱 연산자로 연결 → &&
+            // 3. 어떤 수가 5의 배수이다 → num % 5 == 0
+
+            // 어떤 수가 3의 배수이고 5의 배수이다
+            // → 어떤 수가 15의 배수이다
+            // → num % 15 == 0
+            // 그러나 위의 방법으로 쓰는 것이 낫다.
+
+            if (num % 3 == 0 && num % 5 == 0)
+                document.writeln("Hello World!");
+            else
+                document.writeln("Hello Javascript!");
+
+        </script></pre>
+    </body>
+</html>

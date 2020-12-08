@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <title>11월 5일 연습문제</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            html, body { height: 100%; }
+            body { margin: 0; padding: 0;}
+
+            /*header 영역*/
+            #header {
+                background-color: maroon;
+            }
+            #header > h1 {
+                font-size: 30px;
+                font-weight: 900;
+                letter-spacing: -1px;
+                color: white;
+                text-align: center;
+                line-height: 2em;
+                display: block;
+            }
+            #header > img {
+                position: fixed;
+                top: 1.5%; left: 95%;
+             }
+
+            /*menubar 영역 - gnb*/
+            #nav >ul::after {content: ""; display: block; clear: both;}
+        
+            #nav { 
+                border-bottom: 1px solid black;
+            }
+
+            #gnb { 
+                margin-top: 0.8em;
+                margin-bottom: 0.8em;
+            }
+            #gnb > li { 
+                float: left;
+                width: 25%;
+             }
+            #gnb > li > a {
+                display: block;
+                text-align: center;
+                text-decoration: none;
+                color: black;
+                border-right: 1px solid black;
+                padding: 0.4em 1em;
+            }
+            /*menubar 영역 - sidebar*/
+            #sidebar {
+                position: fixed;
+                top: 61px; bottom: 0; left: 75%; right: 0;
+                background-color: rgba(0, 0, 0, 0.863);
+                padding: 1em;
+            }
+            #sidebar > li > a {
+                text-decoration: none;
+                display: block;
+                color: white;
+                line-height: 3em;               
+            }
+
+            /*content 영역*/
+            #content, #footer {padding: 0.8em;}
+
+            #content > h2 {
+                font-weight: bold;
+                font-size: 24px;
+            }
+            #content > p {
+                line-height: 30px;
+                margin-top: 1em;
+            }
+            
+            /*footer 영역*/
+            #footer {
+                margin-top: 1em;
+                margin-bottom: 2em;
+                border-top: 1px solid black;
+            }
+            #footer > span {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+            <header id="header">
+                <h1>Mobile Web</h1>
+                <img src="menu_white_icon.png" alt="menubar" width="24px">
+            </header>
+            <nav id="nav">
+                <ul id="gnb">
+                    <li><a href="html">HTML</a></li>
+                    <li><a href="css">CSS</a></li>
+                    <li><a href="javascript">JavaScript</a></li>
+                    <li><a href="jquery">jQuery</a></li>
+                </ul>
+                <ul id="sidebar">
+                    <li><a href="html">HTML</a></li>
+                    <li><a href="css">CSS</a></li>
+                    <li><a href="javascript">JavaScript</a></li>
+                    <li><a href="jquery">jQuery</a></li>
+                </ul>
+            </nav>
+            <article id="content">
+                <h2>Section</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Aliquam eu dui id mi auctor iaculis. Nam consequat velit turpis, sed condimentum ipsum egestas sollicitudin.
+                    Quisque mi nunc, consequat nec turpis quis, malesuada hendrerit felis. 
+                    Vivamus semper venenatis risus. Donec eget neque elementum quam consectetur interdum in ac est.
+                    Pellentesque a lectus magna. Ut hendrerit molestie libero a convallis.
+                    Vivamus tincidunt, velit at mattis placerat, libero diam imperdiet tortor, vitae mollis lacus elit non massa. 
+                    Duis nunc est, faucibus nec iaculis blandit, mattis at justo. Sed finibus, elit in mollis varius,
+                    ante nulla lacinia nisi, vel eleifend diam purus non nisi.
+                </p>
+                <p>
+                    Ut sagittis luctus ipsum, et scelerisque augue auctor quis. Curabitur et ipsum id turpis tempus dignissim. 
+                    Donec semper vel velit vel iaculis. Nullam imperdiet interdum metus vel condimentum. 
+                    Aliquam egestas placerat quam, rutrum efficitur sem placerat quis.
+                    Nulla porttitor neque lobortis mauris pulvinar egestas. Sed eu lectus varius nulla lacinia faucibus. 
+                    Sed fringilla ornare mi, ac dictum enim imperdiet et. Nam quis semper ipsum, sed consectetur lectus. 
+                    Integer blandit, lorem in egestas porta, quam lectus ultrices purus, nec bibendum sem turpis et felis. 
+                    Praesent auctor enim at magna tristique varius. Donec consequat luctus ipsum ut tincidunt. 
+                    Nam at vehicula urna, nec hendrerit ante. Suspendisse potenti. Morbi eget pellentesque orci. 
+                </p>    
+            </article>
+            <footer id="footer">
+                <span>Footer:</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </footer>
+    </body>
+</html>

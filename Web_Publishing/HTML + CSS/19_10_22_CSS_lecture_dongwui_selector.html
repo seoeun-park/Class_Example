@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>동위 선택자</title>
+        <style>
+            /* 여기서 li.important는 importatnt라는 클래스 선택자 중에 li태그 안에 있는
+                important 선택자를 말함 */
+            li.important + li {color: red;} 
+            
+            li.important ~ li :disabled {color: blue;} /*즉 .은 and를 의미*/
+        </style>
+    </head>
+    <body>
+        <div>
+            <span id="sample">먹을 거</span>
+
+            <ul>
+                <li class="important">치킨</li>
+                <li>떡볶이</li>
+                <li>파스타</li>
+                <li>피자<span class="important">와우!</span></li>
+            </ul>
+        </div>
+    </body>
+</html>

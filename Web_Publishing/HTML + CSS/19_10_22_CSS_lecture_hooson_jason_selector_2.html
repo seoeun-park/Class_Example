@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>후손 & 자손 선택자 2</title>
+        <style>
+            div > ul > li > span {
+                color: red;
+            }
+            div > ul span {
+                color: red;
+            }                        
+            
+            /* 둘 다 똑같이 와우!부분을 적용하지만 첫번째 스타일이 더 효율적이므로 
+                첫번째로 쓰는게 더 좋다. 여기서 좋다는 의미는 브라우저 효율성 측면에서 
+                볼때 더 효율적이라는 의미이다. */
+        </style>
+    </head>
+    <body>
+        <div>
+            <span id="sample">먹을 거</span>
+
+            <ul>
+                <li class="important">치킨</li>
+                <li>떡볶이</li>
+                <li>파스타</li>
+                <li>피자<span class="important">와우!</span></li>
+            </ul>
+        </div>
+    </body>
+</html>

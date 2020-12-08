@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            /* 1. 헤더 영역 */
+            #header {
+                height: 800px;
+                position: relative;
+
+                /* #footer 요소의 fixed scrolling 구현하기 (1-3)
+                   같은 형제요소가 똑같이 position 속성이 부여되어 있다면
+                   형제 요소 중 가장 마지막에 위치한 요소가 맨위에 나타나게 된다.
+                   그러므로 #footer 요소보다 위에 배치하기 위해 z-index 스타일 속성 설정한다. */
+                z-index: 10;
+
+                /* #footer 요소의 fixed scrolling 구현하기 (2) 
+                   background-color의 기본값은 transparent이므로
+                   #footer 요소가 비쳐보이지 않도록 하기 위해 배경 색상을 주어야 한다. */
+                background-color: white;
+            }
+
+            #header > h1 {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                font-size: 3.8em;
+                font-weight: 900;
+                font-variant: small-caps;
+                letter-spacing: 8px;
+                line-height: 1.2;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            #header > h1 > span {
+                display: block;
+                font-size: 0.7em;
+            }
+
+            /* 2. 본문 영역 */
+            #content {
+                /* #footer 요소의 fixed scrolling 구현하기 (1-2) 
+                   #footer 요소가 뷰포트를 기준으로 fixed 되어 있으므로
+                   #header, #content 요소를 가리게 된다.
+                   #footer 요소보다 위에 배치하기 위해 position 스타일 속성 설정 */
+                position: relative;
+                z-index: 10;
+
+                /* #footer 요소의 fixed scrolling 구현하기 (2) 
+                   background-color의 기본값은 transparent이므로
+                   #footer 요소가 비쳐보이지 않도록 하기 위해 배경 색상을 주어야 한다. */
+                   background-color: white;
+
+                /* #footer 요소의 fixed scrolling 구현하기 (3) 
+                   브라우저가 스크롤 되면 아래쪽에 있는 #footer 요소가 보이도록 
+                   #footer 요소의 높이만큼 아래쪽에 여백 설정 */
+                margin-bottom: 800px;
+            }
+
+            /* 2.1. 이미지 슬라이드 영역 */
+            #goods {
+                width: 1080px;
+                margin: 0 auto 200px;
+                overflow: hidden;
+
+                position: relative;
+            }
+
+            #slide {
+                width: 200%;
+                height: 250px;
+            }
+
+            #slide > li {
+                float: left;
+                width: 250px;
+                height: 250px;
+                padding: 0 10px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            /* li 요소의 영역의 너비와 높이를 고정시킨 다음 이미지를 가운데 영역에 배치시키고
+               너비만 고정시킨 후 li 요소의 영역에 overflow: hidden을 걸어주면 각자 비율이 다른 사진을
+               1대 1 크기의 썸네일 이미지로 구현할 수 있다. */
+            #slide > li > img {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                width: 250px;
+            }
+
+            /* 다음 사진, 이전 사진 버튼 */
+            #goods > button {
+                border: none;
+                outline: none;
+                background-color: transparent;
+                padding: 0;
+                cursor: pointer;
+
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+
+                width: 48px; height: 48px;
+                opacity: 0.2;
+                transition-duration: 200ms;
+            }
+
+            #goods:hover > button { opacity: 1; }
+
+            #goods > button > span { display: none; }
+
+            #prev {
+                left: 10px;
+                background: url("images/jo-malone/prev-button.png") no-repeat center;
+            }
+
+            #next {
+                right: 10px;
+                background: url("images/jo-malone/next-button.png") no-repeat center;
+            }
+
+            /* 2.2 배너 영역 */
+            #banner {
+                height: 300px;
+                margin-bottom: 200px;
+                background: url("images/jo-malone/jo-malone-banner.png") no-repeat center;
+                background-size: cover;
+                background-attachment: fixed;
+            }
+
+            #banner > h2 {
+                width: 1080px;
+                padding-top: 50px;
+                margin: 0 auto;
+                text-align: right;
+
+                font-size: 3em;
+                font-weight: 900;
+                font-variant: small-caps;
+            }
+
+            /* 2.3. 메시지 영역 */
+            #messages {
+                height: 560px;
+                border-top: 1px solid #999;
+                position: relative;
+            }
+
+            #messages > ul {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                width: 1080px;
+            }
+
+            #messages > ul::after { content: ""; display: block; clear: both; }
+
+            #messages > ul > li {
+                float: left;
+                width: 33.333%;
+                text-align: center;
+            }
+
+            #messages > ul > li > h2 {
+                font-size: 1.8em;
+                font-weight: bold;
+                font-variant: small-caps;
+                margin-bottom: 1em;
+            }
+
+            #messages > ul > li > p {
+                line-height: 1.8;
+            }
+
+            #messages > ul > li > p > a {
+                display: block;
+                width: 200px;
+                border: 1px solid #999;
+                border-radius: 4px;
+                margin: 1.4em auto 0;
+
+                text-decoration: none;
+                line-height: 2.4;
+                color: black;
+
+                transition-duration: 100ms;
+            }
+
+            #messages > ul > li > p > a:hover {
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+            }
+
+            /* 3. 푸터 영역 */
+            #footer {
+                height: 800px;
+                background-color: black;
+                color: white;
+
+                /* #footer 요소의 fixed scrolling 구현하기 (1-1) 
+                   #footer 요소 영역을 뷰포트를 기준으로 하단에 고정시킨다. */
+                position: fixed;
+                bottom: 0; right: 0; left: 0;
+            }
+
+            #footer > h2 {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+
+                font-size: 3.8em;
+                font-weight: 900;
+                font-variant: small-caps;
+                letter-spacing: 8px;
+                line-height: 1.2;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            #footer > h2 > span {
+                display: block;
+                font-size: 0.7em;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function () {
+                // 1. #slide 요소의 이미지 슬라이드 기능
+                // 1.1. 일정한 시간마다
+                // 1.2. #slide 요소를 li 요소의 너비만큼 왼쪽으로 이동시킨다.
+                // 1.3. #slide 요소의 움직임이 끝나면
+                // 1.4. #slide 요소에 설정했던 스타일 속성을 제거하고
+                // 1.5. #slide 요소의 첫 번째 자식 요소를 #slide 요소의 마지막으로 옮긴다.
+                // 2. #goods 요소의 영역에 마우스 포인터가 들어가면 이미지 슬라이드 기능 정지
+                // 2.1. #goods 요소의 영역에 마우스 포인터가 들어가면
+                // 2.2. #slide 요소를 움직이게 하는 타이머를 해제한다.
+                // 3. #goods 요소의 영역에서 마우스 포인터가 빠져나가면 이미지 슬라이드 기능 다시 시작
+                // 3.1. #goods 요소의 영역에서 마우스 포인터가 빠져나가면
+                // 3.2. #slide 요소를 움직이게 하는 타이머를 다시 등록한다.
+                // 4. #next 요소를 클릭하면 #slide 요소의 다음 사진을 표시
+                // 4.1. #next 요소를 클릭하면
+                // 4.2. #slide 요소의 다음 사진이 나오도록 왼쪽으로 이동시킨다.
+                // 5. #prev 요소를 클릭하면 #slide 요소의 이전 사진을 표시
+                // 5.1. #prev 요소를 클릭하면
+                // 5.2. #slide 요소의 마지막 자식 요소를 #slide 요소의 처음으로 옮기고
+                // 5.3. #slide 요소를 li 요소의 너비만큼 왼쪽으로 이동시킨다.
+                // 5.4. 그 다음 #slide 요소를 li 요소의 너비만큼 오른쪽으로 이동시킨다.
+
+                //----------------------------------------------------------------------------------------
+                // 프로그램에서 참조하는 요소를 미리 탐색
+                var $goods = $("#goods");
+                var $slide = $goods.children("#slide");
+
+                // 1. #slide 요소의 이미지 슬라이드 기능
+                // 1.1. 일정한 시간마다
+                var timerId = window.setInterval(slideGoods, 2000);
+
+
+                $goods.hover(
+                    // 2. #goods 요소의 영역에 마우스 포인터가 들어가면 이미지 슬라이드 기능 정지
+                    // 2.1. #goods 요소의 영역에 마우스 포인터가 들어가면
+                    function () {
+                        // 2.2. #slide 요소를 움직이게 하는 타이머를 해제한다.
+                        window.clearInterval(timerId);
+                    },
+
+                    // 3. #goods 요소의 영역에서 마우스 포인터가 빠져나가면 이미지 슬라이드 기능 다시 시작
+                    // 3.1. #goods 요소의 영역에서 마우스 포인터가 빠져나가면
+                    function () {
+                        // 3.2. #slide 요소를 움직이게 하는 타이머를 다시 등록한다.
+                        timerId = window.setInterval(slideGoods, 2000)
+                    });
+
+                // 4. #next 요소를 클릭하면 #slide 요소의 다음 사진을 표시
+                // 4.1. #next 요소를 클릭하면
+                $goods.children("#next").on("click", function () { 
+                    // 4.2. #slide 요소의 다음 사진이 나오도록 왼쪽으로 이동시킨다.
+                    slideGoods(); 
+                });
+
+                // 5. #prev 요소를 클릭하면 #slide 요소의 이전 사진을 표시
+                // 5.1. #prev 요소를 클릭하면
+                $goods.children("#prev").on("click", function () {
+                    // 5.2. #slide 요소의 마지막 자식 요소를 #slide 요소의 처음으로 옮기고
+                    // 5.3. #slide 요소를 li 요소의 너비만큼 왼쪽으로 이동시킨다.
+                    $slide.prepend( $slide.children(":last") ).css("margin-left", "-25%")
+                        // 5.4. 그 다음 #slide 요소를 li 요소의 너비만큼 오른쪽으로 이동시킨다.
+                        .animate({ "margin-left": 0 });
+                });
+
+                //-------------------------------------------------------------------------
+                function slideGoods() {
+                    // 1.2. #slide 요소를 li 요소의 너비만큼 왼쪽으로 이동시킨다.
+                    //      li 요소의 너비 = #goods 요소 너비의 1/4 = 270px
+                    $slide.animate({"margin-left": "-25%"}, function () {
+                        // 1.3. #slide 요소의 움직임이 끝나면
+                        // 1.4. #slide 요소에 설정했던 스타일 속성을 제거하고
+                        // 1.5. #slide 요소의 첫 번째 자식 요소를 #slide 요소의 마지막으로 옮긴다.
+                        $slide.removeAttr("style").children(":first").appendTo($slide);
+                    });
+                }
+
+            }); // document.onready
+        </script>
+    </head>
+    <body>
+        <header id="header">
+            <h1>JO MALONE<span>London</span></h1>
+        </header>
+
+        <main id="content">
+            <div id="goods">
+                <ul id="slide">
+                    <li><img src="images/jo-malone/jo-malone-goods-1.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-2.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-3.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-4.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-5.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-6.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-7.jpg" alt="Thumbnail"></li>
+                    <li><img src="images/jo-malone/jo-malone-goods-8.jpg" alt="Thumbnail"></li>
+                </ul>
+                <button id="next"><span>Next</span></button>
+                <button id="prev"><span>Previous</span></button>
+            </div>
+
+            <div id="banner">
+                <h2>The Talk Of The Townhouse</h2>
+            </div>
+
+            <div id="messages">
+                <ul>
+                    <li>
+                        <h2>A Special Delivery</h2>
+                        <p>
+                            Want your gifts to arrive on time?
+                            We'll arrange your delivery to suit you.
+                            <a href="#special-delivery">Learn More</a>
+                        </p>
+                    </li>
+                    <li>
+                        <h2>Live Chat</h2>
+                        <p>
+                            Looking for a magical gift for someone special?
+                            We can help. Speak to our experts with Live Chat.
+                            <a href="#live-chat">Learn More</a>
+                        </p>
+                    </li>
+                    <li>
+                        <h2>Personalized Engraving</h2>
+                        <p>
+                            Give your loved one something truly thoughtful.
+                            Engrave their gift with a unique fesitive message.
+                            <a href="#personalized-engraving">Learn More</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </main>
+
+        <footer id="footer">
+            <h2>JO MALONE<span>London</span></h2>
+        </footer>
+    </body>
+</html>
+<!-- lightbox와 fancybox 플러그인은 이미지 갤러리 기능을 제공하는 플러그인이다. -->
+<!-- jQuery 플러그인은 jQuery로 작성되어 있기 때문에 jQuery 라이브러리를 먼저 불러온 다음에 jQuery 플러그인을 불러 들여야 한다. -->
