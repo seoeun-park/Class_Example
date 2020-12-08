@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		
+		$("#btn1").click(function() {
+			$("#content1").css("background-color", "pink");
+		});//btn1.click()
+		
+		$("#btn2").dblclick(function() {
+			$("#content1").css("background-color", "purple");
+		});//btn2.click()
+		
+		$("#btn3").click(function() {
+			$("#content2").css("background-color", "teal");
+			return false;		//기본기능(href속성에 설정되어있는 url로 이동)을 제거
+		});//btn3.click()
+		
+		$("#btn4").click(function(e) {
+			$("#content2").css("background-color", "navy");
+			e.preventDefault();
+		});//btn4.click()
+		
+		$("#btn5").click(function() {
+			$("#content2").css("background-color", "blue");
+		});//btn5.click()
+
+	});//ready()
+</script>
+</head>
+<body>
+	<button id="btn1">클릭</button>
+	<button id="btn2">더블 클릭</button>
+	<p style="width:200px; height:200px" id="content1">내용</p>
+	
+	<hr>
+	
+	<a href="http://www.naver.com" id="btn3">버튼1</a><br/>
+	<a href="http://www.naver.com" id="btn4">버튼2</a><br/>
+	<a href="http://www.naver.com" id="btn5">버튼3</a>
+	<p id="content2" style="width:200px; height:200px">내용</p>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var t = "Hello Thank you good luck to you";
+	
+	document.write(t.charAt(16) + "<br />");	//g
+	document.write(t.indexOf("you") + "<br />");
+	// 12 → 첫번째 "you" 문자열이 시작되는 지점의 인덱스 값을 반환
+	document.write(t.lastIndexOf("you") + "<br />");
+	// 29 → 마지막 "you" 문자열이 끝나는 지점의 인덱스 값을 반환
+	document.write(t.lastIndexOf("you", 25) + "<br />");
+	// 12 → 25번째 이전에 있는 "you" 문자열을 찾아서 시작되는 지점의 인덱스 값을 반환
+	document.write(t.match("luck") + "<br />");
+	// luck
+	document.write(t.search("luck") + "<br />");
+	// 21 → "luck" 문자열을 찾아 해당 문자열이 시작되는 지점의 인덱스 값을 반환
+	document.write(t.substr(6, 11) + "<br />");
+	// 인덱스가 6인 문자부터 11글자를 출력
+	document.write(t.substring(6, 11) + "<br />");
+	// 인덱스가 6인 문자부터 10(11미만)까지의 문자까지 출력
+	document.write(t.replace("you", "me") + "<br />");
+	// 두 문자열을 서로 치환
+	document.write(t.toLowerCase() + "<br />");
+	// 소문자로 변환
+	document.write(t.toUpperCase() + "<br />");
+	// 대문자로 변환
+	document.write(t.length + "<br />");
+	// 문자열의 크기 반환
+	
+	var s = t.split(" ");
+	// split → 지정한 문자를 기준으로 문자열을 나눠서 그 값을 배열에 담아서 반환
+	document.write("var s = [");
+	for (var i in s) {
+		document.write(s[i] + ", ");
+	}
+	document.write("] <br />");
+	
+	var str = "A";
+	var t = str.charCodeAt(0);
+	document.write(t + "<br />");		// 65
+	document.write(String.fromCharCode(65) + "<br />");			// A
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

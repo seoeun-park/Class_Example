@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		/*
+		$.get("data/data.html", function(result) {
+			$("body").html(result);
+		});//get()
+		*/
+		
+		$("#d1").load("data/data.html");
+	});//ready()
+</script>
+</head>
+<body>
+	<div id="d1">내용</div>
+</body>
+</html>

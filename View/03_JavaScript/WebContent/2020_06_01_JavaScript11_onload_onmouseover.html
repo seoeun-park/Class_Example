@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var color = ["white", "yellow", "aqua", "purple"];
+	var i = 0;
+	
+	function colorBg() {
+		i++;
+		
+		if (i >= color.length) {
+			i = 0;
+		}//if
+		
+		document.getElementsByTagName("body")[0]
+				.style.backgroundColor = color[i];
+	}//colorBg()
+	
+	window.onload = function() {
+		var btn2 = document.getElementById("btn2");
+		
+		btn2.onclick = function() {
+			colorBg();
+		}
+	}//onload()
+	
+	
+	window.onload = function() {
+		var btn4 = document.getElementById("btn4");
+		btn4.onmouseover = btn4.onfocus = function () {
+			colorBg();
+		}
+
+	}//onload()
+	
+</script>
+</head>
+<body>
+	<p><button type="button" onclick="colorBg();">버튼1</button></p>
+	<p><button type="button" id="btn2">버튼2</button></p>
+	<p><button type="button" onmouseover="colorBg();"
+							onfocus="colorBg();">버튼3</button></p>
+<!-- onmouseover(마우스 이벤트)와 onfocus(키보드 이벤트)는 같다고 보면 된다. 
+			onfocus는 키보드를 이용하여 해당 요소에 접근하면 발생하는 이벤트이다. -->
+	<p><button type="button" id="btn4">버튼4</button></p>
+</body>
+</html>

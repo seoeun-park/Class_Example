@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var i = 0;
+	
+	// 선언적 함수
+	function myFunc1() {
+		i++;
+		document.write("Hello" + i + "<br />");
+	}
+	
+	// 선언적 함수의 호출
+	myFunc1();
+	
+	// 익명함수
+	// → 함수에 이름을 주지 않고 따로 변수에 할당한 함수
+	var myFunc2 = function() {
+		i++;
+		document.write("Hello" + i + "<br />");
+	}
+	
+	//익명함수의 호출
+	myFunc2();
+	
+	// 선언적 함수와 익명함수가 충돌이 생길 경우, 선억적 함수가 우선적으로 호출된다.
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

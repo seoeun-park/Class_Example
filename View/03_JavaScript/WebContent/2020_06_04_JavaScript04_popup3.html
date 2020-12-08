@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var popup1 = window.open("popup.html", "popup1", 
+							 "width=300, height=400, left=300, top=100");
+	var popup2 = window.open("popup.html", "popup2", 
+	 						 "width=300, height=400, left=600, top=100");
+	
+	var popupWidth = 200;
+	var popupHeight = 300;
+	
+	var popupX = (window.screen.width / 2) - (popupWidth / 2);
+	var popupY = (window.screen.height / 2) - (popupHeight / 2);
+	
+	function popupClick1() {
+		popup1.moveTo(200, 300);
+		//팝업창이 뒤로가지 않도록
+		popup1.focus();
+		popup2.focus();
+	}
+	
+	function popupClick2() {
+		popup1.resizeTo(200, 300);
+		popup1.focus();
+		popup2.focus();
+	}
+	
+	function popupClick3() {
+		popup1.moveTo(300, 100);
+		popup1.resizeTo(300, 400);		
+		popup1.focus();
+		popup2.focus();
+	}
+	
+	function popupClick4() {
+		popup1.moveTo(popupX, popupY);
+		popup1.focus();
+		popup2.focus();
+	}
+	
+</script>
+</head>
+<body>
+	<p>
+		<button onclick="popupClick1();">popup1 브라우저 창 위치(200, 300) 변경</button>
+	</p>
+	
+	<p>
+		<button onclick="popupClick2();">popup1 브라우저 창 크기(200, 300) 변경</button>
+	</p>
+	
+	<p>
+		<button onclick="popupClick3();">
+			popup1 브라우저 창 위치(300, 100) 변경,
+			창 크기(300,400) 원래대로
+		</button>
+	</p>
+	
+	<p>
+		<button onclick="popupClick4();"> 가운데로 창 띄우기</button>
+	</p>
+</body>
+</html>

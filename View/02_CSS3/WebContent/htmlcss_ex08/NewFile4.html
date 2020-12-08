@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
+
+ul {
+	overflow: hidden;
+	padding: 0px;
+}
+
+li {
+	list-style: none;
+	float: left;
+}
+
+li a {
+	text-decoration: none;
+	color: black;
+	padding: 10px 15px;
+	display: block;
+	border: 1px solid black;
+}
+
+/* li:first-child { */
+li:nth-child(1) a {
+	border-radius: 20px 0px 0px 20px;
+}
+
+li:last-child a {
+	border-radius: 0px 20px 20px 0;
+}
+
+li:nth-child(2n+1) a {
+	background-color: green;
+}
+
+li:nth-child(2n) a {
+	background-color: red;
+	margin-left: -1px;
+	margin-right: -1px;
+}
+</style>
+
+</head>
+<body>
+	<ul>
+		<li><a href="#">First</a></li>
+		<li><a href="#">Second</a></li>
+		<li><a href="#">Third</a></li>
+		<li><a href="#">Fourth</a></li>
+		<li><a href="#">Fifth</a></li>
+		<li><a href="#">Sixth</a></li>
+		<li><a href="#">Seventh</a></li>
+	</ul>
+</body>
+</html>

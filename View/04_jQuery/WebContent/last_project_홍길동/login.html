@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>로그인 양식</title>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@900&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	body {
+		background-color: #534292;
+		color: #79589f;
+	}
+	
+	#container {
+		width: 500px;
+		margin: 100px auto;
+		background-color: white;
+		border: 2px solid #534292;
+		font-weight: 900;
+		font-family: 'Gothic A1', sans-serif;		
+		padding: 20px 0;
+	}
+	
+	h1 {
+		text-align: center;
+	}
+	
+	#wrap {
+		width: 400px;
+		margin: 0 auto;
+	}
+	
+	#wrap > p {
+		width: 100%;
+		text-align: center;
+		overflow: hidden;
+	}
+	
+	#wrap > p > input {
+		box-sizing: border-box;
+		height: 36px;
+		float: left;
+	}
+	
+	#wrap > p > label, #wrap > p > span {
+		display: block;
+		float: left;
+	}
+	
+	#wrap > p > label {
+		line-height: 35px;
+		margin-right: 10px;
+		font-size: 22px;
+	}
+	
+	#wrap > p:nth-child(2) > span {
+		width: 36px; height: 36px;
+		border: 1px solid black;
+		border-right: none;
+		box-sizing: border-box;
+		background-image: url("images/id_icon.png"); 
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	#wrap > p:nth-child(3) > span {
+		width: 36px; height: 36px;
+		border: 1px solid black;
+		border-right-color: white;
+		box-sizing: border-box;
+		background-image: url("images/pw_icon.png");
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	#wrap > p > span > i {
+		opacity: 0;
+		visibility: none;
+	}
+	
+	input[type='text'],input[type='password'] {
+		width: 60%;
+		border: 1px solid black;
+	}
+	
+	label[for="user_id"] > span {
+		padding: 27px;
+	}
+	
+	label[for="user_pw"] > span {
+		padding: 22px;
+	}
+	
+	#submit {
+		margin-right: 10px;
+	}
+	
+	#submit, #reset {
+		width:  48%;
+		border: 1px solid black;
+	}
+	
+	#container > p {
+		text-align: center;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var $userId = $("#user_id");
+		var $userPw = $("#user_pw");
+		var $submit = $("#submit");
+		var $reset = $("#reset");
+		
+		$userId.focus(function () {
+			$userId.attr("placeholder", "");
+		}).blur(function() {
+			$userId.attr("placeholder", "아이디를 입력하세요");
+		});
+		
+		$userPw.focus(function () {
+			$userPw.attr("placeholder", "");
+		}).blur(function() {
+			$userPw.attr("placeholder", "비밀번호를 입력하세요");
+		});
+		
+		var id = "tjdms5322";
+		var pw = "ddd1234";
+		
+		$submit.click(function() {
+			if (!$userId.val()) {
+				alert("아이디를 입력하세요.");
+				userId.focus();
+				return false;				
+			}
+			
+			if (!id.match($userId.val())) {
+				alert("아이디를 잘못 입력하셨습니다.");
+				$userId.value = "";
+				$userId.focus();
+				return false;
+			}
+			
+			if (!$userPw.val()) {
+				alert("비밀번호를 입력하세요.");
+				$userPw.focus();
+				return false;				
+			}			
+			
+			if (!pw.match($userPw.val())) {
+				alert("비밀번호를 잘못 입력하셨습니다.");
+				$userPw.value = "";
+				$userPw.focus();
+				return false;
+			}
+			
+			alert("로그인 성공!")
+		});//submit.click()
+		
+		$userId.keyup(function() {
+			$submit.css("background-color", "black").css("color", "white")
+							.css("transition", "0.4s");
+			
+			if (!$userId.val()) {
+				$submit.css("background-color", "").css("color", "");
+			}
+		});//$userId.keyup()
+
+		
+		$reset.click(function() {
+			var result = confirm("로그인을 취소하시겠습니까?");
+			
+			if (result) {
+				alert("로그인이 취소되었습니다.");
+				$userId.val("");
+				$userPw.val("");
+				$userEmail.val("");
+				$userId.focus();
+				return false;
+			}
+		})//reset.click()
+		
+	});//ready()
+</script>
+</head>
+<body>
+	<div id="container">
+		<div id="wrap">
+			<h1>Log in to your account</h1>
+			<p>
+				<label for="user_id">I<span></span>D&nbsp;&nbsp;</label>
+				<span><i>공백</i></span>
+				<input type="text" placeholder="아이디를 입력하세요" name="user_id"
+							 id="user_id" />
+			</p>
+			<p>
+				<label for="user_pw">P<span></span>W&nbsp;&nbsp;</label>
+				<span><i>공백</i></span>
+				<input type="password" placeholder="비밀번호를 입력하세요" name="user_pw"
+							 id="user_pw" />
+			</p>
+			<p>
+				<input type="submit" id="submit" value="로그인" />
+				<input type="reset" id="reset" value="취소" />
+			</p>
+		</div>
+		<p>잠깐! 회원이 아니세요?&nbsp;&nbsp;<span><a href="signup.html">가입하세요</a></span></p>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

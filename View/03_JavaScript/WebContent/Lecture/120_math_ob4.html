@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>수학객체</title>
+<script>
+	
+	while(true) {
+		var inputNumber = prompt("가위 바위 보를 입력하세요","가위");
+		var changeInputNumber;
+		if(inputNumber =="가위"){
+			changeInputNumber = 1;
+		} else if(inputNumber =="바위"){			
+			changeInputNumber = 2;
+		} else if(inputNumber =="보"){
+			changeInputNumber = 3;	
+		} else {
+			alert("잘못 입력하셨습니다");
+			location.reload();
+		}
+		break;
+	}
+	
+	//Math객체 : 내장객체중 수학과 관련한 기능과 속성을 제공
+	var comNumber = Math.ceil(Math.random() * 3); //컴퓨터 가위(1), 바위(2), 보(3), ceil : 무조건 올림
+	
+	if (changeInputNumber == comNumber) {
+		alert("맞췄습니다! 축하합니다!!");
+	} else {
+		alert("틀렸네요! 다시한번 도전하세요!!");
+	}
+	//1부터 3까지 난수(정수)를 발생시킵니다.
+	
+	document.write("<h1>컴퓨터 가위, 바위, 보 맞추기</h1>");
+	/*난수를 이용해 컴퓨터 가위 바위 보 이미지가 출력되도록 하였습니다.*/
+	//document.write("<img src='images/math_img_"+comNumber+".jpg' alt='가위,바위,보' />");
+
+	//사용자가 낸 값과 컴퓨터의 값이 일치하나 조건검사합니다.
+</script>
+</head>
+<body>
+</body>
+</html>

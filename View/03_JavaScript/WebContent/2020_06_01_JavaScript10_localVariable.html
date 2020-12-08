@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var num = 200;			//전역변수
+	
+	function myFunc() {
+		var num = 500;		//지역변수 : myFunc()함수가 끝나는 동시에 사라지는 변수
+		
+		document.write(num + "<br />");		//500
+		return;
+	}
+	
+	myFunc();
+	document.write(num + "<br />");			//200
+	
+	//-----------------------------------------------------
+	
+	var num1 = 200;
+	
+	function myFunc2() {
+		var num = 500;
+		document.write(num + "<br />");
+		return num;
+	}
+	
+	var num2 = myFunc2();
+	document.write(num2 + "<br />");
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

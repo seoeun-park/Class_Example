@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var d = [30, "홍길동", true];
+	document.write(d + "<br />");
+	/*
+	document.write(d[0] + "<br />");
+	document.write(d[1] + "<br />");
+	document.write(d[2] + "<br />");
+	*/
+	
+	for (var i = 0; i < d.length; i++) {
+		document.write(d[i] + "<br />");
+	}
+	
+	document.write("<br />");
+	
+	for ( var i in d) {
+		document.write(d[i] + "<br />");
+	}
+
+	//--------------------------------------------------
+	document.write("<br />");
+	
+	var arr = ["사당", "교대", "방배", "강남"];
+	
+	document.write(typeof(arr) + "<br />");		//object
+	
+	document.write(arr.join("-") + "<br />");	//사당-교대-방배-강남
+	
+	document.write(typeof(arr.join("-")) + "<br />");	//string
+	
+	document.write(arr.reverse() + "<br />");	//강남,방배,교대,사당
+	document.write(arr.sort() + "<br />");		//강남,교대,방배,사당(오름차순)
+	document.write(arr.sort().reverse() + "<br />");	//사당,방배,교대,강남(내림차순)
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

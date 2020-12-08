@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	ul {
+		width: 800px; height: 100px;
+		margin: 0 auto;
+		overflow: hidden;
+		padding: 0;
+	}
+	
+	ul, li {
+		border: 2px solid red;
+	}
+	
+	li {
+		float: left;
+		list-style: none;
+		width: 140px; height: 60px;
+		line-height: 60px;
+		box-sizing: border-box;
+		font-size: 20px;
+		font-weight: bold;
+		text-align: center;
+ 		margin-top: 20px;
+	}
+	
+	li:not(:last-child) {
+		border-right: none;
+	}
+	
+	li:first-child {
+ 		margin-left: 44px;
+	}
+</style>
+</head>
+<body>
+		<ul>
+			<li>menu1</li>
+			<li>menu2</li>
+			<li>menu3</li>
+			<li>menu4</li>
+			<li>menu5</li>
+		</ul>
+</body>
+</html>

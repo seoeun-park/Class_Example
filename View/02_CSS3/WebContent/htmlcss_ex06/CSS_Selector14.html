@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	ul {
+		/* 하위 요소가 float 속성을 가지고 있어 부유하기 때문에 상위 요소의 높이를 잡아주기 위해서 */
+		overflow: hidden;
+		padding: 0;
+	}
+	
+	li {
+		float: left;
+		list-style: none;
+	}
+		
+	li > a {
+		color: black;
+		border: 2px solid black;
+		text-decoration: none;
+		padding: 10px 15px;
+		/* a 태그는 inline 속성이기 때문에 padding 값을 준다고 해도 적용되지 않는다. */
+		display: block;
+	}
+	
+	li:first-child > a {
+		border-radius: 20px 0 0 20px;
+	}
+	
+	li:last-child > a {
+		border-radius: 0 20px 20px 0;
+	}
+	
+	li:nth-child(odd) > a {
+		background-color: red;
+	}
+	
+	li:nth-child(even) > a {
+		background-color: green;
+	}
+	
+	li > a:not(#first) {
+		border-left: none;
+	}
+</style>
+</head>
+<body>
+	<ul>
+		<li><a href="#" id="first">First</a></li>
+		<li><a href="#">Second</a></li>
+		<li><a href="#">Third</a></li>
+		<li><a href="#">Fourth</a></li>
+		<li><a href="#">Fifth</a></li>
+		<li><a href="#">Sixth</a></li>
+		<li><a href="#">Seventh</a></li>
+	</ul>
+</body>
+</html>

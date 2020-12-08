@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#pw").keyup(function() {
+			$("#statementpwCheck").html("");
+		});//pw.keyup()
+		
+		$("#pwCheck").keyup(function() {
+			if ($("#pw").val() != $(this).val()) {
+				$("#statementpwCheck").text("일치하지 않음");
+			} else {
+				$("#statementpwCheck").text("일치함").css("color", "red");
+			} 
+			
+		});//pwCheck.keyup()
+	});
+</script>
+</head>
+<body>
+	<label for="pw">비&nbsp;&nbsp;밀&nbsp;&nbsp;번&nbsp;&nbsp;호 : </label>
+	<input type="password" id="pw" name="pw" /><br/>
+	
+	<label for="pwCheck">비밀번호 확인 : </label>
+	<input type="password" id="pwCheck" name="pwCheck" />
+	<span id="statementpwCheck"></span>
+</body>
+</html>

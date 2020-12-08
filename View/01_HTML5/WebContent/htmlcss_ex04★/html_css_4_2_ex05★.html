@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>기타</title>
+<style type="text/css">
+	input:focus::-webkit-input-placeholder, 
+	textarea:focus::-webkit-input-placeholder {
+		/* Webkit browser */
+		color: transparent;
+	}
+	
+	input:focus:-moz-input-placeholder, 
+	textarea:focus:-moz-input-placeholder {
+		/* Mosila Firefox 4 to 18 */
+		color: transparent;
+	}
+	
+	input:focus::-moz-input-placeholder, 
+	textarea:focus::-moz-input-placeholder {
+		/* Mosila Firefox 19+ */
+		color: transparent;
+	}
+	input:focus::-ms-input-placeholder, 
+	textarea:focus::-ms-input-placeholder {
+		/* Mosila Firefox 19+ */
+		color: transparent;
+	}
+</style>
+<script>
+	function image1Click() {
+		return false;		
+	}
+	
+	function nameClear() {
+		document.form.name.value="";
+	}
+</script>
+
+</head>
+<body>
+	<form name="form">
+		<input type="text" name="name" value="이름을 입력하세요" id="name" 
+				onclick="nameClear();"/><br /> 
+		<input type="text" name="nickname" value="별명을 입력하세요" id="nickname" 
+				onclick="this.value='';"/><br />
+		<input type="text" name="id" placeholder="아이디를 입력하세요" id="id" /><br />
+		
+		<p>
+			<!-- input 타입의 버튼과 button 타입의 버튼과의 차이점 : button 타입의 버튼에서는 이미지도 삽입할 수 있다. -->
+			<input type="button" value="버튼1" /><br />
+			<button type="button">버튼2</button><br />
+			<button type="button"><img src="img01.png"></button><br />
+		</p>	
+		
+		<fieldset>
+			<legend>성별</legend>
+			<input type="radio" name="gender" value="male" checked="checked" />남자
+			<input type="radio" name="gender" value="female"/>여자<br /> 
+		</fieldset>
+		
+		<input type="file" /><br /> 
+		
+		<input type="hidden" value="12345" name="hidden"/><br /> <!-- 보이지 않게 전송 -->
+		 
+		<input type="image" src="img01.png" onClick="return image1Click();" />그림1<br />
+		
+		<!-- input type="image" 는 "submit" 속성을 가지고 있다 -->
+		<input type="image" src="img02.png" onClick="login(e);" />그림2<br />
+		<!-- 	메인화면에서 로그인 버튼을 image로 두었을 경우 type="image"는 "submit" 속성을 가지고 있다.  
+        	텍스트필드에서 엔터 입력시 자동으로 넘어간다.
+        	login() 함수에서 submit을 줄 경우 중복된 결과가 나온다. -->
+
+		<!--input type="image"에서 "submit" 막는
+				방법 1. return false; 사용 -->
+		<!-- type="image"가 type="submit"과 같다. -->
+		
+		<input type="image" src="img03.png" 
+		onClick="login(e); return false;" />그림3<br />
+
+		<!-- 방법 2. 버튼을 이미지태그로 사용 -->
+		<img src="img04.png" onClick="login(e);" />그림4<br />
+		
+		비밀번호 : <input type="password" /><br /> 
+		
+		<textarea rows="5" cols="20" placeholder="입력하세요"></textarea><br />
+		
+		<fieldset>
+			<legend>취미</legend>
+			<input type="checkbox" name="hobby" value="mount" />등산
+			<input type="checkbox" name="hobby" value="swim" checked="checked" />수영
+			<input type="checkbox" name="hobby" value="soccer" />축구<br /> 
+		</fieldset>
+		
+		<input type="reset" /><br /> 
+		<input type="submit" />
+	</form>
+</body>
+</html>

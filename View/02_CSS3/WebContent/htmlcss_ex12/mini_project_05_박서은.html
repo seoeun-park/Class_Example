@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport"
+	content="width=device-width, initial-scale=1.0, minimun-scale=1.0, user-scalable=no" />
+<title></title>
+
+<!-- 실습 -->
+<style>
+/* 전체 너비 1000px */
+/* 150px ??px 200px */
+	* {
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+	
+	a {
+		text-decoration: none;
+	}
+	
+	li {
+		list-style: none;
+	}
+	
+	#header_info, #content, footer {
+		width: 1000px;
+		margin: 0 auto;
+	}
+	
+	/* 헤더 영역 */
+	header {
+		width: 100%;
+		margin: 5px auto;
+	}
+	
+	#header_nav {
+		width: 99%;
+		border: 1px solid red;
+		height: 50px;
+		line-height: 50px; 
+		overflow: hidden;
+		color: white;
+		background: #381552;
+	}
+	
+	.header_nav_list {
+		float: left;
+	}
+	
+	.header_nav_list > ul {
+		overflow: hidden;
+	}
+	
+	.header_nav_list > ul > li {
+		width: 85px;
+		float: left;
+		text-align: center;
+	}
+	
+	.firefox {
+		float: right;
+	}
+	
+	.firefox > a {
+		display: block;
+		color: white;
+	}
+	
+	#header_info {
+		overflow: hidden;
+		padding: 5px 0;
+	}
+	
+	.logo, .search {
+		float: left;
+	}
+	
+	.logo {
+		padding-top: 5px;
+	}
+	
+	.search > input {
+		width: 400px;
+		padding: 10px;
+		margin: 15px 0 0 5px;
+		border: 1px solid red;
+	}
+	
+	.search > button {
+		background-color: blue;
+		color: white;
+		width: 115px;
+		height: 37px;
+		border-radius: 10px;
+	}
+	
+	.service {
+		float: right;
+		margin-top: 25px;
+	}
+	
+	.service > ul {
+		overflow: hidden;
+	}
+	
+	.service > ul > li {
+		float: left;
+		padding-left: 15px;
+	}
+	
+	.service > ul > li > a {
+		display: block;
+		color: #702cc9;
+	}
+	
+	/* 컨텐츠 영역 */
+	#content {
+		overflow: hidden;
+	}
+	
+	#content > div {
+		float: left;
+	}	
+	
+	#main_nav {
+		width: 150px;
+		padding-left: 20px;
+		box-sizing: border-box;
+	}
+	
+	#main_nav > ul > li {
+		line-height: 40px;
+	}
+	
+
+	#main > div {
+		width: 650px;
+		border: 1px solid red;
+		box-sizing: border-box;
+		margin-bottom: 5px;
+	}
+	
+	#main > div:nth-child(1) {
+		height: 300px;
+	}
+	
+	#main > div:nth-child(2) {
+		height: 150px;
+	}
+	
+	#main > div:nth-child(3) {
+		background-color: #702cc9;
+		color: white;
+	}
+	
+	#main > div:nth-child(3) > ul {
+		overflow: hidden;	
+	}
+	
+	#main > div:nth-child(3) > ul > li {
+		width: 108px;
+		height: 50px;
+		line-height: 50px;
+		float: left;
+		text-align: center;
+	}
+	
+	#main > div:nth-child(4),
+	#main > div:nth-child(5),
+	#main > div:nth-child(6),
+	#main > div:nth-child(7) {
+		height: 150px;
+	}
+	
+	#main_banner {
+		width: 200px;
+		padding-left: 15px;	
+		box-sizing: border-box;
+	}
+	
+	#main_banner > div {
+		border: 1px solid red;
+		margin-bottom: 5px;
+	}
+
+	#main_banner > div:nth-child(1),
+	#main_banner > div:nth-child(2) {
+		height: 100px;
+	}
+	
+	#main_banner > div:nth-child(3) {
+		height: 150px;
+	}
+	
+	#main_banner > div:nth-child(4) {
+		height: 200px;
+	}
+	
+	#main_banner > div:nth-child(5) {
+		height: 250px;
+	}
+	
+	/* 푸터 영역 */
+	
+	footer {
+		height: 200px;
+		line-height: 200px;
+		border: 1px solid red;
+		box-sizing: border-box;
+		margin-top: 20px;
+		margin-bottom: 100px;
+		text-align: center;
+	}
+	
+</style>
+</head>
+<body>
+	<header>
+		<div id="header_nav">
+			<div class="header_nav_list">
+				<ul>
+					<li>Home</li>
+					<li>Mail</li>
+					<li>Answers</li>
+					<li>Groups</li>
+					<li>Flickr</li>
+					<li>Tumblr</li>
+					<li>Games</li>
+					<li>Live</li>
+					<li>Screen</li>
+					<li>Mobile</li>
+					<li>More</li>
+				</ul>
+			</div>
+			<div class="firefox">
+				<a href="#">Upgrade to the new FireFox >></a>
+			</div>
+		</div>
+		<div id="header_info">
+			<div class="logo">
+				<img src="yahoo_logo.png" alt="yahoo.com logo" />
+			</div>
+			<div class="search">
+				<input type="text" />
+				<button type="submit" class="btn_search">
+					<span class="txt_searchweb">search web</span>
+				</button>
+			</div>
+			<div class="service">
+				<ul>
+					<li><a href="#">My Yahoo</a></li>
+					<li><a href="#">Sing In</a></li>
+					<li><a href="#">Mail</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+
+	<div id="content">
+		<div id="main_nav">
+			<ul>
+				<li>Mail</li>
+				<li>News</li>
+				<li>Sports</li>
+				<li>Finance</li>
+				<li>Weather</li>
+				<li>Autos</li>
+				<li>Screen</li>
+				<li>Dating</li>
+				<li>Shopping</li>
+				<li>Makers</li>
+				<li>Parenting</li>
+				<li>Health</li>
+				<li>Style</li>
+				<li>Beauty</li>
+				<li>Politice</li>
+				<li>Movies</li>
+				<li>Travel</li>
+				<li>Tech</li>
+				<li>TV</li>
+			</ul>
+		</div>
+		<div id="main">
+			<div>main big banner</div>
+			<div>main slide banner</div>
+			<div>
+				<ul>
+					<li>All Stories</li>
+					<li>News</li>
+					<li>Entertainment</li>
+					<li>Sports</li>
+					<li>Business</li>
+					<li>More</li>
+				</ul>
+			</div>
+			<div>main topic</div>
+			<div>main topic</div>
+			<div>main topic</div>
+			<div>main topic</div>
+		</div>
+		<div id="main_banner">
+			<div>hit search word</div>
+			<div>ad1</div>
+			<div>ad2</div>
+			<div>ad3</div>
+			<div>ad4</div>
+		</div>
+	</div>
+
+	<footer> footer </footer>
+</body>
+</html>

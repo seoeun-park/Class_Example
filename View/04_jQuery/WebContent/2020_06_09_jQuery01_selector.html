@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	#title {
+		background-color: red;
+	}
+	
+</style>
+<script>
+	$(document).ready(function() {
+		$("*").css("border", "1px solid red");
+		
+		// 인라인 스타일 속성으로 적용되므로 우선순위에 있다.
+		$("#title").css("background-color", "yellow")
+							 .css("border", "2px solid teal");	//메소드 체이닝(Method Chaining)
+		
+		$(".direct").css("background-color", "pink");
+							 
+		$("h3").css("color", "blue");			
+		
+		$("h3:last").css("background-color", "aqua");
+		
+		$("h1, h2").css("color", "teal");
+		
+	});//ready()
+</script>
+</head>
+<body>
+	<h1 id="title">제이쿼리</h1>
+	<h2>직접 선택자 및 관계 선택자</h2>
+	<h3 class="direct">직접 선택자</h3>
+	<h3>관계 선택자</h3>
+</body>
+</html>

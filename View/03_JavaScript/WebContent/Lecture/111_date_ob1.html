@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>날짜 정보 객체</title>
+<script>
+	var today = new Date();
+	var nowMonth = today.getMonth(); 	// 현재 월을 반환하며 1적게 나옵니다.
+	var nowDate = today.getDate(); 		// 현재 일자를 반환합니다.
+	var nowDay = today.getDay(); 			// 현재 요일을 반환합니다. (0:일~6:토)
+	
+	document.write("현재 월:" + nowMonth + "<br />");
+	document.write("현재 월:" + (nowMonth+1) + "<br />");
+	document.write("현재 일:" + nowDate + "<br />");
+	document.write("현재 요일:" + nowDay + "<br />");
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

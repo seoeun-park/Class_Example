@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- match : 문자열을 찾아서 반환 -->
+	<p id="ab">Lorem Ipsum Dolor</p>
+	<hr>
+	
+	<p>
+		<strong>RegExp - /Lo/</strong>
+	</p>
+	
+	<p>
+		<script type="text/javascript">
+			var jbStr = document.getElementById("ab").innerHTML;
+			var jbMatch	= jbStr.match("Lo");
+			//var jbMatch	= jbStr.match(/Lo/);
+			document.write(jbMatch);
+		</script>
+	</p>
+	
+	<!-- --------------------------------------- -->
+	
+	<p>
+		<strong>RegExp - /Lo\w+/</strong>
+	</p>
+	<p>
+		<script type="text/javascript">
+			var jbStr = document.getElementById("ab").innerHTML;
+			var jbMatch	= jbStr.match(/Lo\w+/);
+			// \w+ : 알파벳이나 숫자 _를 찾아서 찾은 값이 포함되는 문자열을 반환
+			document.write(jbMatch);			
+		</script>
+		
+	</p>
+	
+	<!-- --------------------------------------- -->
+	
+	<p>
+		<strong>RegExp - /Loi/</strong>
+	</p>
+	<p>
+		<script type="text/javascript">
+			var jbStr = document.getElementById("ab").innerHTML;
+			var jbMatch	= jbStr.match(/Loi/);
+			// 찾으려는 문자가 없을 때 null 값을 반환
+			document.write(jbMatch);			
+		</script>
+		
+	</p>
+</body>
+</html>

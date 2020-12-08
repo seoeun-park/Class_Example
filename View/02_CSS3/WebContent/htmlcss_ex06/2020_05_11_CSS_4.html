@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>4</title>
+<style type="text/css">
+	div {
+		width: 100px; height: 100px;
+		color: white;
+		text-align: center;
+		font-weight: bold;
+	
+	}
+	div:nth-child(1) {
+		background-color: #a30000; 
+	}
+	
+	div:nth-child(2) {
+		background-color: #007313; 
+	}
+	
+	div:nth-child(3) {
+		background-color: #000673; 
+	}
+	
+	div:nth-child(4) {
+		background-color: #730056; 
+	}
+	
+	div:nth-child(5) {
+		/* inline이므로 margin을 상하좌우로 줘도 좌우의 여백만 설정된다. */
+		display: inline;
+		margin: 10px;
+		
+		background-color: red; 
+	}
+	
+	div:nth-child(6) {
+		display: inline;
+		margin: 10px;
+		background-color: #31ada9; 
+	}
+	
+	div:nth-child(7) {
+		display: inline;
+		margin: 10px;
+		background-color: #733f00; 
+	}
+	
+	div:nth-child(8) {
+		display: inline-block;
+		background-color: #eb52d6; 
+	}
+	
+	div:nth-child(9) {
+		display: inline-block;
+		background-color: #007371; 
+	}
+
+</style>
+</head>
+<body>
+	<div>content1</div>
+	<div>content2</div>
+	<div>content3</div>
+	<div>content4</div>
+	
+	<div>content5</div>
+	<div>content6</div>
+	<!-- inline 태그 사이에 개행이 이루어진다면 html 문서에서는 한칸의 공백으로 표현된다. -->
+	<div>content7</div>
+	<div>content8</div>
+	<div>content9</div>
+</body>
+</html>

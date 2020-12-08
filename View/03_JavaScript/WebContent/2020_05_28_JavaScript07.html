@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var num = 100;
+	var str = "javascript";
+	
+	document.write(typeof(num) + "<br />");
+	document.write(typeof(str) + "<br />");
+	
+	document.write("------------------------------<br />");
+	
+	var num1 = 15;
+	var num2 = 2;
+	var result;
+	
+	result = num1 / num2;
+	document.write(result + "<br />");
+	
+	document.write(Number(result) + "<br />");		//7.5
+	// 문자열을 숫자로 바꿔주는 함수 : Number()
+	document.write(parseInt(result) + "<br />");	//7
+	// 문자열을 숫자로 바꾸고 정수부분만 반환하는 함수 : parseInt()
+	result = num1 % num2;
+	document.write(result + "<br />");		//1
+	
+	document.write("------------------------------<br />");
+	
+	var num3 = 10;
+	var num4 = 3;
+	
+	num3 += num4;		//num3 = num3 + num4;
+	document.write(num3 + "<br />");			//13
+	num3 -= num4;		//num3 = num3 - num4;
+	document.write(num3 + "<br />");			//10
+	num3 *= num4;		//num3 = num3 * num4;
+	document.write(num3 + "<br />");			//30
+	num3 /= num4;		//num3 = num3 / num4;
+	document.write(num3 + "<br />");			//10
+	num3 %= num4;		//num3 = num3 % num4;
+	document.write(num3 + "<br />");			//1
+	
+	document.write("------------------------------<br />");
+
+	var num5 = 10;
+	var num6 = 20;
+	
+	num5--;
+	document.write(num5 + "<br />");			//9
+	
+	num5++;
+	document.write(num5 + "<br />");			//10
+	
+	result = num6++;
+	document.write(result + "<br />");			//20
+	
+	result = ++num6;
+	document.write(result + "<br />");			//22
+	
+	document.write("------------------------------<br />");
+	
+	var a = "20";
+	var b = 20;
+	
+	result = a == b;
+	document.write(result + "<br />");			//true
+	// ==는 자료형과 상관없이 값이 같은 지 다른 지를 비교
+	
+	result = a === b;
+	document.write(result + "<br />");			//false
+	// ===는 값뿐만 아니라 자료형까지 같은 지 다른 지를 비교
+	
+	document.write("------------------------------<br />");
+	var c = 10;
+	var d = 3;
+	
+	var result2 = (c > d) ? "javascript<br />" : "hello<br />";
+	document.write(result2);		//"javascript"를 출력
+	
+	document.write("------------------------------<br />");
+	// 적정 몸무게 : (키 - 100) * 0.9
+	var userHeight = 180;
+	var normalWeight = (userHeight - 100) * 0.9;
+	
+	document.write("당신의 적정 몸무게는 " + normalWeight + "kg 입니다.")
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

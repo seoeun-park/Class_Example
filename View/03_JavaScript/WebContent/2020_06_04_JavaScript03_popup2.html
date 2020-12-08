@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var child = window.open("", "", "width=300, height=200");
+	var screenWidth = screen.width;
+	var screenHeight = screen.height;
+	
+	child.moveTo(0, 0);
+	child.resizeTo(screenWidth, screenHeight);
+	
+	setInterval(function() {
+		child.resizeBy(-20, -20)
+		//팝업창의 크기를 x축으로 20px, y축으로 20px씩 1초마다 줄임
+		child.moveBy(10, 10);
+		//좌상단을 기준으로 x축으로 10px, y축으로 10px씩 1초마다 이동
+	}, 1000);
+</script>
+</head>
+<body>
+
+</body>
+</html>

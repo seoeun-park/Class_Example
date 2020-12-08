@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div p:first-child {
+	color: green;
+}
+
+div p:first-of-type {
+	color: red;
+}
+
+div h1:first-of-type {
+	color: blue;
+}
+
+.parent div:nth-child(2) {
+	color: purple;
+}
+</style>
+</head>
+<body>
+	<div id="lower">
+		<div>text1</div>
+		<p>text2</p>
+		<p>text3</p>
+	</div>
+
+	<div class="parent">
+		<h1>h1-Child1</h1>
+		<div>div-Child2</div>
+		<p>p-Child3</p>
+		<div>div-Child4</div>
+	</div>
+</body>
+</html>

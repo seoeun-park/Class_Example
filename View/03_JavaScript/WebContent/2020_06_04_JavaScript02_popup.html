@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 팝업창 띄우기
+	//window.open("url 경로", "창 이름", "옵션 설정");
+	var popupWidth = 400;
+	var popupHeight = 550;
+	
+	var popupX = (window.screen.width / 2) - (popupWidth / 2);
+	var popupY = (window.screen.height / 2) - (popupHeight / 2);
+	
+	window.open("popup.html", "pop1",
+							"width=400, height=550, left=" + popupX + ", top=" 
+							+ popupY + ", scrollbars=no toolbar=no,"
+							+ "status=no, location=no");
+</script>
+</head>
+<body>
+	<h1>팝업창 띄우기</h1>
+</body>
+</html>

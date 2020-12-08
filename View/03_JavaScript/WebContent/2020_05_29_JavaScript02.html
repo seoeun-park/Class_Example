@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var height = prompt("키를 입력하세요", "");
+	var weight = prompt("몸무게를 입력하세요", "");
+	var normalWeight = (height - 100) * 0.9;
+	var lowerWeight = (height - 100) * 0.75;
+	var higherWeight = (height - 100) * 1.05;
+	
+	alert("적정 몸무게는 " + normalWeight + "kg입니다.");
+		
+	if(weight > lowerWeight && weight < higherWeight) {
+		alert("당신의 키는 " + height + "cm, 당신의 몸무게는 " 
+				+ weight + "kg(으)로서\n 보통입니다.");
+	} else if (weight >= higherWeight) {
+		alert("당신의 키는 " + height + "cm, 당신의 몸무게는 " 
+				+ weight + "kg(으)로서\n 과체중입니다.");
+	} else if (weight <= lowerWeight) {
+		alert("당신의 키는 " + height + "cm, 당신의 몸무게는 " 
+				+ weight + "kg(으)로서\n 저체중입니다.");		
+	} else {
+		alert("다시 입력하세요");
+		location.reload();
+	}
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

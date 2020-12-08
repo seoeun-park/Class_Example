@@ -1,0 +1,106 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+
+<!-- 실습 -->
+<style>
+
+	#wrap, #header, #nav, #content, #section, #banner, #footer {
+		color: gray;
+		border: 1px solid red;
+		text-align: center;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+	}
+	
+	#wrap {
+		width: 800px;
+		margin: 0 auto;
+		padding: 10px;
+	}
+	
+	#header {
+		width: 780px;
+		line-height: 100px;
+	}
+	
+	#nav {
+		width: 780px;
+	}
+	
+	#nav > ul {
+		overflow: hidden;
+		margin: 0 0 10px 0;
+	}
+	
+	#nav > ul > li {
+		float: left;
+		list-style: none;
+		width: 140px;
+		line-height: 40px;
+		border: 1px solid red;	
+	}
+	
+	#nav > ul > li:not(#menu5) {
+		border-right: none;	
+	}
+	
+	#content {
+		width: 780px;
+		overflow: hidden;
+	}
+	
+	
+	#section, #banner {
+		float: left;
+		margin: 14px;
+		padding-top: 5px;
+	}
+		
+	#section {
+		width: 600px;
+		padding-bottom: 250px;
+		margin-right: 0; 
+	}
+	
+	#banner {
+		width: 135px;
+		padding-bottom: 250px;
+	}
+	
+	#footer {
+		width: 780px;
+		line-height: 100px;
+		margin-bottom: 0;
+	}
+</style>
+
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">HEADER</div>
+
+		<div id="nav">
+			<p>NAVIGATION</p>
+			<ul>
+				<li>menu1</li>
+				<li>menu2</li>
+				<li>menu3</li>
+				<li>menu4</li>
+				<li id="menu5">menu5</li>
+			</ul>
+		</div>
+
+		<div id="content">
+			<div id="section">SECTION</div>
+			<div id="banner">BANNER</div>
+		</div>
+
+		<div id="footer">FOOTER</div>
+	</div>
+</body>
+</html>

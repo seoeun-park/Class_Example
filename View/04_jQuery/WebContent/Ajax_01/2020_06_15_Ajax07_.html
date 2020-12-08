@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#member").on("submit", function() {
+			$.ajax({
+				
+				url: "data/data.jsp",
+				data: $("form").serialize(),
+				success: function(result) {
+					$("#txt").text("회원 이름은 " + result + "입니다.");
+				}//success function
+				
+			});//ajax()
+			return false;
+			// 전송을 막기 위해 return false를 작성
+		})//submit()
+		
+	});//ready()
+</script>
+</head>
+<body>
+	<form action="#" method="get" name="member" id="member">
+		<fieldset>
+			<legend>회원가입</legend>
+			<p>
+				<label for="name">이름</label>
+				<input type="text" name="name" id="name"/>
+			</p>
+			<p>
+				<input type="submit" value="확인" />
+			</p>
+		</fieldset>
+	</form>
+	
+	<h1 id="txt"></h1>
+</body>
+</html>

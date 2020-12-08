@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력 양식 태그3</title>
+<script type="text/javascript">
+	function func() {
+		location.href="http://www.naver.com/";
+		/* location이라는 객체의 href 속성 : url 전체를 반환 */
+	}
+</script>
+</head>
+<body>
+	<form action="#" method="get" name="form" id="form">
+		<label for="name">이름 : </label>
+		<input type="text" name=name id="name" required="required" />
+		
+		<br /><br />
+		
+		<!-- 버튼을 클릭했을 때 해당 url로 이동하게끔 하는 함수 -->
+		<input type="button" value="네이버" onclick="func();">
+		<input type="button" value="구글" onclick="location.href='http://www.google.com/';">
+		<input type="button" value="다음" onclick="location.href='http://www.daum.net/';">
+		
+		<input type="submit" value="전송">
+	</form>
+</body>
+</html>

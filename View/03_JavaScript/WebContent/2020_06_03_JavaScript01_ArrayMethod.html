@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var greenLine = ["사당", "교대", "방배", "강남"];
+	
+	/*
+	//splice : 잇다
+	greenLine.splice(2, 1, "서초", "역삼");
+	
+	document.write(greenLine + "<br />");
+	
+	//slice : 조각내다
+	//index가 1번째 부터 3번째 미만 까지 조각
+	document.write(greenLine.slice(1, 3) + "<br />");
+	*/
+	
+	var yellowLine = ["미금", "정자", "모란", "수서"];
+	
+	//concat : 연결하다.
+	var twoLine = greenLine.concat(yellowLine);
+	document.write(twoLine + "<br />");
+	
+	//pop : 마지막 값을 삭제
+	document.write(greenLine + "<br />");
+	greenLine.pop();
+	document.write(greenLine + "<br />");
+	
+	//push : 마지막 값에 추가
+	greenLine.push("삼성");
+	document.write(greenLine + "<br />");
+	
+	//shift : index를 -1만큼 감소시키면서 위치가 앞으로 이동(즉, 첫 번째 값을 삭제)
+	greenLine.shift();
+	document.write(greenLine + "<br />");
+	
+	//unshift : 첫번째 값에 삽입
+	greenLine.unshift("신도림");
+	document.write(greenLine + "<br />");
+	
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>연습문제(20200513)</title>
+<style type="text/css">
+	#list {
+		width: 800px;
+		padding: 0;
+		border: 1px solid red;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	
+	#list > li {
+		width: 19%;
+		/* 800px * 1/5 = 160px */
+		/* border까지의 너비 + margin 좌우 = 160px */
+		/* (800px * 0.19) + margin 좌우 = 160px */
+		/* 152px + margin 좌우 = 160px */
+		height: 80px;
+		line-height: 80px;
+		border-top: 1px solid red;
+		border-bottom: 1px solid red;
+		margin: 4px;
+		/* margin 좌우 = 160px - 152px */
+		/* margin 좌우 = 8px */
+		float: left;
+		list-style: none;
+		text-align: center;
+	}
+	
+	#list > li > a {
+		display: block;
+		text-decoration: none;
+		color: black;
+	}
+	
+	/* ------------------------------------------------ */
+	/* 선생님 풀이 */
+	#nav {
+		width: 800px;
+		border: 1px solid red;
+		margin: 25px auto;
+		overflow: hidden;
+	}
+	
+	#nav > div {
+		float: left;
+		width: 150px;
+		height: 100px;
+		line-height: 100px;
+		border-top: 1px solid red;
+		border-bottom: 1px solid red;
+		margin: 5px;
+		text-align: center;
+		font-size: 1.5em;
+	}
+	
+	#nav > div > a {
+		text-decoration: none;
+		color: black;
+	}
+</style>
+</head>
+<body>
+	<ul id="list">
+		<li><a href="#">menu1</a></li>
+		<li><a href="#">menu2</a></li>
+		<li><a href="#">menu3</a></li>
+		<li><a href="#">menu4</a></li>
+		<li><a href="#">menu5</a></li>
+	</ul>
+	
+	<div id="nav">
+		<div><a href="#">menu1</a></div>
+		<div><a href="#">menu2</a></div>
+		<div><a href="#">menu3</a></div>
+		<div><a href="#">menu4</a></div>
+		<div><a href="#">menu5</a></div>
+	</div>
+</body>
+</html>

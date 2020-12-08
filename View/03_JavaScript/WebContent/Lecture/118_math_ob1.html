@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>수학객체</title>
+<script>
+
+	//var 참조변수 = new Number(값); 또는 
+	//var 참조변수 = 값; 
+	//Math객체 : 내장객체중 수학과 관련한 기능과 속성을 제공
+	
+	var num = 2.1234;
+
+	var maxNum = Math.max(10, 5, 8, 30); // 최댓값 반환합니다. 30
+	var minNum = Math.min(10, 5, 8, 30); // 최솟값 반환합니다. 5
+	var roundNum = Math.round(num); // 반올림 값을 반환합니다. 2
+	var floorNum = Math.floor(num); // 소수점 무조건 내립니다. 2
+	var ceilNum = Math.ceil(num); // 소수점 무조건 올립니다. 3
+	var rndNum = Math.random(); // 0~1 사이 난수를 발생합니다. 0.xxxxx
+	var piNum = Math.PI; //Math.PI는 원주율 상수를 반환합니다. 3.141592653589793
+
+	document.write(maxNum + "<br />");
+	document.write(minNum + "<br />");
+	document.write(roundNum + "<br />");
+	document.write(floorNum + "<br />");
+	document.write(ceilNum + "<br />");
+	document.write(rndNum + "<br />");
+	document.write(piNum + "<br />");
+</script>
+</head>
+
+<body>
+
+</body>
+</html>

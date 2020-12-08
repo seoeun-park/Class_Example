@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!-- 컴퓨터가 글씨를 나타내는 방식(유니코드를 위한 문자 인코딩방식)
+현재 페이지의 인코딩(문자셋)을 어떠한 방식으로 출력할 지 결정하는 속성, 
+유니코드는 전 세계 모든 문자를 컴퓨터에서 일관되게 표현하고 다룰 수 있도록 설계된 표준
+글자가 깨져 보일 때 보통 EUC-KR로 작성된 문서를 UTF-8로 변환 -->
+<title>글자 태그</title>
+</head>
+<body>
+	
+	<hr/>
+	<b>KOREA</b><br />	<!-- 굵게 -->
+	<i>KOREA</i><br />	<!-- 기울임 -->
+	<small>SEOUL</small><br />	<!-- 작은글자 -->
+	<b>KOREA</b><sub>SEOUL</sub><br />	<!-- 아래첨자 -->
+	<b>KOREA</b><sup>SEOUL</sup><br />	<!-- 윗첨자 -->
+	<ins>KOREA</ins><br />	<!-- ins : 밑줄글자 -->
+	<del>KOREA</del><br />	<!-- del : 취소선글자 -->
+	
+	<hr/>
+	
+	<!-- ruby : 루비 문자(글자 위 덧말), rt : 위에 위치하는 작은 문자 -->
+	<ruby>	
+		<h1>KOREA</h1> 		
+		<rt>한국</rt>
+	</ruby>
+	<br />
+	<!-- 루비문자를 지원하지 않는 웹브라우저를 위한 rp 태그 -->
+	<ruby>			
+		<h1>KOREA</h1> 
+		<rp>(</rp>
+		<rt>한국</rt>		
+		<rp>)</rp>
+	</ruby>
+	
+	<br />
+	
+	<!-- 웹 표준에서 정하지 않은 태그지만 무시하기 때문에 문제없이 실행은 됨-->
+	<food>food</food><br />
+	<rice>rice</rice>
+
+</body>
+</html>

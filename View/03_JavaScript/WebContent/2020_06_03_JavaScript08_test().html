@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var str = "Html Css jQuery";
+	// 정규 표현식
+	var reg1 = /css/;
+	
+	// test() : 지정된 규칙에 맞는 단어가 있으면 true를 반환
+	// 정규표현식이 담긴 변수.test(검사할 문자열);
+	var result_1 = reg1.test(str);
+	document.write(result_1 + "<br />");
+	
+	// /i : 대소문자 구분없이 해당 문자열을 찾아냄
+	var reg2 = /css/i;
+	
+	// test() : 지정된 규칙에 맞는 단어가 있으면 true를 반환
+	var result_2 = reg2.test(str);
+	document.write(result_2 + "<br />");
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

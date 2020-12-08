@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	a {
+		display: block;
+		width: 100px;
+		height: 50px;
+		line-height: 50px;
+		margin-top: 100px;
+		border: 1px solid black;
+		text-decoration: none;
+		text-align: center;
+	}
+
+</style>
+<script type="text/javascript">
+	function login_window() {
+		window.open("2020_06_08_JavaScript02_longinLayer.html", 
+								"login2", "width=400, height=300");
+	}
+</script>
+</head>
+<body>
+	<button type="button" id="login_button"
+					onclick="location.href='2020_06_08_JavaScript02_longinLayer.html';">로그인
+	</button>
+	<button type="button" id="signup_button"
+					onclick="location.href='2020_06_08_JavaScript02_signUpLayer.html';">회원가입
+	</button>
+	
+	<div>
+		<a href="2020_06_08_JavaScript02_longinLayer.html">로그인1</a>
+	</div>
+	
+	<div>
+		<a href="#" onclick="login_window();">로그인2</a>
+	</div>
+	
+	<div>
+		<a href="#" onclick="window.open('2020_06_08_JavaScript02_longinLayer.html', 
+								'login3', 'width=400, height=300');">로그인3</a>
+	</div>
+</body>
+</html>

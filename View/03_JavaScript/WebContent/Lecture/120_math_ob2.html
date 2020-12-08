@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>수학객체</title>
+<script>
+	
+	while (true) {
+		var inputNumber = prompt("가위, 바위, 보 중 선택하세요?", "가위");
+		var changeInputNumber;
+		switch (inputNumber) { //가위, 바위, 보를 숫자 1,2,3으로 바꿉니다.
+		case "가위":
+			changeInputNumber = 1;
+			break;
+		case "바위":
+			changeInputNumber = 2;
+			break;
+		case "보":
+			changeInputNumber = 3;
+			break;
+		default:
+			alert("잘못 작성하셨습니다.");
+			continue;
+		}
+	break;	
+	}
+	
+	//Math객체 : 내장객체중 수학과 관련한 기능과 속성을 제공
+	//1부터 3까지 난수(정수)를 발생시킵니다.
+	var comNumber = Math.floor(Math.random() * 3) + 1; //컴퓨터 가위(1), 바위(2), 보(3), floor : 무조건 내림
+	//var comNumber = Math.ceil(Math.random() * 3);    //컴퓨터 가위(1), 바위(2), 보(3), ceil : 무조건 올림
+	alert('컴퓨터가 낸 것 : ' + comNumber);
+	alert('내가 입력한 것 : ' + inputNumber);
+	alert('내가 입력한 것을 가위,바위,보로 치환한 것 : ' + changeInputNumber);
+	
+	if (changeInputNumber == comNumber) {
+		alert("맞췄습니다! 축하합니다!!");
+	} else {
+		alert("틀렸네요! 다시한번 도전하세요!!");
+	}
+	
+	document.write("<h1>컴퓨터 가위, 바위, 보 맞추기</h1>");
+	/*난수를 이용해 컴퓨터 가위 바위 보 이미지가 출력되도록 하였습니다.*/
+	//document.write("<img src='images/math_img_"+comNumber+".jpg' alt='가위,바위,보' />");
+
+	//사용자가 낸 값과 컴퓨터의 값이 일치하나 조건검사합니다.
+</script>
+</head>
+<body>
+</body>
+</html>

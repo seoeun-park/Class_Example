@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+/* 	#wrap {
+		width: 685px;
+		margin: 0 auto;
+	} */
+
+	ul {
+		padding: 0;
+	}
+	
+	li {
+		list-style: none;
+	}
+	
+	a {
+		display: block;
+		text-decoration: none;
+		color: white;
+		font-weight: bold;
+		text-align: center
+	}
+	
+	#mainMenu {
+		overflow: hidden;
+		width: 785px;
+		margin: 0 auto;
+	}
+	
+	#mainMenu > li {
+		float: left;
+	}
+	
+	/* #mainMenu > li > a:hover + .subMenu { */			/* 적용되지 않음 */
+	#mainMenu > li > a:hover + ul {
+		display: block;
+	}
+	
+	#mainMenu > li:nth-child(even) > a {
+		background-color: red;
+	}
+	
+	#mainMenu > li:nth-child(odd) > a {
+		background-color: green;
+	}
+	
+	#mainMenu > li:first-child > a {
+		border-radius: 20px 0 0 20px;
+	}
+	
+	#mainMenu > li:last-child > a {
+		border-radius: 0 20px 20px 0;
+	}
+	
+	#mainMenu > li > a {
+		padding: 10px 20px;
+	}
+	
+	.subMenu {
+		padding: 0;
+		background: gray;
+		display: none;
+	}
+	
+	.subMenu:hover {
+		display: block;
+	}
+	
+	.subMenu > li > a {
+		padding: 10px;
+	}
+	
+	.subMenu > li > a:hover {
+		background-color: white;
+		color: blue; 
+	}
+	
+	.subMenu > li > a:active {
+		color: red;
+	}
+
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<ul id="mainMenu">
+			<li><a href="https://www.naver.com">네&nbsp;이&nbsp;버</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+			<li><a href="https://www.google.com">구&nbsp;글</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+			<li><a href="https://www.youtube.com">유&nbsp;튜&nbsp;브</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+			<li><a href="https://www.daum.net">다&nbsp;음</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+			<li><a href="https://news.naver.com/">네이버뉴스</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+			<li><a href="https://www.facebook.com">페이스&nbsp;북</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+			<li><a href="https://www.twitter.com">트&nbsp;위&nbsp;터</a>
+				<ul class="subMenu">
+					<li><a href="#">메일</a></li>
+					<li><a href="#">블로그</a></li>
+					<li><a href="#">카페</a></li>
+				</ul></li>
+
+		</ul>
+		<!-- #mainMenu -->
+	</div>
+</body>
+</html>

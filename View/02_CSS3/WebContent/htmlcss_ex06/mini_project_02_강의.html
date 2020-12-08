@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+
+<!-- 실습 -->
+<style>
+
+	div {
+		border: 1px solid red;
+		margin: 5px;
+		padding: 5px;
+		text-align: center;
+		box-sizing: border-box;
+	}
+	
+	#wrap {
+		width: 800px;
+		margin: 0 auto;
+	}
+	
+	#header {
+		width: 776px;
+		/* 800 - #wrap의 양쪽 border(2) - #header의 양쪽 border(2) 
+			- #wrap의 안쪽 양쪽 여백(10) - #header의 바깥쪽 양쪽 여백(10) */
+		height: 100px;
+		line-height: 100px;
+	}
+	
+	#nav {
+		width: 776px;
+	}
+	
+	#nav > ul {
+		overflow: hidden;
+		width: 760px;
+		padding: 20px 0;
+		margin: 0 auto;
+	}
+	
+	#nav > ul > li {
+		float: left;
+		list-style: none;
+		border: 1px solid red;
+		width: 20%; height: 40px;
+	/* margin: 0 auto; */
+	/* li가 float 속성의 left 값이 적용되어 있기 때문에 
+		일렬로 겹쳐져 있어 margin: 0 auto가 적용되지 않는다.  */
+		line-height: 40px;
+		box-sizing: border-box;
+	}
+	
+	/*
+	#nav > ul > li:nth-child(even) {
+		border-left: none;
+		border-right: none;
+	}
+	*/
+	
+	#nav > ul > li:not(:last-child) {
+		border-right: none;
+	}
+	
+	#content {
+		width: 776px;
+		overflow: hidden;
+	}
+	
+	#content > div {
+		height: 300px;
+	}
+	
+	#section {
+		width: 600px;
+		float: left;
+	}
+	
+	#banner {
+		width: 144px;
+		float: right;
+	}
+	
+	#footer {
+		width: 776px;
+		height: 100px;
+		line-height: 100px;
+	}
+	
+	
+</style>
+
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">HEADER</div>
+
+		<div id="nav">
+			<p>NAVIGATION</p>
+			<ul>
+				<li>menu1</li>
+				<li>menu2</li>
+				<li>menu3</li>
+				<li>menu4</li>
+				<li>menu5</li>
+			</ul>
+		</div>
+
+		<div id="content">
+			<div id="section">SECTION</div>
+			<div id="banner">BANNER</div>
+		</div>
+
+		<div id="footer">FOOTER</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 키보드의 아무 키나 눌렸을 때 alert창 구현
+	// IE8 버전일 때 이벤트 객체 생성하기
+	document.onkeydown = function (e) {
+		alert(window.event);
+	}
+	
+	//--------------------------------------
+	//모든 브라우저에서 이벤트 객체 생성하기
+	document.onkeydown = function (e) {
+		var eventObj = e ? e : window.alert;
+		alert(eventObj);
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>

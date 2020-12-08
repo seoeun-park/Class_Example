@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS3 Selector Basic</title>
+<!-- 
+		일반 구조 선택자 : 특정한 위치에 있는 태그를 선택할 때
+		:first-child ☞   형제 관계 중 첫번째 태그
+		:last-child ☞  형제 관계 중 마지막 태그
+		:nth-child(n) ☞  형제 관계 중 앞에서 n번째 위치 태그, n은 0부터 시작
+		:first-of-type ☞  형제관계 중 같은 타입 중 첫번째 태그
+		:last-of-type ☞  형제관계 중 같은 타입 중 마지막 태그
+		
+ 중요 ☞ li:first-child = li:nth-child(1)
+	-->
+<style>
+ul {
+	overflow: hidden;
+	padding: 0px;
+}
+
+li {
+	list-style: none;
+	float: left;
+}
+
+li a {
+	text-decoration: none;
+	display: block;
+	padding: 10px 15px;
+	text-align: center;
+	color: black;
+	border: 1px solid black;
+}
+
+li:first-child>a {
+	border-radius: 20px 0 0 20px;
+}
+
+li:last-child>a {
+	border-radius: 0 20px 20px 0;
+}
+
+li:nth-child(2n)>a {
+	background-color: red;
+}
+
+li:nth-child(2n+1)>a {
+	background-color: green;
+}
+</style>
+</head>
+<body>
+	<ul>
+		<li><a href="#">First</a></li>
+		<li><a href="#">Second</a></li>
+		<li><a href="#">Third</a></li>
+		<li><a href="#">Fourth</a></li>
+		<li><a href="#">Fifth</a></li>
+		<li><a href="#">Sixth</a></li>
+		<li><a href="#">Seventh</a></li>
+	</ul>
+</body>
+</html>

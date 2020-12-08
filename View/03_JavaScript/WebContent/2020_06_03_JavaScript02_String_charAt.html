@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p>
+		<strong>var x = 'abcde'</strong>
+		<!-- 
+			ASCII 코드
+			A : 65
+			a : 97
+		 -->
+	</p>
+	
+	<script type="text/javascript">
+		var x = 'abcde';
+		document.write(x.charAt(3) + "<br />");
+		document.write(x.charCodeAt(3) + "<br />");
+		// 문자 d의 ASCII 코드값 반환
+		
+		document.write(x.charAt(10) + "<br />");
+		// index 10인 값이 없기 때문에 아무것도 출력되지 x
+		document.write(x.charCodeAt(10) + "<br />");
+		// index 10인 값이 없기 때문에 NaN 출력
+	
+	</script>
+	
+</body>
+</html>

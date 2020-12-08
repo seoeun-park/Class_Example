@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#container {
+		width: 1000px;
+		margin: 0 auto;
+	}
+	
+	#header, #footer {
+		height: 50px;
+		background-color: #bab8b3;
+	}
+	
+	#content {
+		height: 200px;
+		position: relative;
+	}
+	
+	#content > div {
+		width: 100px; height: 100px;
+		position: absolute;
+		border: 3px dashed black;
+		box-sizing: border-box;
+	}
+	
+	#content1 {
+		top: 10px; left: 10px;
+		background-color: teal;
+		z-index: 40;
+	}
+	
+	#content2 {
+		top: 50px; left: 50px;
+		background-color: yellow;
+		z-index: 30;
+	}
+	
+	#content3 {
+		top: 100px; left: 100px;
+		background-color: blue;
+		z-index: 20;
+	}
+	
+	#content4 {
+		top: 150px; left: 150px;
+		background-color: purple;
+		z-index: 10;
+	}
+	
+	#content1:hover, #content2:hover, #content3:hover, #content4:hover {
+		z-index: 100;
+	}
+</style>
+</head>
+<body>
+	<div id="container">
+		<div id="header">HEADER</div>
+		<div id="content">
+			<div id="content1">content1</div>
+			<div id="content2">content2</div>
+			<div id="content3">content3</div>
+			<div id="content4">content4</div>
+		</div>
+		<div id="footer">FOOTER</div>
+	</div>
+</body>
+</html>

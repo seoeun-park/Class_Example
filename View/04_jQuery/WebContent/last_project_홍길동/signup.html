@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>회원가입 양식</title>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@900&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+
+	#container {
+		width: 700px;
+		margin: 100px auto;
+		border: 2px solid black;
+		padding: 20px 0;
+		font-weight: 900;
+		font-family: 'Gothic A1', sans-serif;			
+	}
+	
+	#container > h1, #container > p {
+		width: 500px;
+		margin: 10px auto;
+	}
+	
+	#container > h1 {
+		margin-bottom: 20px;
+	}
+	
+	#container > p {
+		font-size: 20px;
+	}
+	
+	input[type='text'], input[type='password'] {
+		height: 20px;
+	}
+	
+	label[for='user_name'] > span {
+		width: 76px;
+		display: inline-block;
+	}
+	
+	label[for='user_id'] > span {
+		width: 94px;
+		display: inline-block;
+	}
+	
+	#pwCheck {
+		font-size: 15px;
+	}
+	
+	.user_tel {
+		width: 50px;
+	}
+	
+	#submit, #reset {
+		width: 230px;
+		height: 30px;
+	}
+	
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var $userName = $("#user_name");
+		var $userId = $("#user_id");
+		var $userPw = $("#user_pw");
+		var $userPwCheck = $("#user_pw_check");
+		var $userEmail = $("#user_email");
+		var $userTel = $(".user_tel");
+		var $submit = $("#submit");
+		var $reset = $("#reset");
+		
+		//정규표현식
+		var regName = /^[가-힣]{2,5}$/;
+		var regId = /^[a-z]\w{5,12}$/;
+		var regPw = /^[a-z]\w{5,12}$/;
+		var regEmail = /^[a-z]\w{4,11}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+		var regTel1 = /^(010|011|016|017|018|019)$/;
+		var regTel2 = /^[0-9]{3,4}$/;
+		var regTel3 = /^[0-9]{4}$/;
+		
+		$submit.click(function() {
+			if (!$userName.val()) {
+				alert("이름을 입력하세요.");
+				$userName.focus();
+				return false;				
+			}
+			
+			if (!regName.test($userName.val())) {
+				alert("다시 이름을 입력하세요");
+				$userName.val("");
+				$userName.focus();
+				return false;
+			}
+			
+			if (!$userId.val()) {
+				alert("아이디를 입력하세요.");
+				$userId.focus();
+				return false;				
+			}
+			
+			if (!regId.test($userId.val())) {
+				alert("아이디 형식이 잘못되었습니다. \n" + "아이디는 영문자로 시작하고 5~12자 입니다.");
+				$userId.val("");
+				$userId.focus();
+				return false;
+			}
+			
+			if (!$userPw.val()) {
+				alert("비밀번호를 입력하세요.");
+				$userPw.focus();
+				return false;				
+			}			
+			
+			if (!regPw.test($userPw.val())) {
+				alert("비밀번호 형식이 잘못되었습니다. \n" + "비밀번호는 영문자로 시작하고 5~12자 입니다.");
+				$userPw.val("");
+				$userPw.focus();
+				return false;
+			}
+			
+			if (!$userEmail.val()) {
+				alert("이메일을 입력하세요.");
+				$userEmail.focus();
+				return false;				
+			}				
+			
+			if (!regEmail.test($userEmail.val())) {
+				alert("이메일 형식이 잘못되었습니다.");
+				$userEmail.val("");
+				user_email.focus();
+				return false;
+			}
+			
+			if (!$userTel.val()) {
+				alert("전화번호를 입력하세요.");
+				$userTel.focus();
+				return false;				
+			}				
+			
+			if (!regTel1.test($("#first").val())) {
+				alert("전화번호를 다시 입력하세요");
+				$("#first").val("");
+				$("#first").focus();
+				return false;
+			}
+			
+			if (!regTel2.test($("#second").val())) {
+				alert("전화번호를 다시 입력하세요");
+				$("#second").val("");
+				$("#second").focus();
+				return false;
+			}
+			
+			if(!regTel3.test($("#third").val())) {
+				alert("전화번호를 다시 입력하세요");
+				$("#third").val("");
+				$("#third").focus();
+				return false;
+			}
+			
+			alert("회원가입이 완료되었습니다!");
+			window.location.href = "login.html";
+			
+		})//submit.click()
+		
+		$("#idBtn").click(function() {
+			var id = "dddd6322";
+			if (id.match($userId.val())) {
+					alert("사용할 수 없는 아이디입니다.");
+			} else {
+					alert("사용할 수 있는 아이디입니다.");
+			}
+		});//idBtn.click()
+
+		$userPwCheck.keyup(function() {
+			var $pwCheck = $("#pwCheck");
+			if ($userPw.val() != $(this).val()) {
+				$pwCheck.text("일치하지 않음");
+				return false;
+			} else {
+				$pwCheck.text("일치함").css("color", "red");
+			} 		
+		});//$userPwCheck.keyup
+
+		$reset.click(function() {
+			var result = confirm("정말로 회원가입을 취소하시겠습니까?");
+			
+			if (result) {
+				$userName.val("");
+				$userId.val("");
+				$userPw.val("");
+				$userPwCheck.val("");
+				$userEmail.val("");
+				$userTel.val("");
+				$userId.focus();
+				return false;
+			}
+		});
+
+});//ready()
+</script>
+</head>
+<body>
+	<div id="container">
+	<h1>회원등록</h1>
+		<p>
+			<label for="user_name">이<span></span>름&nbsp;</label>
+			<input type="text" name="user_name" id="user_name" />
+		</p>
+		<p>
+			<label for="user_id">I<span></span>D&nbsp;</label>
+			<input type="text" name="user_id" id="user_id" />
+			<button id="idBtn">중복확인</button>
+		</p>
+		<p>
+			<label for="user_pw">비&nbsp;&nbsp;밀&nbsp;&nbsp;번&nbsp;&nbsp;호&nbsp;&nbsp;</label>
+			<input type="password" name="user_pw" id="user_pw" />
+		</p>
+		<p>
+			<label for="user_pw_check">비밀번호확인</label>
+			<input type="password" name="user_pw_check" id="user_pw_check" />
+			<span id="pwCheck"></span>
+		</p>
+		<p>
+			<label for="user_email">이&nbsp;&nbsp;&nbsp;&nbsp;메&nbsp;&nbsp;&nbsp;&nbsp;일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			<input type="text" name="user_email" id="user_email" />
+		</p>
+		<p>
+			<label for="user_tel">전&nbsp;&nbsp;화&nbsp;&nbsp;번&nbsp;호&nbsp;&nbsp;&nbsp;</label>
+			<input type="text" name="user_tel" class="user_tel" id="first" maxlength="3" /> -
+			<input type="text" name="user_tel" class="user_tel" id="second" maxlength="4"/> -
+			<input type="text" name="user_tel" class="user_tel" id="third" maxlength="4"/>
+		</p>
+		<p>
+			<input type="submit" id="submit" value="회원가입" />
+			<input type="reset" id="reset" value="가입취소" />
+		</p>		
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

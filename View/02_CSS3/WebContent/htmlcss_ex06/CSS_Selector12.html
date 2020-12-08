@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div {
+		width: 650px;
+		height: 300px;
+		background-color: darkgray;
+	}
+	
+	input[type=checkbox]:checked + div {
+		height: 0;
+		overflow: hidden;
+		/* height가 0이어도 글자가 사라지지 않는 것을 사라지는 것으로 바꾸기 위해 */
+		transition-duration: 1s;
+	}
+</style>
+</head>
+<body>
+	<label for="hide">감추기</label>
+	<input type="checkbox" id="hide" />
+	<div class="page">
+		<h1>Lorem Ipsum</h1>
+		<p>
+			Lorem ipsum dolor sit amet, 
+			consectetur adipiscing elit.
+		</p>
+	</div>
+</body>
+</html>

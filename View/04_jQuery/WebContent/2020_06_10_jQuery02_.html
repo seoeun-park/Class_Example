@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#txt").text($("#wrap > img").attr("src"));
+		
+		$("#wrap > img").attr("width", "200");
+		$("#box > img").removeAttr("border");
+	});
+</script>
+</head>
+<body>
+	<h1>객체 조작 및 생성</h1>
+	<p id="wrap">
+		<img alt="가위" src="images/math_img_1.jpg" width="100" />
+	</p>
+	<p id="txt">
+		<p id="box">
+			<img alt="보" src="images/math_img_3.jpg" width="100" border="2" />
+		</p>
+	</p>
+</body>
+</html>

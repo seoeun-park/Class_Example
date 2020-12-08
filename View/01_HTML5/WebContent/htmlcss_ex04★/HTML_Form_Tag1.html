@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력 양식 태그</title>
+</head>
+<body>
+	<!-- 검색 엔진 -->
+	<form action="#" method="get" name="form">
+		<input type="text" name="search" size="100" maxlength="10" />
+		<input type="submit" /><br /><br />
+	</form>
+	
+	<!-- 로그인 양식 -->		
+	<form action="#" method="post" name="form">
+		이름 : <input type="text" name="name" id="name" size="10" maxlength="10" /><br />
+		<!-- 가급적이면 name 속성과 id 속성은 같은 값을 주는 것이 좋다. -->
+		비번 : <input type="password" name=pw id="pw" size="10" maxlength="10" /><br />
+		파일 : <input type="file" name="file" id="file" /><br />
+		<input type="submit" value="전송" />&nbsp;&nbsp;&nbsp;
+		<input type="reset" value="취소" />
+	</form>		
+</body>
+</html>

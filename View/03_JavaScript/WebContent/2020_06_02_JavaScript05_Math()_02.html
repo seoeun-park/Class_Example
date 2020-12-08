@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	// 무조건 맞추는 가위, 바위, 보 게임
+	
+	var inputNumber = prompt("가위, 바위, 보 중 하나를 입력하세요", "가위");
+	var changeInputNumber;
+	while (true) {
+		if(inputNumber == "가위") {
+			changeInputNumber = 1;
+		} else if(inputNumber == "바위") {
+			changeInputNumber = 2;
+		} else if(inputNumber == "보") {
+			changeInputNumber = 3;
+		} else {
+			alert("잘못 입력하셨습니다. 다시 입력하세요.");
+			continue;	
+		}
+		break;
+	}//while
+		
+	var comNumber = Math.ceil(Math.random() * 3);
+	
+	if (comNumber == changeInputNumber) {
+		alert("컴퓨터가 낸 것 : " + comNumber);
+	}	else {
+		comNumber = changeInputNumber;
+		alert("컴퓨터가 낸 것 : " + comNumber);
+	}
+	
+	alert("내가 낸 것 : " + inputNumber);
+	alert("내가 낸 것을 치환 : " + changeInputNumber);
+	
+	
+	if (changeInputNumber == comNumber) {
+		alert("맞췄습니다.");
+	} else {
+		alert("다릅니다.");
+	}
+	
+	document.write("<h1>가위, 바위, 보 맞추기</h1>");
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var month = prompt("현재는 몇 월입니까?", "");
+	
+	/*
+	if (month >= 3 && month <= 5) {
+		document.write("봄입니다");
+	} else if (month >= 6 && month <= 8){
+		document.write("여름입니다");
+	} else if (month >= 9 && month <= 11){
+		document.write("가을입니다");
+	} else if (month == 12 || month == 1 || month == 2) {
+		document.write("겨울입니다"); 
+	} else {
+		alert("1부터 12까지의 정수만 입력하세요");
+		location.reload();
+	}
+	*/
+		
+	if (month > 12 || month < 1) {
+		alert("1부터 12까지의 정수만 입력하세요");
+		location.reload();
+	} else if (month >= 3 && month <= 5){
+		document.write("봄입니다");
+	} else if (month >= 6 && month <= 8){
+		document.write("여름입니다");
+	} else if (month >= 9 && month <= 11){
+		document.write("가을입니다");
+	} else if (month == 12 || month == 1 || month == 2) {
+		document.write("겨울입니다");
+	} else {
+		alert("1부터 12까지의 정수만 입력하세요");
+		location.reload();
+	}
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

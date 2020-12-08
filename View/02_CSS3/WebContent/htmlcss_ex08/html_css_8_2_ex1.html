@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	
+	<!-- 
+	상태선택자 : 입력양식의 상태를 선택할때, 
+	input 태그 안의 check, radio 입력 양식의 상태 선택할 때
+	웹 페이지당 하나의 input 태그에만 초점을 맞출 수 있음 
+	:checked ☞  체크된 input태그 선택
+	:focus ☞  초점이 맞추어진 input태그 선택
+	:enabled ☞ 사용 가능한 input태그 선택
+	:disabled ☞  사용 불가능한 input태그 선택
+	-->
+	
+	<style>
+		/* input 태그에 초점이 맞추어진 경우에 */
+		input:focus {
+			border: 2px solid #ff0000;
+			padding: 10px;
+		}
+		/* input 태그가 사용 가능할 경우에  */
+		input:enabled {
+			color: #00ff00;
+			font-weight: bold;
+		}
+		/* input 태그가 사용 불가능할 경우에 */
+		input:disabled {
+			color: #ff0000;
+		}
+	</style>
+</head>
+
+<body>
+
+<div>
+	<form>
+		이름 : <input type="text" name="name" id="name"/><br /> 
+		아이디 : <input type="text" name="id" id="id"/><br /> 
+		비밀번호 : <input type="password" name="pw" id="pw"
+		value="12345" disabled="disabled" /><br />
+	</form>
+</div>
+
+</body>
+</html>

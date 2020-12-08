@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+		#wrap {
+			width: 500px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		var visitStr;
+
+		function text_see() {
+			visitStr = document.formText.textStr.value;
+			// name속성을 이용하여 document 안에 있는 요소들을 찾아가는 방식
+			
+			document.getElementById("txt").innerHTML = "글 : " + visitStr + "<br />";
+			
+		};
+	</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<p>방명록을 남겨주세요</p>
+			<h1>글쓰기</h1>
+			
+			<form name="formText" id="formText" action="">
+				<textarea name="textStr" id="textStr" rows="20" cols="60">여기에 글을 써주세요.</textarea><br />
+				<input type="button" value="확인" onclick="text_see();"/>
+				<input type="reset" value="취소" />
+			</form>
+			
+			<div id="txt"></div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="js/pauseresume.js"></script>
+<style type="text/css">
+	h1, h2 {
+		font-size: 100%;
+		width: 50px;
+		height: 30px;
+		text-align: center;
+	}
+	
+	h1 {
+		background-color: teal;
+	}
+	
+	h2 {
+		background-color: hotpink;
+	}
+</style>
+<script>
+	$(document).ready(function() {
+		$("h1").animate({
+			marginLeft: "500px",
+		},5000);
+		
+		$("h2").delay(1000).animate({
+			marginLeft: "500px",
+		},5000);
+
+	$("#stopBtn").click(function() {
+		$("h1").stop();
+		$("h2").stop();
+	});//click()
+	
+	$("#pauseBtn").click(function() {
+		$("h1").pause();
+		$("h2").pause();
+	});//click()
+	
+	$("#resumeBtn").click(function() {
+		$("h1").resume();
+		$("h2").resume();
+	});//click()
+	
+});//ready()
+</script>
+</head>
+<body>
+	<button id="pauseBtn">pause</button>	
+	<button id="resumeBtn">restart</button>	
+	<button id="stopBtn">stop</button>
+	<h1>내용1</h1>	
+	<h2>내용2</h2>	
+</body>
+</html>

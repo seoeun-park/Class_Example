@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>회원가입 양식</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	body {
+		background-color: #534292;
+		color: #79589f;
+	}
+	
+	#container {
+		width: 480px;
+		margin: 100px auto;
+		padding: 25px 45px;
+		font-family: 'Nanum Gothic', sans-serif;
+		background-color: white;
+		box-shadow: 5px 5px 15px black;					
+	}
+	
+	#container > p {
+		width: 500px;
+		margin: 10px auto;
+	}
+	
+	#header {
+		width: 300px;
+		margin: 0 auto 10px;
+		overflow: hidden;
+	}
+	
+	#main-logo, #header > span {
+		float: left;
+	}
+	
+	#main-logo {
+		width: 80px; height: 80px;
+		background: url("img/logo.jpg") no-repeat center/ cover;
+		display: inline-block;
+		margin-left: 50px;
+	}
+	
+	#header > span {
+		width: 150px; height: 100px;
+		line-height: 100px;
+		font-size: 28px;
+		font-weight: 900;
+	}
+	
+	#container > p {
+		font-size: 20px;
+		overflow: hidden;
+		margin: 10px 0;
+	}
+	
+	#container > p > label, 
+	#container > p > span,
+	#container > p > input {
+		float: left;
+	}
+	
+	label {
+		width: 150px; height: 30px;
+		padding: 5px 0 0 0;
+		position: relative;
+		display: block;
+	}
+	
+	#container > p > span:not(.txt) {
+		display: block;
+		width: 36px; height: 36px;
+		border: 1px solid black;
+		border-right: none;
+		box-sizing: border-box;
+	}
+	
+	#nameLogo {
+		background: url("images/baseline_person_black_18dp.png");
+	}
+	
+	#idLogo {
+		background: url("images/baseline_assignment_ind_black_18dp.png");
+	}
+	
+	#pwLogo {
+		background: url("images/pw_icon.png");
+	}
+	
+	#pwCheckLogo {
+		background: url("images/baseline_assignment_turned_in_black_18dp.png");
+	}
+	
+	#emailLogo {
+		background: url("images/baseline_email_black_18dp.png");
+	}
+	
+	#telLogo {
+		background: url("images/baseline_phone_android_black_18dp.png") left center;
+	}
+	
+	.txt {
+		padding: 5px 10px 0;
+	}
+	
+	input[type='text']:not(.user_tel), input[type='password'] {
+		width: 215px; height: 36px;
+		padding-left: 10px;
+		box-sizing: border-box;
+		border: 1px solid black;
+	}
+	
+	.label_value {
+		width: 113px;
+		display: block;
+		position: absolute;
+		top: 50%; left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	label[for='user_name'] > span > span {
+		width: 70px;
+		display: inline-block;
+	}
+	
+	label[for='user_id'] > span > span {
+		width: 88px;
+		display: inline-block;
+	}
+	
+	#idBtn {
+		margin: 5px 0 0 10px;
+	}
+	
+	#pwCheck {
+		font-size: 15px;
+	}
+	
+	#idCheckBtn {
+		margin-left: 200px;
+	}
+	
+	#idCheckBtn > button {
+		height: 30px;
+		color: #79589f;
+		border: 1px solid black;
+		padding: 0 10px;
+		font-family: 'Nanum Gothic', sans-serif;		
+	}
+	
+	.user_tel {
+		width: 53.5px; height: 36px;
+		box-sizing: border-box;
+		padding-left: 10px;
+		border: 1px solid black;
+		font-weight: 900;
+	}
+	
+	#submit, #reset {
+		width: 230px; height: 45px;
+		border: none;
+		color: white;
+		cursor: pointer;
+		background-color: #79589f;
+		margin: 30px 0 15px 0;
+	}
+	
+	#submit {
+		margin-right: 15px;
+	}
+	
+	.alert {
+		display: block;
+		color: red;
+		font-size: 13px;
+		font-weight: normal;
+		padding: 0 0 0 190px;
+	}
+	
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var $userName = $("#user_name");
+		var $userId = $("#user_id");
+		var $idBtn = $("#idBtn");
+		var $userPw = $("#user_pw");
+		var $userPwCheck = $("#user_pw_check");
+		var $userEmail = $("#user_email");
+		var $userTel = $(".user_tel");
+		var $submit = $("#submit");
+		var $reset = $("#reset");
+		
+		//정규표현식
+		var regName = /^[가-힣]{2,5}$/;
+		var regId = /^[a-z]\w{5,12}$/;
+		var regPw = /^[a-z]\w{5,12}$/;
+		var regEmail = /^[a-z]\w{4,11}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+		var regTel1 = /^(010|011|016|017|018|019)$/;
+		var regTel2 = /^[0-9]{3,4}$/;
+		var regTel3 = /^[0-9]{4}$/;
+		
+
+		
+		$userId.focus(function() {
+			if (!$userName.val()) {
+				$("#nameCheck").text("이름을 입력하세요.");
+				$userName.focus();
+				return false;				
+			}
+			
+			if (!regName.test($userName.val())) {
+				$("#nameCheck").text("다시 이름을 입력하세요");
+				$userName.val("");
+				$userName.focus();
+				return false;
+			}
+			
+			$("#nameCheck").text("");
+		});//$userId.focus()
+
+//---------------------------------------------------------------------------		
+		
+		$userPw.focus(function() {
+			if (!$userId.val()) {
+				$("#idCheck").text("아이디를 입력하세요.");
+				$userId.focus();
+				return false;				
+			}
+			
+			if (!regId.test($userId.val())) {
+				$("#idCheck").text("아이디는 영문자로 시작하고 5~12자 입니다.");
+				$userId.val("");
+				$userId.focus();
+				return false;
+			}
+			
+			$("#idCheck").text("");
+			$("#idCheckBtn").children().remove();
+		});//$userPw.focus()
+		
+//---------------------------------------------------------------------------		
+
+		
+		$userPwCheck.focus(function() {
+			if (!$userPw.val()) {
+				$("#pwCheck1").text("비밀번호를 입력하세요.");
+				$userPw.focus();
+				return false;				
+			}			
+			
+			if (!regPw.test($userPw.val())) {
+				$("#pwCheck1").text("비밀번호는 영문자로 시작하고 5~12자 입니다.");
+				$userPw.val("");
+				$userPw.focus();
+				return false;
+			}
+			$("#pwCheck1").text("");
+			
+		}).keyup(function() {
+			if ($userPw.val() != $(this).val()) {
+				$("#pwCheck2").text("일치하지 않음");
+				return false;
+			} else {
+				$("#pwCheck2").text("일치함");
+			} 		
+		});//$userPwCheck.focus.keyup
+		
+//---------------------------------------------------------------------------		
+		
+		$userEmail.focus(function() {
+			if (!$userPw.val()) {
+				$("#pwCheck1").text("비밀번호를 입력하세요.");
+				$userPw.focus();
+				return false;				
+			}			
+			
+			if (!regPw.test($userPw.val())) {
+				$("#pwCheck1").text("비밀번호는 영문자로 시작하고 5~12자 입니다.");
+				$userPw.val("");
+				$userPw.focus();
+				return false;
+			}
+			
+			$("#pwCheck1").text("");
+	
+		});//$userEmail.focus()
+		
+//---------------------------------------------------------------------------		
+		
+		$userTel.focus(function() {
+			if (!$userEmail.val()) {
+				$("#emailCheck").text("이메일을 입력하세요.");
+				$userEmail.focus();
+				return false;				
+			}			
+			
+			if (!regEmail.test($userEmail.val())) {
+				$("#emailCheck").text("이메일을 정확하게 입력하세요");
+				$userEmail.val("");
+				$userEmail.focus();
+				return false;
+			}
+			
+			$("#emailCheck").text("");
+
+		});//$userTel.focus()
+		
+//---------------------------------------------------------------------------		
+		
+		$submit.click(function() {
+			if (!$userName.val()) {
+				$("#nameCheck").text("이름을 입력하세요.");
+				$userName.focus();
+				return false;				
+			}
+
+			
+			if (!$userId.val()) {
+				$("#idCheck").text("아이디를 입력하세요.");
+				$userId.focus();
+				return false;				
+			}
+
+			if (!$userPw.val()) {
+				$("#pwCheck1").text("비밀번호를 입력하세요.");
+				$userPw.focus();
+				return false;				
+			}			
+			
+			if (!$userEmail.val()) {
+				$("#emailCheck").text("이메일을 입력하세요.");
+				$userEmail.focus();
+				return false;				
+			}					
+
+			if (!$userTel.val()) {
+				$("#telCheck").text("전화번호를 입력하세요.");
+				$userTel.focus();
+				return false;				
+			}				
+			
+			if (!regTel1.test($("#first").val())) {
+				$("#telCheck").text("전화번호를 다시 입력하세요");
+				$("#first").val("");
+				$("#first").focus();
+				return false;
+			}
+			
+			if (!regTel2.test($("#second").val())) {
+				$("#telCheck").text("전화번호를 다시 입력하세요");
+				$("#second").val("");
+				$("#second").focus();
+				return false;
+			}
+			
+			if(!regTel3.test($("#third").val())) {
+				$("#telCheck").text("전화번호를 다시 입력하세요");
+				$("#third").val("");
+				$("#third").focus();
+				return false;
+			}
+			
+			alert("회원가입이 완료되었습니다!");
+			window.location.href = "login.html";
+			
+		}).hover(function() {
+			$(this).css({"background-color": "black",
+									 "color": "white",
+									 "transition": "0.4s"});
+		}, function() {
+			$(this).css({"background-color": "",
+									 "color": ""});
+		});//$submit.click.hover()
+
+
+		$reset.click(function() {
+			var result = confirm("정말로 회원가입을 취소하시겠습니까?");
+			
+			if (result) {
+				$userName.val("");
+				$userId.val("");
+				$userPw.val("");
+				$userPwCheck.val("");
+				$userEmail.val("");
+				$userTel.val("");
+				$(".alert").text("");
+				$userId.focus();
+				$("#nameCheck").text("");
+				$("#idCheckBtn").children().remove();
+				return false;
+			}
+		}).hover(function() {
+			$(this).css({"background-color": "black",
+									 "color": "white",
+									 "transition": "0.4s"});
+		}, function() {
+			$(this).css({"background-color": "",
+									 "color": ""});
+		});//$reset.click().hover()
+		
+		$idBtn.click(function() {
+			var check = false;
+			
+			$.ajax({
+				url: "data/loginCheck.json",
+				dataType: "json",
+				success: function(result) {
+					$(result).each(function(key, value) {
+						if($userId.val() == value.id) {
+							check = true;
+						}
+					});
+					
+					if(check) {
+						$("#idCheck").text("이미 존재하는 아이디입니다.");
+						$userId.val("");
+						$("#idCheckBtn").append("<input type='button' id='loginBtn' value='로그인'/>")
+														.append("<input type='button' id='pwSearchBtn' value='비밀번호 찾기'>");
+						$("#idCheckBtn").children().css({
+							"margin": "10px 0",
+							"height": "30px"
+						});
+						
+						$("#loginBtn").css("margin-right", "10px");
+						$("#loginBtn").click(function () {
+							$userId.val("");
+							window.location.href = "login.html";
+						});
+						$userId.focus();						
+					} else {
+						if (!$userId.val()) {
+							$("#idCheck").text("아이디를 입력하세요.");
+							$("#idCheckBtn").children().remove();							
+						} else if (!regId.test($userId.val())) {
+							$("#idCheck").text("아이디는 영문자로 시작하고 5~12자 입니다.");
+							$userId.val("");
+							$userId.focus();
+						} else {
+							$("#idCheck").text("사용할 수 있는 아이디입니다.");
+							$("#idCheckBtn").children().remove();
+						}						
+					}
+					
+					/*
+					var i = 0;
+					while (true) {
+						if (!$userId.val()) {
+							$("#idCheck").text("아이디를 입력하세요");
+							break;
+						}
+						
+						if (i == result.length) {
+							if (!regId.test($userId.val())) {
+								$("#idCheck").text("아이디는 영문자로 시작하고 5~12자 입니다.");
+								$userId.val("");
+								$userId.focus();
+							} else {
+								$("#idCheck").text("사용할 수 있는 아이디입니다.");
+							}
+							break;
+						}
+						
+						if ($userId.val() == result[i]["id"]) {
+							$("#idCheck").text("이미 존재하는 아이디입니다.");
+							$("#idForm").append("<div id='idCheckBtn'></div>");
+							$("#idCheckBtn").html("<button>로그인</button>");
+							$userId.val("");
+							$userId.focus();
+							break;
+						}
+						i++;
+					}//while
+					*/
+					
+				}//success function
+			});//ajax()
+		});//$idBtn.click()
+		
+});//ready()
+</script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<div id="main-logo"></div>
+			<span>회원등록</span>
+		</div>
+		<p>
+			<label for="user_name"><span class="label_value">이<span></span>름</span></label>
+			<span id="nameLogo"></span>
+			<input type="text" name="user_name" id="user_name" />
+		</p>
+		<span class="alert" id="nameCheck"></span>
+		<p id="idForm">
+			<label for="user_id"><span class="label_value">I<span></span>D</span></label>
+			<span id="idLogo"></span>
+			<input type="text" name="user_id" id="user_id" />
+			<button id="idBtn">중복확인</button>
+		</p>
+		<span class="alert" id="idCheck"></span>
+		<div id="idCheckBtn">
+		</div>
+		<p>
+			<label for="user_pw"><span class="label_value">비&nbsp;&nbsp;밀&nbsp;&nbsp;번&nbsp;&nbsp;호</span></label>
+			<span id="pwLogo"></span>
+			<input type="password" name="user_pw" id="user_pw" />
+		</p>
+		<span class="alert" id="pwCheck1"></span>
+		<p>
+			<label for="user_pw_check"><span class="label_value">비밀번호확인</span></label>
+			<span id="pwCheckLogo"></span>
+			<input type="password" name="user_pw_check" id="user_pw_check" />
+		</p>
+		<span class="alert" id="pwCheck2"></span>
+		<p>
+			<label for="user_email"><span class="label_value">이&nbsp;&nbsp;&nbsp;&nbsp;메&nbsp;&nbsp;&nbsp;&nbsp;일</span></label>
+			<span id="emailLogo"></span>
+			<input type="text" name="user_email" id="user_email" />
+		</p>
+		<span class="alert" id="emailCheck"></span>
+		<p>
+			<label for="user_tel"><span class="label_value">전&nbsp;&nbsp;화&nbsp;&nbsp;번&nbsp;호</span></label>
+			<span id="telLogo"></span>
+			<input type="text" name="user_tel" class="user_tel" id="first" maxlength="3" /><span class="txt">-</span>
+			<input type="text" name="user_tel" class="user_tel" id="second" maxlength="4"/><span class="txt">-</span>
+			<input type="text" name="user_tel" class="user_tel" id="third" maxlength="4"/>
+		</p>
+		<span class="alert" id="telCheck"></span>
+		<p>
+			<input type="submit" id="submit" value="회원가입" />
+			<input type="reset" id="reset" value="가입취소" />
+		</p>		
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

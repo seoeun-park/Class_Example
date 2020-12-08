@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>로그인 양식</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	body {
+		background-color: #534292;
+		color: #79589f;
+	}
+	
+	#container {
+		width: 500px;
+		margin: 100px auto;
+		background-color: white;
+		border: 2px solid #534292;
+		font-weight: 900;
+		font-family: 'Nanum Gothic', sans-serif;	
+		padding: 20px 0;
+		box-shadow: 5px 5px 15px black;
+	}
+	
+	#main-logo {
+		width: 80px; height: 80px;
+		background: url("img/logo.jpg") no-repeat center /cover;
+		margin: 0 auto 30px;
+		position: relative;
+	}
+	
+	#main-logo > span {
+		position: absolute;
+		top: 20%; left: 100%;
+		font-size: 18px;
+	}
+	
+	#wrap {
+		width: 400px;
+		margin: 0 auto 25px;
+	}
+	
+	#wrap > p {
+		width: 100%;
+		text-align: center;
+		overflow: hidden;
+	}
+	
+	#wrap > p > input {
+		box-sizing: border-box;
+		height: 36px;
+		float: left;
+		padding-left: 10px;
+	}
+	
+	#wrap > p > label, #wrap > p > span {
+		display: block;
+		float: left;
+	}
+	
+	#wrap > p > label {
+		line-height: 36px;
+		margin-right: 10px;
+		font-size: 22px;
+	}
+	
+	#idBox > span {
+		width: 36px; height: 36px;
+		border: 1px solid black;
+		border-right: none;
+		box-sizing: border-box;
+		background-image: url("images/id_icon.png"); 
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	#pwBox > span {
+		width: 36px; height: 36px;
+		border: 1px solid black;
+		border-right-color: white;
+		box-sizing: border-box;
+		background-image: url("images/pw_icon.png");
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	#wrap > p > span > i {
+		opacity: 0;
+		visibility: none;
+	}
+	
+	input[type='text'],input[type='password'] {
+		width: 65%;
+		border: 1px solid black;
+	}
+	
+	label[for="user_id"] > span {
+		padding: 27px;
+	}
+	
+	label[for="user_pw"] > span {
+		padding: 20px;
+	}
+	
+	#buttonBox {
+		margin-top: 30px;
+	}
+	
+	#submit {
+		margin-right: 10px;
+	}
+	
+	#submit, #reset {
+		width:  48%;
+		border: none;
+		color: white;
+		cursor: pointer;
+		background-color: #79589f;
+	}
+	
+	#container > p {
+		text-align: center;
+	}
+	
+	.alert {
+		display: block;
+		padding: 0 0 0 135px;
+		font-weight: normal;
+		color: red;
+		font-size: 13px;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var $userId = $("#user_id");
+		var $userPw = $("#user_pw");
+		var $submit = $("#submit");
+		var $reset = $("#reset");
+		
+		$userId.focus(function () {
+			$userId.attr("placeholder", "");
+		}).blur(function() {
+			$userId.attr("placeholder", "아이디를 입력하세요");
+		});//$userId.focus()
+
+		$userPw.focus(function () {
+			$userPw.attr("placeholder", "");
+			
+			if(!$userId.val()) {
+				$("#idCheck").text("아이디를 입력하세요.");
+				$userId.focus();
+			} else {
+				$("#idCheck").text("");
+			}
+		}).blur(function() {
+			$userPw.attr("placeholder", "비밀번호를 입력하세요");
+		});//$userPw.focus()
+
+		$userPw.keyup(function() {
+			if($userPw.val()) {
+				$("#pwCheck").text("");
+			}
+		});//$userPw.keyup()
+
+		$submit.click(function() {
+			if (!$userId.val()) {
+				$("#idCheck").text("아이디를 입력하세요.");
+				$userId.focus();
+				return false;				
+			}
+			
+			if (!$userPw.val()) {
+				$("#pwCheck").text("비밀번호를 입력하세요.");
+				$userPw.focus();
+				return false;				
+			} 			
+			
+			var check = false;
+			
+			$.ajax({
+				url: "data/loginCheck.json",
+				dataType: "json",
+				success: function(result) {
+					$(result).each(function(key, value) {
+						if($userId.val() == value.id && $userPw.val() == value.pw ) {
+							check = true;
+						}
+					});	
+						if (check) {
+							alert($userId.val() + "님 환영합니다!");
+							$userId.val("");
+							$userPw.val("");
+							window.location.href = "index.html";
+						} else {
+							$("#pwCheck").text("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+							$userId.val("");
+							$userPw.val("");
+							$userId.focus();						
+						}
+
+				}//success function
+
+			});//ajax()
+			
+		});//submit.click()
+
+		/*
+		var i = 0;
+		while (true) {
+			if (i == result.length) {
+				$("#pwCheck").text("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+				$userId.val("");
+				$userPw.val("");
+				$userId.focus();
+				console.log(result.length + "," + i);
+				break;
+			}
+			if ($userId.val() == result[i]["id"] && $userPw.val() == result[i]["pw"]) {
+				alert($userId.val() + "님 환영합니다!");
+				window.location.href = "index.html";
+				$userId.val("");
+				$userPw.val("");							
+				console.log(result.length + "," + i);
+				break;							
+			}
+			i++;
+		}//while
+		*/
+		
+		$userId.keyup(function() {
+			$submit.css({"background-color": "black",
+									 "color": "white",
+									 "transition": "0.4s"});
+			
+			if (!$userId.val()) {
+				$submit.css("background-color", "").css("color", "");
+			}
+		});//$userId.keyup()
+		
+		$reset.hover(function() {
+			$(this).css({"background-color": "black",
+									 "color": "white",
+									 "transition": "0.4s"});
+		}, function() {
+			$(this).css({"background-color": "",
+									 "color": ""});
+		}).click(function() {
+			var result = confirm("로그인을 취소하시겠습니까?");
+			
+			if (result) {
+				alert("로그인이 취소되었습니다.");
+				$userId.val("");
+				$("#idCheck").text("");
+				$userPw.val("");
+				$("#pwCheck").text("");
+				$submit.css("background-color", "#79589f");
+				$userId.focus();
+				return false;
+			}
+		})//reset.hover.click()
+		
+	});//ready()
+</script>
+</head>
+<body>
+	<div id="container">
+		<div id="wrap">
+			<div id="main-logo"><span>포도몰</span></div>
+			<p id="idBox">
+				<label for="user_id">I<span></span>D&nbsp;&nbsp;</label>
+				<span><i>공백</i></span>
+				<input type="text" placeholder="아이디를 입력하세요" name="user_id"
+							 id="user_id" required="required" />
+			</p>
+			<span class="alert" id="idCheck"></span>			 
+			<p id="pwBox">
+				<label for="user_pw">P<span></span>W&nbsp;&nbsp;</label>
+				<span><i>공백</i></span>
+				<input type="password" placeholder="비밀번호를 입력하세요" name="user_pw"
+							 id="user_pw" required="required" />
+			</p>
+			<span class="alert" id="pwCheck"></span>			 
+			<p id="buttonBox">
+				<input type="submit" id="submit" value="로그인" />
+				<input type="reset" id="reset" value="취소" />
+			</p>
+		</div>
+		<p>잠깐! 회원이 아니세요?&nbsp;&nbsp;<span><a href="signup.html">가입하세요</a></span></p>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

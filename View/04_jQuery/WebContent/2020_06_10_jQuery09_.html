@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	
+	body {
+		margin: 20px;
+	}
+	
+	#wrap {
+		background-color: #cccccc;
+		padding: 30px;
+	}
+	
+	#inner {
+		background-color: #999999;
+	}
+</style>
+<script>
+	$(document).ready(function() {
+		
+		$("#inner").mouseenter(function() {
+			$("p").css("border", "2px solid black");
+		});//mouseover
+		
+		$("#inner").mouseleave(function() {
+			$("p").css("border", "2px dashed black");
+		});//mouseout
+		
+		// mouseover/mouseout
+		// :	직접 이벤트를 걸지 않은 자식 요소에 마우스 포인터가 와도 발생
+		// mouseenter/mouseleave
+		// : 이벤트를 건 요소에만 발생		
+		
+	});//ready()
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<p id="inner">내용</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var row = prompt("행수를 입력하세요", "");
+	var col = prompt("열수를 입력하세요", "");
+	var num = 0;
+	
+	if (row <= 0 || col <= 0) {
+		alert("행과 열의 수를 잘못 입력하셨습니다." +
+				"\n0보다 큰 정수만 입력하세요.");
+		location.reload();
+	} else {
+		document.write("<table border='1'>");
+		for (var i = 1; i <= row ; i++) {
+			document.write("<tr>");
+			for (var j = 1; j <= col ; j++) {
+				num++;
+				document.write("<td>" + num + "</td>");
+			}//for j
+			document.write("</tr>");
+		}//for i
+		document.write("</table>");
+	}//if
+	
+	
+</script>
+</head>
+<body>
+</body>
+</html>

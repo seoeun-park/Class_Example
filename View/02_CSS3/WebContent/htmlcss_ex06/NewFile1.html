@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	li {
+		list-style: none;
+	}
+	
+	a {
+		text-decoration: none;
+		color: black;
+		font-weight: bold;
+	}
+	
+	#mainMenu {
+		overflow: hidden;
+		padding: 0;
+	}
+	
+	#mainMenu > li {
+		float: left;	
+	}
+	
+	#mainMenu > li:nth-child(odd) {
+		background-color: green;
+	}
+	
+	#mainMenu > li:nth-child(even) {
+		background-color: red;
+	}
+	
+	#mainMenu > li:first-child {
+		border-radius: 20px 0 0 20px;
+	}
+	
+	#mainMenu > li:last-child {
+		border-radius: 0 20px 20px 0;
+	}
+	
+	#mainMenu > li > a:hover + ul {
+		display: block;
+	}
+	
+	#mainMenu > li > a {
+		/* a 태그는 inline 태그이기 때문에 상하 내부여백을 설정해도 적용되지 않는다. */
+		display: block;
+		padding: 15px;
+		width: 50px;
+		line-height: 20px;
+		text-align: center;
+	}
+	
+	.subMenu {
+		padding: 0;
+		display: none;
+		background-color: gray;
+	}
+	
+	.subMenu:hover {
+		display: block;
+	}
+	
+	.subMenu > li {
+		text-align: center;
+	}
+	
+	.subMenu > li > a:hover {
+		background-color: white;
+		color: blue;
+	}
+	
+	.subMenu > li > a:active {
+		color: red;
+	}
+	
+</style>
+</head>
+<body>
+	<ul id="mainMenu">
+		<li>
+			<a href="#">First</a>
+		</li>
+		<li>
+			<a href="#">Second</a>
+		</li>
+		<li>
+			<a href="#">Third</a>
+		</li>
+		<li>
+			<a href="#">Fourth</a>
+		</li>
+		<li>
+			<a href="#">Fifth</a>
+		</li>
+		<li>
+			<a href="#">Sixth</a>
+			<ul class="subMenu">
+				<li><a href="#">Sub61</a></li>
+				<li><a href="#">Sub62</a></li>
+				<li><a href="#">Sub63</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">Seventh</a>
+			<ul class="subMenu">
+				<li><a href="#">Sub71</a></li>
+				<li><a href="#">Sub71</a></li>
+				<li><a href="#">Sub71</a></li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

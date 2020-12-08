@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력 양식 태그9</title>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<style type="text/css">
+	* {
+		font-family: 'Do Hyeon', sans-serif;
+	}
+	
+	table {
+		width: 500px;
+		margin: 0 auto;
+	}
+	
+	table, td {
+		border: 1px solid black;
+	}
+	
+	/* table > tr이 아닌 table tr로 작성하는 이유는? → tr 상위 요소에 tbody가 자동으로 삽입되어 있기 때문에  */
+	table tr > td:nth-child(1) {
+		text-align: center;
+	}
+	
+	input {
+		border: 1px solid red;
+	}
+	
+	input[type=password] {
+		border: 1px solid blue;
+	}
+	
+	input[type=submit], input[type=reset] {
+		width: 200px;
+	}
+	
+	input:focus::-webkit-input-placeholder, 
+	textarea:focus::-webkit-input-placeholder {
+		/* Webkit browser */
+		color: transparent;
+	}
+	
+	input:focus:-moz-input-placeholder, 
+	textarea:focus:-moz-input-placeholder {
+		/* Mosila Firefox 4 to 18 */
+		color: transparent;
+	}
+	
+	input:focus::-moz-input-placeholder, 
+	textarea:focus::-moz-input-placeholder {
+		/* Mosila Firefox 19+ */
+		color: transparent;
+	}
+	
+	input:focus::-ms-input-placeholder, 
+	textarea:focus::-ms-input-placeholder {
+		/* Mosila Firefox 19+ */
+		color: transparent;
+	}
+</style>
+</head>
+<body>
+	<form action="#" method="get" name="form" id="form">
+		<table>
+			<caption>인적사항</caption>
+			<tr>
+				<td><label for="name">이름</label></td>
+				<td>
+					<input type="text" name="name" id="name" placeholder="이름을 입력하세요" 
+						   onkeypress="if(event.keyCode==13){return false;}" /> 
+						<!-- onkeypress="if(event.keyCode==13){return false;}"의 기능 
+							 → Enter 키를 눌러 사용자가 양식을 제출하지 못하도록 방지 / Enter의 아스키 코드가 13-->
+				</td>
+			</tr>
+			<tr>
+				<td><label for="id">아이디</label></td>
+				<td>
+					<input type="text" name="id" id="id" placeholder="아이디를 입력하세요" 
+						   onkeypress="if(event.keyCode==13){return false;}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="password">비밀번호</label></td>
+				<td>
+					<input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" 
+						   onkeypress="if(event.keyCode==13){return false;}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="phone1" >연락처</label></td>
+				<td><input type="text" name="phone1" id="phone1" size="3" maxlength="3" /> -
+					<input type="text" name="phone1" id="phone2" size="4" maxlength="4" /> -
+					<input type="text" name="phone1" id="phone3" size="4" maxlength="4" />
+					<!-- input 태그의 type 속성이 "hidden"의 역할 : 아이디와 비밀번호의 값을 몰래 전달 -->
+					<input type="hidden" name="hidden" id="hidden" value="12345" />
+				</td>
+			</tr>
+			
+			<tr>
+				<td><label for="file">사진</label></td>
+				<td><input type="file" name="photo" id="photo" /></td>
+				
+			</tr>
+			<tr>
+				<td><label for="gender">성별 구분</label></td>
+				<td>
+					<input type="radio" name="gender" id="male" value="male"/>
+						<label for="male">남</label>
+					<input type="radio" name="gender" id="female" value="female" checked />
+						<label for="female">여</label>
+				</td>
+			<tr>
+				<td><label for="english">사용언어</label></td>
+				<td><input type="checkbox" name="language" value="korean" checked="checked" /><label for="korean">한글</label>
+					<input type="checkbox" name="language" value="english" /><label for="english">영어</label>
+					<input type="checkbox" name="language" value="japanese" /><label for="japanese">일어</label>
+					<input type="checkbox" name="language" value="chinese" /><label for="chinese">중국어</label>
+				</td>
+			</tr>
+			<tr>
+				<td>자기소개</td>
+				<td><textarea name="introduction" cols="20" rows="5"  onclick="this.value='';">
+						간단하게 입력하세요.
+					</textarea>
+					<!-- onclick="this.value='';" 의 기능 → textarea의 텍스트 부분을 서버에 전송하지 않도록 하기 위해 -->
+				</td>
+			</tr>
+			<tr>
+				<td>국적</td>
+				<td>
+					<select name="nation">
+						<option selected="selected">국적을 선택하세요</option>
+						<option value="korea">KOREA</option>
+						<option value="usa">USA</option>
+						<option value="japan">JAPAN</option>
+						<option value="china">CHINA</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>좋아하는 음식</td>
+				<td>
+					<select multiple="multiple" name="food">
+						<option value="kimchi" selected="selected">김치</option>
+						<option value="bulgogi">불고기</option>
+						<option value="pajeon" selected="selected">파전</option>
+						<option value="bibimbab">비빔밥</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="전송" />	
+					<input type="reset" value="취소" onclick="history.back();"/>
+				</td>
+			</tr>
+		</table>
+		
+	</form>
+</body>
+</html>

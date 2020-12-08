@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력 양식 태그 연습문제</title>
+</head>
+<body>
+	<form action="#" method="get" name="form">
+		<!-- label 태그에서  "for 속성 = input 태그의 id 속성의 값"으로 작성하면
+			 input 태그의 기능이 label 태그로 옮겨간다.-->
+		<label for="name">이름</label>
+		<input type="text" name="name" id="name" /><br /><br />
+		<input type="radio" id="male" name="gender" value="male" /><label for="male">남자</label>
+		<input type="radio" id="female" name="gender" value="female" /><label for="female">여자</label>
+		<br /><br /><br />
+		<input type="submit" value="제출"/>
+		
+	</form>
+</body>
+</html>

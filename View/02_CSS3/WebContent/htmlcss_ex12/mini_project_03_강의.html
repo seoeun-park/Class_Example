@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<style type="text/css">
+	#header, footer {
+		width: 1000px;
+		margin: 0 auto;
+		border: 1px solid red;
+	}
+	
+	#gnb > ul {
+		overflow: hidden;
+		padding: 0 0 0 20px;
+		
+	}
+	
+	#gnb > ul > li {
+		float: left;
+		list-style: none;
+	}
+	
+	#gnb > ul > li > a {
+		display: block;
+		text-decoration: none;
+		padding: 10px 20px;
+		border: 1px dotted red;
+	}
+	
+	#gnb > ul > li:first-child > a {
+		border-radius: 10px 0 0 10px;
+	}
+	
+	#gnb > ul > li:last-child > a {
+		border-radius: 0 10px 10px 0;
+	}
+	
+	#gnb > ul > li:not(:last-child) > a {
+		border-right: none;
+	}
+	
+	#lnb > ul {
+		overflow: hidden;
+		padding: 0 20px 0 0;
+		
+	}
+	
+	#lnb > ul > li {
+		float: right;
+		list-style: none;
+	}
+	
+	#lnb > ul > li > a {
+		display: block;
+		text-decoration: none;
+		padding: 10px 20px;
+		border: 1px dotted red;
+	}
+
+	#lnb > ul > li:first-child > a {
+		border-radius: 0 10px 10px 0;
+	}
+
+	#lnb > ul > li:last-child > a {
+		border-radius: 10px 0 0 10px;
+	}
+	
+	#lnb > ul > li:not(:first-child) > a {
+		border-right: none;
+	}
+	
+	#content {
+		width: 1000px;
+		margin: 0 auto;
+		overflow: hidden;
+		padding: 10px 0;
+		line-height: 1.6;
+	}
+	
+	#content > div {
+		height: 500px;
+		float: left;
+		border: 1px solid red;
+		box-sizing: border-box;
+		padding: 10px;
+	}
+	
+	#section {
+		width: 790px;
+		margin-right: 10px;
+	}
+	
+	#aside {
+		width: 200px;
+	}
+
+	footer {
+		height: 100px;
+		line-height: 100px;
+		text-align: center;
+	}
+	
+</style>
+</head>
+<body>
+	<div id="header">
+		<div id="gnb">
+			<ul>
+				<li><a href="#">gnb01</a></li>
+				<li><a href="#">gnb02</a></li>
+				<li><a href="#">gnb03</a></li>
+				<li><a href="#">gnb04</a></li>
+				<li><a href="#">gnb05</a></li>
+			</ul>
+		</div>
+		<div id="lnb">
+			<ul>
+				<li><a href="#">lnb01</a></li>
+				<li><a href="#">lnb02</a></li>
+				<li><a href="#">lnb03</a></li>
+				<li><a href="#">lnb04</a></li>
+				<li><a href="#">lnb05</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="content">
+		<div id="section">It is a professional display space in which
+			exhibitions under diverse subjects including the cultural contents
+			are held. Such exhibitions include the ARTTOON ART, Exhibition for
+			100 Modern Cartoonists of Korea, and SF Mania Exhibition.
+		</div>
+		<div id="aside">It is equipped with a stop-motion animation
+			experience space and experience display room in which it is possible
+			to create an animation video clip of one’s own by creating a
+			character in clay and taking photos with a camera.
+		</div>
+	</div>
+	<footer>
+		<div id="office">office information</div>
+	</footer>
+</body>
+</html>

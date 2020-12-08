@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력 양식 태그2</title>
+<script type="text/javascript">
+	function nameClear() {
+		document.form.name.value = "";
+	}
+	
+	function image1Click() {
+		return false;
+	}
+</script>
+</head>
+<body>
+	<form action="#" name="form" id="form" method="get">
+		<input type="text" name="name" id="name" onclick="nameClear();" value="이름을 입력하세요"/><br />
+		<input type="button" value="버튼" /><br />
+		<input type="radio" name="gender" value="male" />남
+		<input type="radio" name="gender" value="female"/>여<br />
+		<!-- 서버에 value의 속성 값이 gender="속성 값"으로 넘어간다. ex) gender=male -->
+		<input type="file" /><br /><br />
+		<input type="hidden" value="12345" name="hidden" id="hidden" />
+		
+		<input type="image" src="img01.png" onclick="return image1Click();"/>그림1<br /> 
+		<input type="image" src="img02.png" onclick="login(e);" />그림2<br /> 
+		<input type="image" src="img03.png" onclick="login(e); return false;"/>그림3<br /> 
+		<img alt="그림4" src="img04.png" onclick="login(e);"/>그림4<br />
+		
+		비밀번호 : <input type="password" /><br />
+		<input type="radio" name="hobby" value="mount"/> 등산
+		<input type="radio" name="hobby" value="swim"/> 수영
+		<input type="radio" name="hobby" value="soccer"/> 축구<br /><br />
+		
+		<input type="submit" value="제출" />
+		<input type="reset" value="초기화" />
+		
+	</form>
+</body>
+</html>

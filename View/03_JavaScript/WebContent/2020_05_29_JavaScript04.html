@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var input = prompt("숫자를 입력하세요", "숫자만 입력");
+	
+	switch (input % 2) {
+	case 0:
+		alert("짝수입니다.");
+		location.href="http://www.naver.com";
+		break;
+	case 1:
+		alert("홀수입니다.");
+		location.href="http://www.google.com";
+		break;
+	default:
+		alert("숫자만 입력하세요.");
+		location.reload();
+		break;
+	}
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

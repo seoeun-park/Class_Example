@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>홈페이지 레이아웃</title>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+<style>
+	* {
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	body {
+		font-family: 'Times New Roman', serif;  
+	}
+	
+	li {
+		list-style: none;
+	}
+	
+	a {
+		text-decoration: none;
+	}
+	
+	img {
+		border: 0px;
+	}
+	
+	/* 헤더 영역 */
+	
+	#main_header {
+		width: 1000px;
+		margin: 0 auto;
+		height: 160px;
+		position: relative;
+	}
+	
+	#main_gnb {
+		position: absolute;
+		top: 10px; right: 0;
+	}
+	
+	#main_gnb > ul {
+		overflow: hidden;
+	}
+	
+	#main_gnb > ul > li {
+		float: left;
+	}
+	
+	#main_gnb > ul > li > a {
+		display: block;
+		padding: 5px 15px;
+		border: 1px solid red;
+		/* 겹쳐진 border를 지우기 위해 */
+		margin-left: -1px;
+	}
+	
+	#main_gnb > ul > li:first-child > a {
+		/* 첫번째 a 태그의 사라진 border를 다시 되돌리기 위해 */
+		margin: 0;
+		border-radius: 10px 0 0 10px;
+	}
+	
+	#main_gnb > ul > li:last-child > a {
+		border-radius: 0 10px 10px 0;
+	}
+	
+	#main_gnb > ul > li > a:hover {
+		background-color: black;
+		color: white;
+	}
+	
+	#title {
+		font-size: 1.2em;
+		font-family: 'Henny Penny', cursive;
+		position: absolute;
+		top: 30px; left: 20px;
+	}
+	
+	#main_lnb {
+		position: absolute;
+		bottom: 10px; right: 0;
+	}
+	
+	#main_lnb > ul {
+		overflow: hidden;
+	}
+	
+	#main_lnb > ul > li {
+		float: left;
+	}
+	
+	#main_lnb > ul > li > a {
+		display: block;
+		padding: 10px 20px;
+		border: 1px solid red;
+		/* 겹쳐진 border를 지우기 위해 */
+		margin-left: -1px;
+	}
+	
+	#main_lnb > ul > li:first-child > a {
+		/* 첫번째 a 태그의 사라진 border를 다시 되돌리기 위해 */
+		margin: 0;
+		border-radius: 10px 0 0 10px;
+	}
+	
+	#main_lnb > ul > li:last-child > a {
+		border-radius: 0 10px 10px 0;
+	}
+	
+	#main_lnb > ul > li > a:hover {
+		background-color: black;
+		color: white;
+	}
+	
+	/* 컨텐츠 영역 */
+	
+	#content {
+		width: 1000px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	
+	#main_section {
+		width: 790px;
+		float: left;
+	}
+	
+	#main_section > article {
+		padding: 20px;
+		border: 1px solid red;
+		margin-bottom: 10px;
+	}
+	
+	#main_aside {
+		width: 200px;
+		float: right;
+		box-sizing: border-box;
+	}
+	
+	#first {
+		display: none;
+	}
+	
+	#second {
+		display: none;
+	}
+	
+	.buttons {
+		overflow: hidden;
+	}
+	
+	.buttons > label {
+		display: block;
+    width: 100px;
+		height: 30px;
+		line-height: 30px;	
+		border: 1px solid red;
+		text-align: center;
+    box-sizing: border-box;
+		font-size: 20px;
+		border-bottom: none;
+		float: left;
+	}
+	
+	.buttons > label[for="first"] {
+		border-right: none;
+	}
+	
+	#first:checked ~ .buttons > label[for="first"] {
+		background-color: black;
+		color: white;
+	}
+	
+	#second:checked ~ .buttons > label[for="second"] {
+		background-color: black;
+		color: white;
+	}
+	
+	.tab_item_2 {
+		display: none;
+	}
+	
+	#second:checked ~ .tab_item_1 {
+		display: none;
+	}
+
+	#second:checked ~ .tab_item_2 {
+		display: block;
+	}
+	
+	#main_aside > div > ul > li > a {
+		display: block;
+		overflow: hidden;
+		padding: 10px;
+		border: 1px solid red;
+		box-sizing: border-box;
+	}
+	
+	#main_aside > div > ul > li:not(:last-child) > a {
+		border-bottom: none;
+	}
+	
+	.description {
+		padding-left: 10px;
+		width: 115px;
+		/* 요소의 영역에 글자가 넘어가면 줄바꿈하지 않고 말줄임표로 표시 */
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
+	#main_aside > div > ul > li > a > div {
+		float: left;
+	}
+	
+	/* 푸터 영역 */
+	
+	#main_footer {
+		width: 1000px;
+		margin: 0 auto;
+		height: 100px;
+		line-height: 100px;
+		border: 1px solid red;
+		box-sizing: border-box;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<header id="main_header">
+		<nav id="main_gnb">
+			<ul>
+				<li><a href="#">Web</a></li>
+				<li><a href="#">Mobile</a></li>
+				<li><a href="#">Game</a></li>
+				<li><a href="#">Simulation</a></li>
+				<li><a href="#">Data</a></li>
+			</ul>
+		</nav>
+		<div id="title"><!-- #title 에 Henny Penny 글꼴 적용 -->
+			<h1>Rint Development</h1>
+			<h2>HTML5 + CSS3 Basic</h2>
+		</div>
+		<nav id="main_lnb">
+			<ul>
+				<li><a href="#">HTML5</a></li>
+				<li><a href="#">CSS3</a></li>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">jQuery</a></li>
+				<li><a href="#">Node.js</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div id="content">
+		<section id="main_section">
+			<article class="main_article">
+				<h1>Main Article</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Curabitur in magna libero. Sed nec pharetra nunc. Proin eget magna
+					id ipsum eleifend cursus sit amet nec lectus. Nunc quis lacus
+					magna. Aliquam blandit, sapien ut viverra fermentum, elit tortor
+					ornare nisi, in luctus sem massa pulvinar turpis. Cras tincidunt
+					dictum urna ut ultricies. Nullam diam nibh, pellentesque non
+					laoreet ut, bibendum nec mauris. Maecenas pulvinar porttitor
+					laoreet. Vivamus bibendum purus nisl, eget aliquam lectus. Maecenas
+					justo libero, euismod sit amet suscipit eu, vulputate eget neque.
+					Aliquam quam est, blandit nec iaculis non, suscipit vel nunc. Proin
+					et odio aliquam erat pharetra accumsan et quis neque. Vivamus
+					interdum accumsan leo eu adipiscing. Integer accumsan elit non
+					turpis faucibus porttitor. Aliquam scelerisque nisi et turpis
+					pretium at ultricies turpis pharetra.
+				</p>
+			</article>
+			<article class="main_article">
+				<h1>Main Article</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Curabitur in magna libero. Sed nec pharetra nunc. Proin eget magna
+					id ipsum eleifend cursus sit amet nec lectus. Nunc quis lacus
+					magna. Aliquam blandit, sapien ut viverra fermentum, elit tortor
+					ornare nisi, in luctus sem massa pulvinar turpis. Cras tincidunt
+					dictum urna ut ultricies. Nullam diam nibh, pellentesque non
+					laoreet ut, bibendum nec mauris. Maecenas pulvinar porttitor
+					laoreet. Vivamus bibendum purus nisl, eget aliquam lectus. Maecenas
+					justo libero, euismod sit amet suscipit eu, vulputate eget neque.
+					Aliquam quam est, blandit nec iaculis non, suscipit vel nunc. Proin
+					et odio aliquam erat pharetra accumsan et quis neque. Vivamus
+					interdum accumsan leo eu adipiscing. Integer accumsan elit non
+					turpis faucibus porttitor. Aliquam scelerisque nisi et turpis
+					pretium at ultricies turpis pharetra.
+				</p>
+			</article>
+			<article class="main_article">
+				<h1>Main Article</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Curabitur in magna libero. Sed nec pharetra nunc. Proin eget magna
+					id ipsum eleifend cursus sit amet nec lectus. Nunc quis lacus
+					magna. Aliquam blandit, sapien ut viverra fermentum, elit tortor
+					ornare nisi, in luctus sem massa pulvinar turpis. Cras tincidunt
+					dictum urna ut ultricies. Nullam diam nibh, pellentesque non
+					laoreet ut, bibendum nec mauris. Maecenas pulvinar porttitor
+					laoreet. Vivamus bibendum purus nisl, eget aliquam lectus. Maecenas
+					justo libero, euismod sit amet suscipit eu, vulputate eget neque.
+					Aliquam quam est, blandit nec iaculis non, suscipit vel nunc. Proin
+					et odio aliquam erat pharetra accumsan et quis neque. Vivamus
+					interdum accumsan leo eu adipiscing. Integer accumsan elit non
+					turpis faucibus porttitor. Aliquam scelerisque nisi et turpis
+					pretium at ultricies turpis pharetra.
+				</p>
+			</article>
+		</section>
+		<aside id="main_aside">
+			<input id="first" type="radio" name="tab" checked="checked" /> 
+			<input id="second" type="radio" name="tab" />
+			<section class="buttons">
+				<label for="first">First</label> 
+				<label for="second">Second</label>
+			</section>
+			<div class="tab_item_1">
+				<ul>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>HTML5 Canvas</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>HTML5 Audio</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>HTML5 Video</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>HTML5 Semantic Web</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tab_item_2">
+				<ul>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>CSS3 Transition</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>CSS3 Animation</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>CSS3 Border</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+					<li class="item">
+						<a href="#">
+							<div class="thumbnail">
+								<img src="http://placehold.it/45x45" />
+							</div>
+							<div class="description">
+								<b>CSS3 Box</b>
+								<p>2019-03-15</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+	</div>
+	<footer id="main_footer">
+		<h3>HTML5 + CSS3 Basic</h3>
+		<address>Website Layout Basic</address>
+	</footer>
+</body>
+</html>

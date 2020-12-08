@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		
+		$("#btn1").mouseover(function() {
+			alert($(this).text());
+		});//btn1.mouseover()
+		
+		//그룹 함수
+		$("#btn2").on("mouseover focus", function() {
+			alert($(this).text());
+		});
+		
+		
+		
+	});//ready()
+</script>
+</head>
+<body>
+	<p>
+		<a href="#" id="btn1">버튼1</a>
+	</p>
+	<p>
+		<a href="#" id="btn2">버튼2</a>
+	</p>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#btn1").mouseenter(function() {
+			$("p").css("background-color", "yellow");
+		});//btn1.mouseenter
+		
+		$("#btn1").mouseleave(function() {
+			$("p").css("background-color", "aqua");
+		});//btn1.mouseenter
+		
+		$("#btn2").hover(
+			function() {
+				$("p").css("background-color", "yellow");
+			}, 
+			function() {
+				$("p").css("background-color", "aqua");
+		});
+				
+	});//ready()
+</script>
+</head>
+<body>
+	<button id="btn1">mouseover/out</button>
+	<button id="btn2">hover</button>
+	<p style="width:200px; height:200px">내용</p>	
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function () {
+		var title = document.getElementById("title");
+		var btnImage = document.getElementById("btnImage");
+		var imgSrc = document.getElementById("imgSrc");
+		
+		btnImage.onmouseover = function () {
+			title.innerHTML = "마우스 오버";
+			this.src = "images/btn_over.gif";
+			imgSrc.innerHTML = "images/btn_over.gif";
+		}//onmouseover()
+		
+		btnImage.onmouseout = function () {
+			title.innerHTML = "마우스 아웃";
+			this.src = "images/btn_out.gif";
+			imgSrc.innerHTML = "이미지 원본";
+		}//onmouseout()
+		
+	}//onload()
+	
+	
+		
+</script>
+</head>
+<body>
+	<h1 id="title">마우스 상태</h1>
+	<img id="btnImage" src="images/btn_out.gif" width="100" height="50" />
+	<p id="imgSrc">이미지 원본</p>
+	
+	<hr>
+	
+	<h1 id="title2">마우스 상태</h1>
+	<img id="btnImage2" src="images/btn_out.gif" width="100" height="50" 
+			 onmouseover="this.src='images/btn_over.gif'"
+			 onmouseout="this.src='images/btn_out.gif'" />
+	<p id="imgSrc2">이미지 원본</p>
+</body>
+</html>
